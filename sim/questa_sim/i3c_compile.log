@@ -1,0 +1,100 @@
+QuestaSim vlog 10.6c Compiler 2017.07 Jul 25 2017
+Start time: 09:58:07 on May 08,2026
+vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f 
+-- Compiling package i3c_globals_pkg
+-- Compiling package apb_global_pkg
+-- Compiling package i3c_controller_pkg
+** Note: (vlog-2286) ../../src/hvl_top/controller/i3c_controller_pkg.sv(6): Using implicit +incdir+/tools/mentor/questasim_10.6c/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_globals_pkg
+-- Compiling package i3c_target_pkg
+-- Compiling package apb_master_pkg
+-- Importing package apb_global_pkg
+-- Compiling package i3c_controller_seq_pkg
+-- Importing package i3c_controller_pkg
+-- Compiling package i3c_target_seq_pkg
+-- Importing package i3c_target_pkg
+-- Compiling package apb_master_seq_pkg
+-- Importing package apb_master_pkg
+-- Compiling package i3c_env_pkg
+-- Compiling package i3c_ral_virtual_seq_pkg
+-- Importing package apb_master_seq_pkg
+-- Importing package i3c_target_seq_pkg
+-- Importing package i3c_env_pkg
+-- Compiling package i3c_virtual_seq_pkg
+-- Importing package i3c_controller_seq_pkg
+-- Compiling package i3c_test_pkg
+-- Importing package i3c_virtual_seq_pkg
+-- Importing package i3c_ral_virtual_seq_pkg
+-- Compiling interface i3c_if
+-- Compiling package apb_if_sv_unit
+-- Importing package apb_global_pkg
+-- Compiling interface apb_if
+-- Compiling package i3c_wrapper_sv_unit
+-- Importing package apb_global_pkg
+-- Compiling module apb_i3c_wrapper
+-- Compiling package i3c_controller_driver_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_controller_driver_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_controller_pkg
+-- Compiling package i3c_controller_monitor_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_controller_monitor_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_controller_pkg
+-- Compiling module i3c_controller_agent_bfm
+-- Compiling package i3c_target_driver_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_target_driver_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_target_pkg
+-- Compiling package i3c_target_monitor_bfm_sv_unit
+-- Importing package i3c_globals_pkg
+-- Compiling interface i3c_target_monitor_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_target_pkg
+-- Compiling module i3c_target_agent_bfm
+-- Compiling package apb_master_driver_bfm_sv_unit
+-- Importing package apb_global_pkg
+-- Compiling interface apb_master_driver_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package apb_master_pkg
+-- Compiling package apb_master_monitor_bfm_sv_unit
+-- Importing package apb_global_pkg
+-- Compiling interface apb_master_monitor_bfm
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package apb_master_pkg
+-- Compiling module apb_master_agent_bfm
+-- Compiling package hdl_top_sv_unit
+-- Importing package i3c_globals_pkg
+-- Importing package apb_global_pkg
+-- Compiling module hdl_top
+-- Compiling module hvl_top
+-- Importing package i3c_test_pkg
+-- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+-- Importing package i3c_controller_pkg
+-- Importing package apb_master_pkg
+-- Importing package i3c_target_pkg
+-- Importing package i3c_env_pkg
+-- Importing package apb_master_seq_pkg
+-- Importing package i3c_target_seq_pkg
+-- Importing package i3c_virtual_seq_pkg
+-- Importing package i3c_controller_seq_pkg
+-- Importing package i3c_ral_virtual_seq_pkg
+-- Compiling module I3C_TOP
+-- Compiling module i3c_bit_engine
+-- Compiling module i3c_cmd_ctrl
+-- Compiling module i3c_daa_fsm
+-- Compiling module i3c_device_table
+-- Compiling module i3c_reg_interface
+-- Compiling module i3c_Rx_FIFO
+-- Compiling module i3c_scl_gen
+-- Compiling module i3c_sdr_fsm
+-- Compiling module i3c_Tx_FIFO
+
+Top level modules:
+	hdl_top
+	hvl_top
+End time: 09:58:10 on May 08,2026, Elapsed time: 0:00:03
+Errors: 0, Warnings: 0
