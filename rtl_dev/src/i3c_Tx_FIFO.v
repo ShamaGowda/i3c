@@ -34,7 +34,6 @@ always @(posedge clk or negedge rst_n) begin
     wr_ptr <= 0;
     rd_ptr <= 0;
     dout   <= 0;
-
   end else begin
     if (wr_en && !full) begin
       mem[wr_ptr[ADDR_BITS-1:0]] <= din;
@@ -42,9 +41,10 @@ always @(posedge clk or negedge rst_n) begin
     end
     if (rd_en && !empty) begin
       dout   <= mem[rd_ptr[ADDR_BITS-1:0]];
-rd_ptr <= rd_ptr + 1'b1;
+      rd_ptr <= rd_ptr + 1'b1;
     end
   end
 end
 
 endmodule
+
