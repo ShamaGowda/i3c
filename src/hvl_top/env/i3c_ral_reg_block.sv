@@ -4,6 +4,8 @@ class i3c_ral_reg_block extends uvm_reg_block;
   rand i3c_ctrl_reg     ctrl_inst;
   rand i3c_wdatab_reg   wdatab_inst;
        i3c_rdatab_reg   rdatab_inst;
+       i3c_status_reg   status_inst;
+       i3c_dynaddr_reg  dynaddr_inst;
 
   function new(string name = "ral_i3c_reg_block");
     super.new(name, UVM_NO_COVERAGE);
@@ -18,13 +20,14 @@ class i3c_ral_reg_block extends uvm_reg_block;
     ctrl_inst.build();
     ctrl_inst.configure(this);
 
-    ctrl_inst.add_hdl_path_slice("ctrl_address",   0, 7);
-    ctrl_inst.add_hdl_path_slice("ctrl_length",    7, 8);
-    ctrl_inst.add_hdl_path_slice("ctrl_direction",15, 1);
-    ctrl_inst.add_hdl_path_slice("ctrl_ccc",      16, 8);
-    ctrl_inst.add_hdl_path_slice("ctrl_cmd_type", 24, 2);
-    ctrl_inst.add_hdl_path_slice("ctrl_reserved", 26, 5);
-    ctrl_inst.add_hdl_path_slice("ctrl_start",    31, 1);
+    ctrl_inst.add_hdl_path_slice("cmd_addr",0, 7);
+    ctrl_inst.add_hdl_path_slice("cmd_len",7, 8);
+    ctrl_inst.add_hdl_path_slice("cmd_dir",15, 1);
+    ctrl_inst.add_hdl_path_slice("cmd_ccc",      16, 8);
+    ctrl_inst.add_hdl_path_slice("cmd_type", 24, 2);
+    ctrl_inst.add_hdl_path_slice("cmd_mode", 26, 1);
+    ctrl_inst.add_hdl_path_slice("reserved", 27, 4);
+    ctrl_inst.add_hdl_path_slice("start",    31, 1);
 
   //  ctrl_inst.set_coverage(UVM_CVR_FIELD_VALS);
 
@@ -45,11 +48,55 @@ class i3c_ral_reg_block extends uvm_reg_block;
 
     rdatab_inst.add_hdl_path_slice("rx_data", 0, 8);
 
+   //-----------------------------------
+    // DYNADDR REG (0x064)
+    //-----------------------------------
+
+    dynaddr_inst =
+      i3c_dynaddr_reg::type_id::create(
+        "dynaddr_inst"
+      );
+
+    dynaddr_inst.build();
+    dynaddr_inst.configure(this);
+
+    dynaddr_inst.add_hdl_path_slice("dyn_addr",0,7);
+
+//-----------------------------------
+    // STATUS REG (0x008)
+    //-----------------------------------
+
+    status_inst =i3c_status_reg::type_id::create("status_inst");
+
+    status_inst.build();
+    status_inst.configure(this);
+
+    status_inst.add_hdl_path_slice("cmd_busy"     ,0 ,1);
+    status_inst.add_hdl_path_slice("sdr_busy"     ,1 ,1);
+    status_inst.add_hdl_path_slice("sdr_done"     ,2 ,1);
+    status_inst.add_hdl_path_slice("daa_done"     ,3 ,1);
+    status_inst.add_hdl_path_slice("daa_busy"     ,4 ,1);
+    status_inst.add_hdl_path_slice("tx_full"      ,5 ,1);
+    status_inst.add_hdl_path_slice("tx_empty"     ,6 ,1);
+    status_inst.add_hdl_path_slice("rx_full"      ,7 ,1);
+    status_inst.add_hdl_path_slice("rx_empty"     ,8 ,1);
+    status_inst.add_hdl_path_slice("sdr_bit_done" ,9 ,1);
+    status_inst.add_hdl_path_slice("sdr_bit_busy" ,10,1);
+    status_inst.add_hdl_path_slice("bus_idle"     ,11,1);
+    status_inst.add_hdl_path_slice("hdr_busy"     ,12,1);
+    status_inst.add_hdl_path_slice("hdr_done"     ,13,1);
+    status_inst.add_hdl_path_slice("hdr_bit_done" ,14,1);
+    status_inst.add_hdl_path_slice("hdr_bit_busy" ,15,1);
+    status_inst.add_hdl_path_slice("irq"          ,16,1);
+
     default_map = create_map("default_map", 'h000, 4, UVM_LITTLE_ENDIAN);
 
-    default_map.add_reg(ctrl_inst,    'h00C, "RW");
-    default_map.add_reg(wdatab_inst,  'h030, "RW");
+    default_map.add_reg(ctrl_inst,    'h00C, "WO");
+    default_map.add_reg(wdatab_inst,  'h030, "WO");
     default_map.add_reg(rdatab_inst,  'h040, "RO");
+    default_map.add_reg(dynaddr_inst,  'h064, "RO");
+    default_map.add_reg(status_inst,  'h008, "RO");
+
 
     add_hdl_path("top.dut", "RTL");
     lock_model();

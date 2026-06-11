@@ -33,12 +33,12 @@ class i3c_ccc_coverage_virtual_seq extends top_virtual_base_seq;
         i, ccc_values[i]), UVM_LOW)
 
       i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd1);
-      i3c_env_cfg_h.regBlockHandle.ctrl_inst.ccc.set(
+      i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_ccc.set(
         ccc_values[i]);
-      i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
+      i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
         i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
-      i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(8'd1);
-      i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);
+      i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(8'd1);
+      i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);
       i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
       ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();

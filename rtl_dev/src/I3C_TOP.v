@@ -17,6 +17,7 @@ module I3C_TOP(
   input   wire          sda_i,
   output  wire          sda_o,
   output  wire          sda_oe
+ 
 ); 
 
 wire        scl_oe;

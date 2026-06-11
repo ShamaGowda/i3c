@@ -1,3 +1,4 @@
+
 `ifndef I3C_TARGET_DAA_SEQ_INCLUDED_
 `define I3C_TARGET_DAA_SEQ_INCLUDED_
 
@@ -16,39 +17,61 @@ endfunction : new
 
 
 task i3c_target_daa_seq::body();
-  req = i3c_target_tx::type_id::create("req");
-  start_item(req);
+
+  bit address_assigned;
+  int round;
+
+  address_assigned = 0;
+  round            = 0;
 
   `uvm_info(get_type_name(),
-    "Before randomization - DAA req created", UVM_NONE)
+    "Multi-slave DAA sequence started – looping until address is assigned",
+    UVM_LOW)
 
+  while (!address_assigned) begin
 
-  req.txn_type = i3c_target_tx::DAA;
+    round++;
+    req = i3c_target_tx::type_id::create($sformatf("req_daa_r%0d", round));
+    start_item(req);
 
-if(!req.randomize() with {
-  txn_type == i3c_target_tx::DAA;
+    // Randomize with DAA-specific constraints
+    if (!req.randomize() with {
+      txn_type == i3c_target_tx::DAA;
+      pid      inside {[48'h1 : 48'hFFFF_FFFF_FFFF]};
+      bcr      inside {[8'h00 : 8'h7F]};
+      bcr[7]   == 1'b0;
+      dcr      inside {[8'h00 : 8'hFF]};
+    }) begin
+      `uvm_error(get_type_name(),
+        $sformatf("Randomization failed on DAA round %0d", round))
+    end else begin
+      `uvm_info(get_type_name(),
+        $sformatf("[round %0d] PID=0x%0x BCR=0x%0x DCR=0x%0x",
+                  round, req.pid, req.bcr, req.dcr), UVM_LOW)
+    end
 
-  pid inside {[48'h0 : 48'hFFFFFFFFFFFF]};
+    finish_item(req);
 
-  bcr inside {[8'h00 : 8'h7F]};
-  bcr[7] == 1'b0;
+    // After finish_item() the driver proxy has called drive_daa_data()
+    // and updated req.daa_ack.
+    if (req.daa_ack == ACK) begin
+      address_assigned = 1;
+      `uvm_info(get_type_name(),
+        $sformatf("Address assigned after round %0d: dynamic_addr=0x%0h",
+                  round, req.dynamic_address), UVM_LOW)
+    end else begin
+      `uvm_info(get_type_name(),
+        $sformatf("[round %0d] Did not win arbitration – re-entering",
+                  round), UVM_LOW)
+    end
 
-  dcr inside {[8'h00 : 8'hFF]};
+  end // while
 
-}) begin
-  `uvm_error(get_type_name(), "Randomization failed")
-end
-
- else begin
-    `uvm_info(get_type_name(), $sformatf(
-      "Randomization SUCCESS - txn_type=%s PID=0x%0x BCR=0x%0x DCR=0x%0x",
-      req.txn_type.name(), req.pid, req.bcr, req.dcr), UVM_NONE)
-    req.print();
-  end
-
-  finish_item(req);
   `uvm_info(get_type_name(),
-    "finish_item returned - DAA item sent to driver", UVM_NONE)
+    $sformatf("DAA sequence complete after %0d round(s). Dynamic addr = 0x%0h",
+              round, req.dynamic_address), UVM_LOW)
+
 endtask : body
 
 `endif
+

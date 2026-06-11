@@ -60,4 +60,9 @@
 ../../rtl_dev/src/i3c_Rx_FIFO.v
 ../../rtl_dev/src/i3c_scl_gen.v
 ../../rtl_dev/src/i3c_sdr_fsm.v
-../../rtl_dev/src/i3c_Tx_FIFO.v 
+../../rtl_dev/src/i3c_Tx_FIFO.v
+../../rtl_dev/src/i3c_ibi_detector.v
+../../rtl_dev/src/i3c_ibi_fsm.v
+../../rtl_dev/src/i3c_ibi_regs.v
+../../rtl_dev/src/i3c_hdr_fsm.v
+../../rtl_dev/src/i3c_hdr_ddr_engine.v

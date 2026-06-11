@@ -1,5 +1,5 @@
 QuestaSim vlog 10.6c Compiler 2017.07 Jul 25 2017
-Start time: 09:58:07 on May 08,2026
+Start time: 20:31:00 on Jun 11,2026
 vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f 
 -- Compiling package i3c_globals_pkg
 -- Compiling package apb_global_pkg
@@ -24,7 +24,6 @@ vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f
 -- Compiling package i3c_virtual_seq_pkg
 -- Importing package i3c_controller_seq_pkg
 -- Compiling package i3c_test_pkg
--- Importing package i3c_virtual_seq_pkg
 -- Importing package i3c_ral_virtual_seq_pkg
 -- Compiling interface i3c_if
 -- Compiling package apb_if_sv_unit
@@ -73,14 +72,11 @@ vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f
 -- Compiling module hvl_top
 -- Importing package i3c_test_pkg
 -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
--- Importing package i3c_controller_pkg
 -- Importing package apb_master_pkg
 -- Importing package i3c_target_pkg
 -- Importing package i3c_env_pkg
 -- Importing package apb_master_seq_pkg
 -- Importing package i3c_target_seq_pkg
--- Importing package i3c_virtual_seq_pkg
--- Importing package i3c_controller_seq_pkg
 -- Importing package i3c_ral_virtual_seq_pkg
 -- Compiling module I3C_TOP
 -- Compiling module i3c_bit_engine
@@ -92,9 +88,15 @@ vlog -sv "+acc" "+cover" "+fcover" -l i3c_compile.log -f ../i3c_compile.f
 -- Compiling module i3c_scl_gen
 -- Compiling module i3c_sdr_fsm
 -- Compiling module i3c_Tx_FIFO
+-- Compiling module i3c_ibi_detector
+-- Compiling module i3c_ibi_fsm
+-- Compiling module i3c_ibi_regs
+-- Compiling module i3c_hdr_fsm
+-- Compiling module i3c_hdr_ddr_engine
 
 Top level modules:
+	i3c_controller_agent_bfm
 	hdl_top
 	hvl_top
-End time: 09:58:10 on May 08,2026, Elapsed time: 0:00:03
+End time: 20:31:04 on Jun 11,2026, Elapsed time: 0:00:04
 Errors: 0, Warnings: 0

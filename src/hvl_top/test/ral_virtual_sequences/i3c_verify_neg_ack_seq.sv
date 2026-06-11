@@ -29,7 +29,7 @@ class i3c_verify_neg_ack_seq extends top_virtual_base_seq;
         target_seq =
           i3c_target_writeOperationWith8bitsData_seq::type_id::create("target_seq");
 
-        target_seq.start(p_sequencer.i3c_target_seqr_h);
+        target_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none;
 
@@ -44,9 +44,9 @@ class i3c_verify_neg_ack_seq extends top_virtual_base_seq;
       UVM_LOW)
 
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(7'h7F); // invalid target
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(8'd1);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0); // WRITE
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(7'h7F); // invalid target
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(8'd1);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0); // WRITE
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00); // SDR
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
@@ -65,3 +65,4 @@ class i3c_verify_neg_ack_seq extends top_virtual_base_seq;
 endclass
 
 `endif
+

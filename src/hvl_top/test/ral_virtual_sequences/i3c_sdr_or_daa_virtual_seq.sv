@@ -30,12 +30,12 @@ class i3c_sdr_or_daa_virtual_seq extends top_virtual_base_seq;
         fork
       begin
         target_daa_seq = i3c_target_daa_seq::type_id::create("target_daa_seq");
-        target_daa_seq.start(p_sequencer.i3c_target_seqr_h);
+        target_daa_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd2);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.ccc.set(8'h07);   
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_ccc.set(8'h07);   
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);  
   
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();

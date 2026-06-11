@@ -33,7 +33,7 @@ class i3c_read_write_read_seq extends top_virtual_base_seq;
           i3c_target_writeOperationWith8bitsData_seq::type_id::create(
             "rwr_target_wr_seq");
 
-        rwr_target_wr_seq.start(p_sequencer.i3c_target_seqr_h);
+        rwr_target_wr_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
 
       forever begin
@@ -41,16 +41,16 @@ class i3c_read_write_read_seq extends top_virtual_base_seq;
           i3c_target_readOperationWith8bitsData_seq::type_id::create(
             "rwr_target_rd_seq");
 
-        rwr_target_rd_seq.start(p_sequencer.i3c_target_seqr_h);
+        rwr_target_rd_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none;
 
 
     // FIRST READ
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(7'h68);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(8'd1);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b1);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(7'h68);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(8'd1);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd0);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
@@ -81,8 +81,8 @@ class i3c_read_write_read_seq extends top_virtual_base_seq;
       UVM_LOW)
 
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(7'h68);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(7'h68);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status);
@@ -95,8 +95,8 @@ class i3c_read_write_read_seq extends top_virtual_base_seq;
 
     // SECOND READ
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(7'h68);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b1);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(7'h68);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status);

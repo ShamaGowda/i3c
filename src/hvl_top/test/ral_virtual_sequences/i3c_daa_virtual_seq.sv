@@ -1,3 +1,4 @@
+
 `ifndef I3C_DAA_VIRTUAL_SEQ_INCLUDED_
 `define I3C_DAA_VIRTUAL_SEQ_INCLUDED_
 
@@ -8,56 +9,101 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
   uvm_reg_data_t ctrl_val;
   uvm_reg_data_t ctrl_mirror;
 
+  // Timeout (per-slave) in ns to wait after CTRL is written.
+  // Increase for large N or slow clocks.
+  int unsigned timeout_per_slave_ns = 50_000;
+
   function new(string name = "i3c_daa_virtual_seq");
     super.new(name);
   endfunction
 
+  // --------------------------------------------------------------------------
   task body();
-    i3c_target_daa_seq target_daa_seq;
-
-    if(i3c_env_cfg_h == null)
-      `uvm_fatal("CFG_NULL",
-        "i3c_env_cfg_h is NULL inside virtual sequence")
-    if(i3c_env_cfg_h.regBlockHandle == null)
-      `uvm_fatal("RAL_NULL",
-        "regBlockHandle is NULL inside virtual sequence")
+    int num_targets;
 
     super.body();
 
-    `uvm_info(get_type_name(), "Starting DAA sequence", UVM_LOW)
+    if (i3c_env_cfg_h == null)
+      `uvm_fatal("CFG_NULL",
+        "i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq")
 
-        fork
-      begin
-        target_daa_seq = i3c_target_daa_seq::type_id::create("target_daa_seq");
-        target_daa_seq.start(p_sequencer.i3c_target_seqr_h);
-      end
-    join_none
+    if (i3c_env_cfg_h.regBlockHandle == null)
+      `uvm_fatal("RAL_NULL",
+        "regBlockHandle is NULL inside i3c_daa_virtual_seq")
 
-        i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd3);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.ccc.set(8'h07);   
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);  
-  
+    num_targets = i3c_env_cfg_h.no_of_targets;
+
+    `uvm_info(get_type_name(),
+      $sformatf("Starting multi-slave DAA for %0d targets", num_targets),
+      UVM_LOW)
+
+    // ------------------------------------------------------------------
+    // Step 1: Launch one DAA slave sequence per target in parallel.
+    //         Each sequence loops in the BFM until that slave gets its
+    //         dynamic address assigned.
+    // ------------------------------------------------------------------
+    foreach (p_sequencer.i3c_target_seqr_h[i]) begin
+      automatic int idx = i;  // capture for fork
+      fork
+        begin
+          i3c_target_daa_seq tgt_daa_seq;
+          tgt_daa_seq = i3c_target_daa_seq::type_id::create(
+                          $sformatf("tgt_daa_seq_%0d", idx));
+          `uvm_info(get_type_name(),
+            $sformatf("Launching DAA seq for target[%0d]", idx), UVM_LOW)
+          tgt_daa_seq.start(p_sequencer.i3c_target_seqr_h[idx]);
+          `uvm_info(get_type_name(),
+            $sformatf("DAA seq DONE for target[%0d]", idx), UVM_LOW)
+        end
+      join_none
+    end
+
+    // ------------------------------------------------------------------
+    // Step 2: Write CTRL register to start the ENTDAA command on DUT.
+    //         The DUT's i3c_daa_fsm will cycle through all slaves.
+    // ------------------------------------------------------------------
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd3);  // CMD_TYPE_DAA
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_ccc.set(8'h07);      // ENTDAA
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
+
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();
     `uvm_info("CTRL_DEBUG",
-      $sformatf("CTRL value before DAA update = 0x%0h", ctrl_val),
-      UVM_LOW)
+      $sformatf("CTRL value before DAA write = 0x%0h", ctrl_val), UVM_LOW)
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status, .parent(this));
 
     ctrl_mirror = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get_mirrored_value();
     `uvm_info("CTRL_DEBUG",
-      $sformatf("CTRL mirrored value after DAA update = 0x%0h",
-      ctrl_mirror), UVM_LOW)
+      $sformatf("CTRL mirrored value after DAA write = 0x%0h", ctrl_mirror),
+      UVM_LOW)
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.mirror(status, UVM_NO_CHECK);
 
-    #20000;
+    // ------------------------------------------------------------------
+    // Step 3: Wait for all slaves to be assigned addresses.
+    //         The timeout scales with the number of slaves.
+    // ------------------------------------------------------------------
+    begin
+      int wait_ns = timeout_per_slave_ns * num_targets;
+      `uvm_info(get_type_name(),
+        $sformatf("Waiting %0d ns for all %0d slaves to complete DAA",
+                  wait_ns, num_targets), UVM_LOW)
+      #(wait_ns * 1ns);
+    end
 
     `uvm_info(get_type_name(),
-      "DAA completed — target assigned dynamic address 0x08",
-      UVM_LOW)
+      $sformatf("Multi-slave DAA completed. Assigned addresses:"), UVM_LOW)
 
-  endtask
+    foreach (i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
+      `uvm_info(get_type_name(),
+        $sformatf("  target[%0d]: dynamic addr = 0x%0h",
+                  i, i3c_env_cfg_h.i3c_target_agent_cfg_h[i].targetAddress),
+        UVM_LOW)
+    end
 
-endclass
+  endtask : body
+
+endclass : i3c_daa_virtual_seq
+
 `endif
+

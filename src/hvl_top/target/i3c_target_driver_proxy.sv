@@ -1,7 +1,19 @@
+// ============================================================================
+// FILE: i3c_target_driver_proxy.sv  (MULTI-SLAVE VERSION)
+//
+// Key changes vs single-slave:
+//   * Looks up the BFM from config_db using a per-target key:
+//       "i3c_target_driver_bfm_<target_id>"
+//     where target_id comes from i3c_target_agent_config.target_id.
+//   * After a DAA round where this slave did NOT win (daa_ack_out==NACK and
+//     has_daa=1), we re-issue get_next_item() so the sequence can decide
+//     whether to keep participating.  The sequence (i3c_target_daa_seq)
+//     loops forever until the BFM's internal has_address flag is set.
+// ============================================================================
 `ifndef I3C_TARGET_DRIVER_PROXY_INCLUDED_
 `define I3C_TARGET_DRIVER_PROXY_INCLUDED_
 
-class i3c_target_driver_proxy extends uvm_driver#(i3c_target_tx);
+class i3c_target_driver_proxy extends uvm_driver #(i3c_target_tx);
   `uvm_component_utils(i3c_target_driver_proxy)
 
   i3c_target_agent_config  i3c_target_agent_cfg_h;
@@ -28,12 +40,23 @@ endfunction : build_phase
 
 
 function void i3c_target_driver_proxy::end_of_elaboration_phase(uvm_phase phase);
+  string bfm_key;
   super.end_of_elaboration_phase(phase);
-  if(!uvm_config_db #(virtual i3c_target_driver_bfm)::get(
-      this, "", "i3c_target_driver_bfm", i3c_target_drv_bfm_h)) begin
+
+  // Construct the per-target config_db key that the BFM module registered
+  bfm_key = $sformatf("i3c_target_driver_bfm_%0d",
+                       i3c_target_agent_cfg_h.target_id);
+
+  `uvm_info("TGT_DRV_PROXY",
+    $sformatf("Looking up BFM with key: %s", bfm_key), UVM_LOW)
+
+  if (!uvm_config_db #(virtual i3c_target_driver_bfm)::get(
+        this, "", bfm_key, i3c_target_drv_bfm_h)) begin
     `uvm_fatal("FATAL_SDP_CANNOT_GET_target_DRIVER_BFM",
-      "cannot get i3c_target_driver_bfm from uvm_config_db.")
+      $sformatf("Cannot get i3c_target_driver_bfm from uvm_config_db. key=%s",
+                bfm_key))
   end
+
   i3c_target_drv_bfm_h.i3c_target_drv_proxy_h = this;
 endfunction : end_of_elaboration_phase
 
@@ -42,7 +65,6 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
   i3c_transfer_bits_s struct_packet;
   i3c_transfer_cfg_s  struct_cfg;
 
- 
   bit [47:0] pid_out;
   bit [7:0]  bcr_out;
   bit [7:0]  dcr_out;
@@ -57,18 +79,25 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
   forever begin
 
     seq_item_port.get_next_item(req);
-    `uvm_info("TGT_DRV_PROXY", "Got item from sequencer", UVM_NONE)
+    `uvm_info("TGT_DRV_PROXY",
+      $sformatf("[target_id=%0d] Got item from sequencer, txn_type=%s",
+                i3c_target_agent_cfg_h.target_id, req.txn_type.name()),
+      UVM_NONE)
 
-   
+    // Populate the struct_cfg from agent config (carries PID/BCR/DCR)
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg);
 
-   if(req.txn_type == i3c_target_tx::DAA) begin
-   `uvm_info("TGT_DRV_PROXY",
-        "Transaction type = DAA, calling drive_daa_data", UVM_NONE)
+    // -----------------------------------------------------------------------
+    // DAA TRANSACTION
+    // -----------------------------------------------------------------------
+    if (req.txn_type == i3c_target_tx::DAA) begin
+      `uvm_info("TGT_DRV_PROXY",
+        $sformatf("[target_id=%0d] DAA transaction", 
+                  i3c_target_agent_cfg_h.target_id), UVM_NONE)
 
-     i3c_target_seq_item_converter::from_class(req, struct_packet);
+      i3c_target_seq_item_converter::from_class(req, struct_packet);
 
-     i3c_target_drv_bfm_h.drive_daa_data(
+      i3c_target_drv_bfm_h.drive_daa_data(
         struct_packet,
         struct_cfg,
         pid_out,
@@ -84,34 +113,42 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
       req.dynamic_address = dyn_addr_out;
       req.daa_ack         = daa_ack_out;
 
-      `uvm_info("TGT_DRV_PROXY", $sformatf(
-        "DAA complete: PID=0x%0h BCR=0x%0h DCR=0x%0h DynAddr=0x%0h ACK=%0b",
-        pid_out, bcr_out, dcr_out, dyn_addr_out, daa_ack_out), UVM_NONE)
-if(daa_ack_out == ACK) begin
-  i3c_target_agent_cfg_h.targetAddress = dyn_addr_out;
-  `uvm_info("TGT_DRV_PROXY",
-    $sformatf("DAA: targetAddress updated to dynamic 0x%0h",
-              dyn_addr_out), UVM_LOW)
-end
+`uvm_info("TGT_DRV_PROXY",$sformatf("[target_id=%0d] DAA done: PID=0x%0h BCR=0x%0h DCR=0x%0h DynAddr=0x%0h ACK=%0b",
+i3c_target_agent_cfg_h.target_id,pid_out,bcr_out,dcr_out,dyn_addr_out,daa_ack_out),UVM_NONE)
+			
+						// If this slave was assigned an address, update the config so
+      // subsequent SDR transactions use the dynamic address
+      if (daa_ack_out == ACK) begin
+        i3c_target_agent_cfg_h.targetAddress = dyn_addr_out;
+        `uvm_info("TGT_DRV_PROXY",
+          $sformatf("[target_id=%0d] Dynamic address 0x%0h stored in config",
+                    i3c_target_agent_cfg_h.target_id, dyn_addr_out),
+          UVM_LOW)
+      end
 
-     i3c_target_seq_item_converter::to_class(struct_packet, req);
+      i3c_target_seq_item_converter::to_class(struct_packet, req);
 
     end else begin
-
-   `uvm_info("TGT_DRV_PROXY",
-        "Transaction type = SDR, calling drive_data", UVM_NONE)
+      // -----------------------------------------------------------------------
+      // SDR TRANSACTION
+      // -----------------------------------------------------------------------
+      `uvm_info("TGT_DRV_PROXY",
+        $sformatf("[target_id=%0d] SDR transaction",
+                  i3c_target_agent_cfg_h.target_id), UVM_NONE)
 
       i3c_target_seq_item_converter::from_class(req, struct_packet);
       i3c_target_drv_bfm_h.drive_data(struct_packet, struct_cfg);
       i3c_target_seq_item_converter::to_class(struct_packet, req);
-
     end
 
     seq_item_port.item_done();
-    `uvm_info("TGT_DRV_PROXY", "item_done called", UVM_NONE)
+    `uvm_info("TGT_DRV_PROXY",
+      $sformatf("[target_id=%0d] item_done", i3c_target_agent_cfg_h.target_id),
+      UVM_NONE)
 
   end
 
 endtask : run_phase
 
 `endif
+

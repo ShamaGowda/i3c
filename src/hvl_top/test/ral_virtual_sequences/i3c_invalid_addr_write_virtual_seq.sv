@@ -31,15 +31,15 @@ i3c_env_cfg_h.regBlockHandle.wdatab_inst.write(
   .parent(this)
 );
 
-i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
   INVALID_ADDR
 );
 
-i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(
   8'd1
 );
 
-i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(
   1'b0 
 );
 

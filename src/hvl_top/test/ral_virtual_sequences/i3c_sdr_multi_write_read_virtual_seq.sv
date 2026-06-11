@@ -49,9 +49,9 @@ class i3c_sdr_multi_write_read_virtual_seq extends top_virtual_base_seq;
         status, wdata_q[i], .parent(this));
     end
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(TARGET0_ADDRESS);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(transfer_len);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);  
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(TARGET0_ADDRESS);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(transfer_len);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);  
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status, .parent(this));
@@ -62,15 +62,15 @@ class i3c_sdr_multi_write_read_virtual_seq extends top_virtual_base_seq;
         target_write_seq =
           i3c_target_writeOperationWith8bitsData_seq::type_id::create(
             "target_write_seq");
-        target_write_seq.start(p_sequencer.i3c_target_seqr_h);
+        target_write_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
     #5000;
 
-     i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(TARGET0_ADDRESS);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(transfer_len);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b1);  
+     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(TARGET0_ADDRESS);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(transfer_len);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);  
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status, .parent(this));
@@ -81,7 +81,7 @@ class i3c_sdr_multi_write_read_virtual_seq extends top_virtual_base_seq;
         target_read_seq =
           i3c_target_readOperationWith8bitsData_seq::type_id::create(
             "target_read_seq");
-        target_read_seq.start(p_sequencer.i3c_target_seqr_h);
+        target_read_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
@@ -110,3 +110,4 @@ class i3c_sdr_multi_write_read_virtual_seq extends top_virtual_base_seq;
 endclass
 
 `endif
+

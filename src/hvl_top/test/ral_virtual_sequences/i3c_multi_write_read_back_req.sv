@@ -32,7 +32,7 @@ class i3c_multi_write_read_back_seq extends top_virtual_base_seq;
         multi_wr_target_seq =
           i3c_target_writeOperationWith8bitsData_seq::type_id::create(
             "multi_wr_target_seq");
-        multi_wr_target_seq.start(p_sequencer.i3c_target_seqr_h);
+        multi_wr_target_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
@@ -47,10 +47,10 @@ class i3c_multi_write_read_back_seq extends top_virtual_base_seq;
         UVM_LOW)
     end
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(8'd3);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(8'd3);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status, .parent(this));
@@ -65,14 +65,14 @@ class i3c_multi_write_read_back_seq extends top_virtual_base_seq;
 
     fork
       begin
-        multi_rd_target_seq.start(p_sequencer.i3c_target_seqr_h);
+        multi_rd_target_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(8'd3);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b1);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(8'd3);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status, .parent(this));

@@ -1,45 +1,62 @@
+// ============================================================================
+// FILE: i3c_daa_write_8b_test.sv  (MULTI-SLAVE VERSION)
+//
+// Runs ENTDAA for all N slaves, then sends one SDR write to each using
+// the dynamically assigned address.
+// ============================================================================
+
 class i3c_daa_write_8b_test extends i3c_base_test;
   `uvm_component_utils(i3c_daa_write_8b_test)
 
-  i3c_daa_virtual_seq         daaSeq;
-  i3c_sdr_write_virtual_seq   sdrWriteSeq;
+  i3c_daa_virtual_seq       daaSeq;
+  i3c_sdr_write_virtual_seq sdrWriteSeq;
 
-  function new(string name = "i3c_daa_write_8b_test", uvm_component parent = null);
+  function new(string name = "i3c_daa_write_8b_test",
+               uvm_component parent = null);
     super.new(name, parent);
   endfunction
 
-
- function void setup_target_agent_cfg();
+  // Enable DAA on every target
+  function void setup_target_agent_cfg();
     super.setup_target_agent_cfg();
-
-    foreach(i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
+    foreach (i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
       i3c_env_cfg_h.i3c_target_agent_cfg_h[i].has_daa = 1;
     end
+    // Mark env so it knows DAA will be used
+    i3c_env_cfg_h.has_daa           = 1;
+    i3c_env_cfg_h.no_of_daa_devices = NO_OF_TARGETS;
   endfunction
 
   virtual task run_phase(uvm_phase phase);
     phase.raise_objection(this);
-    `uvm_info(get_type_name(), "Starting DAA sequence", UVM_LOW)
 
+    `uvm_info(get_type_name(),
+      $sformatf("Starting multi-slave DAA test (%0d targets)", NO_OF_TARGETS),
+      UVM_LOW)
+
+    // -----------------------------------------------------------------------
+    // Phase 1: ENTDAA – assign dynamic addresses to all slaves
+    // -----------------------------------------------------------------------
     daaSeq = i3c_daa_virtual_seq::type_id::create("daaSeq");
     daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
     daaSeq.start(i3c_env_h.top_virtual_seqr_h);
 
-    `uvm_info(get_type_name(),
-      "DAA done - updating target address to dynamic 0x08",
-      UVM_LOW)
+    `uvm_info(get_type_name(), "DAA phase complete", UVM_LOW)
+    foreach (i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
+      `uvm_info(get_type_name(),
+        $sformatf("  target[%0d] dynamic addr = 0x%0h",
+                  i, i3c_env_cfg_h.i3c_target_agent_cfg_h[i].targetAddress),
+        UVM_LOW)
+    end
 
-`uvm_info(get_type_name(),
-  $sformatf("DAA done - target[0] dynamic addr = 0x%0h",
-            i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress),
-  UVM_LOW)
-
+    // -----------------------------------------------------------------------
+    // Phase 2: SDR WRITE to target[0] using its newly assigned dynamic address
+    // -----------------------------------------------------------------------
     `uvm_info(get_type_name(),
-      "Starting SDR WRITE with dynamic address", UVM_LOW)
+      "Starting SDR WRITE with dynamic address of target[0]", UVM_LOW)
 
     sdrWriteSeq = i3c_sdr_write_virtual_seq::type_id::create("sdrWriteSeq");
     sdrWriteSeq.i3c_env_cfg_h = i3c_env_cfg_h;
-
     sdrWriteSeq.start(i3c_env_h.top_virtual_seqr_h);
 
     #50us;
@@ -47,3 +64,4 @@ class i3c_daa_write_8b_test extends i3c_base_test;
   endtask
 
 endclass
+

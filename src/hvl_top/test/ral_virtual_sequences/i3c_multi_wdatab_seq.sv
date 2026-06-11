@@ -54,7 +54,7 @@ wdata_q.size() == transfer_len;
       begin
         target_seq_write =
           i3c_target_writeOperationWith8bitsData_seq::type_id::create("target_seq_write");
-        target_seq_write.start(p_sequencer.i3c_target_seqr_h);
+        target_seq_write.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none;
 
@@ -72,12 +72,12 @@ wdata_q.size() == transfer_len;
     end
 
  
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(transfer_len);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(transfer_len);
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);
 
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
 

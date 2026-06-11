@@ -33,7 +33,7 @@ class i3c_randomDataTransferWidth_vseq extends top_virtual_base_seq;
       begin
         target_seq =
           i3c_target_readOperationWithRandomDataTransferWidth_seq::type_id::create("target_seq");
-        target_seq.start(p_sequencer.i3c_target_seqr_h);
+        target_seq.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none;
 
@@ -46,9 +46,9 @@ class i3c_randomDataTransferWidth_vseq extends top_virtual_base_seq;
       i3c_env_cfg_h.regBlockHandle.wdatab_inst.mirror(status, UVM_CHECK);
     end
 
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(TARGET0_ADDRESS);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(data_len);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(TARGET0_ADDRESS);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(data_len);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.update(status);
