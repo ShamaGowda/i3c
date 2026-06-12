@@ -1,4 +1,20 @@
-
+// ============================================================================
+// FILE: i3c_target_driver_bfm.sv  (MULTI-SLAVE VERSION)
+//
+// Key changes vs single-slave:
+//   * drive_daa_data() implements full bit-level open-drain arbitration.
+//     During the 64-bit PID+BCR+DCR phase each slave drives its bit onto
+//     SDA, then samples the bus at SCL rising-edge.
+//     - If it drove 1 but bus is 0  → another slave drove 0 (dominant).
+//       This slave LOST arbitration:  release SDA, stop driving for this
+//       round, wait for the next Repeated-START.
+//     - If it drove 0 and bus is 0  → consistent, keep going.
+//     - If it drove 0 and bus is 1  → impossible with pull-up; treat as win.
+//   * A target that has already been assigned a dynamic address ignores
+//     subsequent DAA rounds (has_address flag).
+//   * The driver loops: after receiving a Repeated-START it re-enters
+//     arbitration so every unassigned slave eventually wins a round.
+// ============================================================================
 `ifndef I3C_TARGET_DRIVER_BFM_INCLUDED_
 `define I3C_TARGET_DRIVER_BFM_INCLUDED_
 
@@ -211,12 +227,19 @@ interface i3c_target_driver_bfm (
 
       if (!won_arb) begin
         // LOST arbitration this round.
-        // Release SDA and wait for either Rep-START (another slave being
-        // assigned – we re-enter) or STOP (all done – we were never assigned).
+        // Release SDA immediately.
         drive_sda(1);
         `uvm_info(name,
           "DAA: Lost arbitration - waiting for Rep-START or STOP",
           UVM_NONE)
+
+        // CRITICAL: Wait for SCL to go LOW first before watching for
+        // Rep-START or STOP. This prevents false-triggering on the same
+        // SCL HIGH window in which arbitration was just lost. The arb loss
+        // is detected at a POSEDGE; detect_rep_start_or_stop looks for
+        // SDA-falling while SCL=HIGH, which could falsely fire on the
+        // very next SCL cycle if we don't wait for SCL to go low first.
+        detectEdge_scl(NEGEDGE);
 
         begin
           bit got_rep_start;
@@ -407,7 +430,7 @@ interface i3c_target_driver_bfm (
   // Both conditions require SCL to be held high by the master (as per spec).
   // We sample on every negedge pclk and track two consecutive SCL/SDA values.
   // =========================================================================
-  task automatic detect_rep_start_or_stop(output bit got_rep_start);                   //made as automatic
+  task automatic detect_rep_start_or_stop(output bit got_rep_start);
     bit [1:0] scl_loc = 2'b11;
     bit [1:0] sda_loc = 2'b11;
 

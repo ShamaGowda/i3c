@@ -311,75 +311,75 @@ b8000:[{dummy:0},
 ,{cr:'m',t:'A',z:'      &#34;24-bit WRITE READ BACK complete&#34;, UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_multi_write_read_back_req.sv',l:'104',h:'0',c:'r'}
 ]}],
 b8016:[{dummy:0},
-{anchor:'cvg8017',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
+{anchor:'cvg8017',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
 ]}],
 b8019:[{dummy:0},
-{anchor:'cvg8020',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
+{anchor:'cvg8020',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
 ]},
-{anchor:'cvg8021',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
-,{cr:'m',t:'E',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
+{anchor:'cvg8021',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
+,{cr:'m',t:'E',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
 ]},
-{anchor:'cvg8022',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
+{anchor:'cvg8022',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
 ]},
-{anchor:'cvg8023',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'22',h:'0',c:'r'}
+{anchor:'cvg8023',items:[{z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'  `uvm_object_utils(i3c_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'6',h:'0',c:'r'}
 ]}],
 b8024:[{dummy:0},
-{anchor:'cvg8025',items:[{z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'42',c:'Y',p:'50.00'}
-,{cr:'m',t:'I',z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'42',h:'0',c:'r'}
-,{cr:'c',t:'A',z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'42',h:'1',c:'g'}
+{anchor:'cvg8025',items:[{z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'26',c:'Y',p:'50.00'}
+,{cr:'m',t:'I',z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'26',h:'0',c:'r'}
+,{cr:'c',t:'A',z:'    if (i3c_env_cfg_h == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'26',h:'1',c:'g'}
 ]},
-{anchor:'cvg8026',items:[{z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'44',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'44',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'44',h:'0',c:'r'}
+{anchor:'cvg8026',items:[{z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'28',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'28',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'        &#34;i3c_env_cfg_h is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'28',h:'0',c:'r'}
 ]},
-{anchor:'cvg8027',items:[{z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'46',c:'Y',p:'50.00'}
-,{cr:'m',t:'I',z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'46',h:'0',c:'r'}
-,{cr:'c',t:'A',z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'46',h:'1',c:'g'}
+{anchor:'cvg8027',items:[{z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'30',c:'Y',p:'50.00'}
+,{cr:'m',t:'I',z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'30',h:'0',c:'r'}
+,{cr:'c',t:'A',z:'    if (i3c_env_cfg_h.regBlockHandle == null)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'30',h:'1',c:'g'}
 ]},
-{anchor:'cvg8028',items:[{z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'48',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'48',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'48',h:'0',c:'r'}
+{anchor:'cvg8028',items:[{z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'32',c:'R',p:'0.00'}
+,{cr:'m',t:'I',z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'32',h:'0',c:'r'}
+,{cr:'m',t:'A',z:'        &#34;regBlockHandle is NULL inside i3c_daa_virtual_seq&#34;)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'32',h:'0',c:'r'}
 ]},
-{anchor:'cvg8029',items:[{z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'54',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'54',h:'1',c:'g'}
-,{cr:'m',t:'A',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'54',h:'0',c:'r'}
+{anchor:'cvg8029',items:[{z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'38',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'38',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'38',h:'0',c:'r'}
 ]},
-{anchor:'cvg8030',items:[{z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'69',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'69',h:'3',c:'g'}
-,{cr:'m',t:'A',z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'69',h:'0',c:'r'}
+{anchor:'cvg8030',items:[{z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'53',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'53',h:'3',c:'g'}
+,{cr:'m',t:'A',z:'            $sformatf(&#34;Launching DAA seq for target[%0d]&#34;, idx), UVM_LOW)...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'53',h:'0',c:'r'}
 ]},
-{anchor:'cvg8031',items:[{z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'72',c:'R',p:'0.00'}
-,{cr:'m',t:'I',z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'72',h:'0',c:'r'}
-,{cr:'m',t:'A',z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'72',h:'0',c:'r'}
+{anchor:'cvg8031',items:[{z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'56',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'56',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'            $sformatf(&#34;DAA seq DONE for target[%0d]&#34;, idx), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'56',h:'0',c:'r'}
 ]},
-{anchor:'cvg8032',items:[{z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'87',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'87',h:'1',c:'g'}
-,{cr:'m',t:'A',z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'87',h:'0',c:'r'}
+{anchor:'cvg8032',items:[{z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'71',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'71',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'      $sformatf(&#34;CTRL value before DAA write = 0x%0h&#34;, ctrl_val), UVM_LOW...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'71',h:'0',c:'r'}
 ]},
-{anchor:'cvg8033',items:[{z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'94',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'94',h:'1',c:'g'}
-,{cr:'m',t:'A',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'94',h:'0',c:'r'}
+{anchor:'cvg8033',items:[{z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'78',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'78',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'      UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'78',h:'0',c:'r'}
 ]},
-{anchor:'cvg8034',items:[{z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'106',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'106',h:'1',c:'g'}
-,{cr:'m',t:'A',z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'106',h:'0',c:'r'}
+{anchor:'cvg8034',items:[{z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'90',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'90',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'                  wait_ns, num_targets), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'90',h:'0',c:'r'}
 ]},
-{anchor:'cvg8035',items:[{z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'111',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'111',h:'1',c:'g'}
-,{cr:'m',t:'A',z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'111',h:'0',c:'r'}
+{anchor:'cvg8035',items:[{z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'95',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'95',h:'1',c:'g'}
+,{cr:'m',t:'A',z:'      $sformatf(&#34;Multi-slave DAA completed. Assigned addresses:&#34;), UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'95',h:'0',c:'r'}
 ]},
-{anchor:'cvg8036',items:[{z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'117',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'117',h:'3',c:'g'}
-,{cr:'m',t:'A',z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'117',h:'0',c:'r'}
+{anchor:'cvg8036',items:[{z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'101',c:'Y',p:'50.00'}
+,{cr:'c',t:'I',z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'101',h:'3',c:'g'}
+,{cr:'m',t:'A',z:'        UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv',l:'101',h:'0',c:'r'}
 ]}],
 b8041:[{dummy:0},
 {anchor:'cvg8042',items:[{z:'  `uvm_object_utils(i3c_sdr_or_daa_virtual_seq)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_sdr_or_daa_virtual_seq.sv',l:'5',c:'R',p:'0.00'}
@@ -568,8 +568,8 @@ b8302:[{dummy:0},
 ,{cr:'c',t:'E',z:'      assign SCL = (scl_oen[gi] && !scl_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'37',h:'1',c:'g'}
 ]},
 {anchor:'cvg8304',items:[{z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',c:'G',p:'100.00'}
-,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'239',c:'g'}
-,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'295',c:'g'}
+,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'95',c:'g'}
+,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'128',c:'g'}
 ]}],
 b8309:[{dummy:0},
 {anchor:'cvg8310',items:[{z:'      assign SCL = (scl_oen[gi] && !scl_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'37',c:'Y',p:'50.00'}
@@ -577,8 +577,8 @@ b8309:[{dummy:0},
 ,{cr:'c',t:'E',z:'      assign SCL = (scl_oen[gi] && !scl_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'37',h:'1',c:'g'}
 ]},
 {anchor:'cvg8311',items:[{z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',c:'G',p:'100.00'}
-,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'239',c:'g'}
-,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'295',c:'g'}
+,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'107',c:'g'}
+,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'116',c:'g'}
 ]}],
 b8316:[{dummy:0},
 {anchor:'cvg8317',items:[{z:'      assign SCL = (scl_oen[gi] && !scl_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'37',c:'Y',p:'50.00'}
@@ -586,8 +586,8 @@ b8316:[{dummy:0},
 ,{cr:'c',t:'E',z:'      assign SCL = (scl_oen[gi] && !scl_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'37',h:'1',c:'g'}
 ]},
 {anchor:'cvg8318',items:[{z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',c:'G',p:'100.00'}
-,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'236',c:'g'}
-,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'298',c:'g'}
+,{cr:'c',t:'I',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'17',c:'g'}
+,{cr:'c',t:'E',z:'      assign SDA = (sda_oen[gi] && !sda_o[gi]) ? 1\'b0 : 1\'bz;',f:'../../src/hdl_top/i3c_interface/i3c_if.sv',l:'38',h:'206',c:'g'}
 ]}],
 b42:[{dummy:0},
 {anchor:'cvg8324',items:[{z:'                drv_key, mon_key), UVM_LOW)',f:'../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv',l:'52',c:'Y',p:'50.00'}
