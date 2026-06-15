@@ -5,10 +5,9 @@
 //   * Looks up the BFM from config_db using a per-target key:
 //       "i3c_target_driver_bfm_<target_id>"
 //     where target_id comes from i3c_target_agent_config.target_id.
-//   * After a DAA round where this slave did NOT win (daa_ack_out==NACK and
-//     has_daa=1), we re-issue get_next_item() so the sequence can decide
-//     whether to keep participating.  The sequence (i3c_target_daa_seq)
-//     loops forever until the BFM's internal has_address flag is set.
+//   * For DAA: to_class() is NOT called after drive_daa_data() because
+//     to_class() creates a new object that would clobber the pid/bcr/dcr/
+//     daa_ack/dynamic_address outputs written back into req.
 // ============================================================================
 `ifndef I3C_TARGET_DRIVER_PROXY_INCLUDED_
 `define I3C_TARGET_DRIVER_PROXY_INCLUDED_
@@ -43,7 +42,6 @@ function void i3c_target_driver_proxy::end_of_elaboration_phase(uvm_phase phase)
   string bfm_key;
   super.end_of_elaboration_phase(phase);
 
-  // Construct the per-target config_db key that the BFM module registered
   bfm_key = $sformatf("i3c_target_driver_bfm_%0d",
                        i3c_target_agent_cfg_h.target_id);
 
@@ -92,7 +90,7 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
     // -----------------------------------------------------------------------
     if (req.txn_type == i3c_target_tx::DAA) begin
       `uvm_info("TGT_DRV_PROXY",
-        $sformatf("[target_id=%0d] DAA transaction", 
+        $sformatf("[target_id=%0d] DAA transaction",
                   i3c_target_agent_cfg_h.target_id), UVM_NONE)
 
       i3c_target_seq_item_converter::from_class(req, struct_packet);
@@ -107,17 +105,21 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
         daa_ack_out
       );
 
+      // Write BFM outputs back into req so the sequence can read them.
       req.pid             = pid_out;
       req.bcr             = bcr_out;
       req.dcr             = dcr_out;
       req.dynamic_address = dyn_addr_out;
       req.daa_ack         = daa_ack_out;
 
-`uvm_info("TGT_DRV_PROXY",$sformatf("[target_id=%0d] DAA done: PID=0x%0h BCR=0x%0h DCR=0x%0h DynAddr=0x%0h ACK=%0b",
-i3c_target_agent_cfg_h.target_id,pid_out,bcr_out,dcr_out,dyn_addr_out,daa_ack_out),UVM_NONE)
-			
-						// If this slave was assigned an address, update the config so
-      // subsequent SDR transactions use the dynamic address
+      `uvm_info("TGT_DRV_PROXY",
+        $sformatf("[target_id=%0d] DAA done: PID=0x%0h BCR=0x%0h DCR=0x%0h DynAddr=0x%0h ACK=%0b",
+                  i3c_target_agent_cfg_h.target_id,
+                  pid_out, bcr_out, dcr_out, dyn_addr_out, daa_ack_out),
+        UVM_NONE)
+
+      // If this slave was assigned an address, update the config so
+      // subsequent SDR transactions use the dynamic address.
       if (daa_ack_out == ACK) begin
         i3c_target_agent_cfg_h.targetAddress = dyn_addr_out;
         `uvm_info("TGT_DRV_PROXY",
@@ -126,7 +128,12 @@ i3c_target_agent_cfg_h.target_id,pid_out,bcr_out,dcr_out,dyn_addr_out,daa_ack_ou
           UVM_LOW)
       end
 
-      i3c_target_seq_item_converter::to_class(struct_packet, req);
+      // FIX: Do NOT call to_class() for DAA transactions.
+      // to_class() constructs a brand-new i3c_target_tx object (new()),
+      // which would overwrite the pid/bcr/dcr/daa_ack/dynamic_address
+      // outputs that drive_daa_data() just wrote back into req above.
+      // The sequence's body() checks req.daa_ack after finish_item()
+      // returns, so those fields must remain intact.
 
     end else begin
       // -----------------------------------------------------------------------

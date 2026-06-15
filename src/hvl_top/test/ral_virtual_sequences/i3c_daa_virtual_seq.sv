@@ -10,7 +10,6 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
   uvm_reg_data_t ctrl_mirror;
 
   // Timeout (per-slave) in ns to wait after CTRL is written.
-  // Increase for large N or slow clocks.
   int unsigned timeout_per_slave_ns = 50_000;
 
   function new(string name = "i3c_daa_virtual_seq");
@@ -39,8 +38,10 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
 
     // ------------------------------------------------------------------
     // Step 1: Launch one DAA slave sequence per target in parallel.
-    //         Each sequence loops in the BFM until that slave gets its
-    //         dynamic address assigned.
+    //         Pass the FIXED PID/BCR/DCR from agent config so every
+    //         arbitration round drives the same identity bits.
+    //         This ensures deterministic open-drain arbitration and
+    //         correct scoreboard matching.
     // ------------------------------------------------------------------
     foreach (p_sequencer.i3c_target_seqr_h[i]) begin
       automatic int idx = i;  // capture for fork
@@ -49,6 +50,13 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
           i3c_target_daa_seq tgt_daa_seq;
           tgt_daa_seq = i3c_target_daa_seq::type_id::create(
                           $sformatf("tgt_daa_seq_%0d", idx));
+
+          // ----- FIX: seed the sequence with config-fixed PID/BCR/DCR -----
+          tgt_daa_seq.cfg_pid = i3c_env_cfg_h.i3c_target_agent_cfg_h[idx].pid;
+          tgt_daa_seq.cfg_bcr = i3c_env_cfg_h.i3c_target_agent_cfg_h[idx].bcr;
+          tgt_daa_seq.cfg_dcr = i3c_env_cfg_h.i3c_target_agent_cfg_h[idx].dcr;
+          // -----------------------------------------------------------------
+
           `uvm_info(get_type_name(),
             $sformatf("Launching DAA seq for target[%0d]", idx), UVM_LOW)
           tgt_daa_seq.start(p_sequencer.i3c_target_seqr_h[idx]);
@@ -60,10 +68,9 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
 
     // ------------------------------------------------------------------
     // Step 2: Write CTRL register to start the ENTDAA command on DUT.
-    //         The DUT's i3c_daa_fsm will cycle through all slaves.
     // ------------------------------------------------------------------
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'd3);  // CMD_TYPE_DAA
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_ccc.set(8'h07);      // ENTDAA
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_ccc.set(8'h07);  // ENTDAA
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
 
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();
@@ -81,7 +88,6 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
 
     // ------------------------------------------------------------------
     // Step 3: Wait for all slaves to be assigned addresses.
-    //         The timeout scales with the number of slaves.
     // ------------------------------------------------------------------
     begin
       int wait_ns = timeout_per_slave_ns * num_targets;
