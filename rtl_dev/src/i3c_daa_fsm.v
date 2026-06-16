@@ -1,7 +1,7 @@
 module i3c_daa_fsm (
   input   wire          clk,
   input   wire          rst_n,
-  
+
   input   wire          start_daa,
   output  reg           daa_done,
   output  reg           start_r,
@@ -43,10 +43,10 @@ reg   [63:0]  arb_shift;
 
 wire          parity = ~^dyn_addr;
 
-reg          scl_q, scl_qq;
+reg           scl_q, scl_qq;
 
-wire  scl_rise = (scl_q == 1'b1) && (scl_qq == 1'b0);
-wire  scl_fall = (scl_q == 1'b0) && (scl_qq == 1'b1);
+wire scl_rise = (scl_q == 1'b1) && (scl_qq == 1'b0);
+wire scl_fall = (scl_q == 1'b0) && (scl_qq == 1'b1);
 
 always @(posedge clk or negedge rst_n) begin
   if (!rst_n) begin
@@ -139,6 +139,10 @@ always @(posedge clk or negedge rst_n) begin
         valid     <= 1'b1;
         rd_wr     <= 1'b0;
         tx_data   <= {7'h7E, 1'b0};
+
+        if (be_done && !busy)
+          $display("[%0t] SEND_7E_W completed, NACK=%0b",
+                   $time, nack);
       end
 
       SEND_ENTDAA: begin
@@ -146,10 +150,18 @@ always @(posedge clk or negedge rst_n) begin
         valid     <= !busy && !be_done ? 1'b1 : 1'b0;
         rd_wr     <= 1'b0;
         tx_data   <= 8'h07;
+
+        if (be_done && !busy)
+          $display("[%0t] SEND_ENTDAA completed, NACK=%0b",
+                   $time, nack);
       end
 
       REP_START: begin
         start_r <= 1'b1;
+
+        if (!busy)
+          $display("[%0t] REP_START completed",
+                   $time);
       end
 
       SEND_7E_R: begin
@@ -158,6 +170,10 @@ always @(posedge clk or negedge rst_n) begin
         rd_wr     <= 1'b0;
         tx_data   <= {7'h7E, 1'b1};
         arb_mode  <= 1'b0;
+
+        if (be_done)
+          $display("[%0t] SEND_7E_R completed, NACK=%0b",
+                   $time, nack);
       end
 
       ARB_BITS: begin
@@ -167,6 +183,10 @@ always @(posedge clk or negedge rst_n) begin
         if (scl_rise) begin
           arb_shift <= {arb_shift[62:0], sda_i};
           bit_cnt   <= bit_cnt - 1;
+
+          if (bit_cnt == 7'd1)
+            $display("[%0t] ARB_BITS completed, Captured Data = %h",
+                     $time, {arb_shift[62:0], sda_i});
         end
       end
 
@@ -189,13 +209,28 @@ always @(posedge clk or negedge rst_n) begin
                        };
 
         bit_cnt   <= 7'd64;
+
+        if (!busy)
+          $display("[%0t] ASSIGN completed : PID=%h BCR=%h DCR=%h DYN_ADDR=%h",
+                   $time,
+                   arb_shift[63:16],
+                   arb_shift[15:8],
+                   arb_shift[7:0],
+                   dyn_addr);
       end
 
       LOOP: begin
         dt_en <= 1'b1;
 
-        if(nack)
+        if(nack) begin
           daa_done <= 1'b1;
+          $display("[%0t] LOOP completed : No more devices responded, DAA Done",
+                   $time);
+        end
+        else begin
+          $display("[%0t] LOOP completed : Next Dynamic Address = 0x%0h",
+                   $time, dyn_addr + 1'b1);
+        end
 
         dyn_addr <= dyn_addr + 1;
       end
@@ -203,6 +238,9 @@ always @(posedge clk or negedge rst_n) begin
       STOP: begin
         valid    <= 1'b0;
         daa_done <= 1'b1;
+
+        $display("[%0t] STOP state reached. DAA Finished.",
+                 $time);
       end
 
     endcase
