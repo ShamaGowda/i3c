@@ -101,9 +101,11 @@ package i3c_globals_pkg;
     WRITE_READ = 2'b10
   } writeReadMode_e;
 
-  typedef enum bit {
+  typedef enum bit[1:0] {
     SDR = 1'b0,
-    DAA = 1'b1
+    DAA = 1'b1,
+    HDR_WRITE = 2'b10,
+    HDR_READ = 2'b11
   } txn_type_e;
 
   typedef struct {

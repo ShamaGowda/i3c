@@ -13,11 +13,18 @@ class i3c_target_tx extends uvm_sequence_item;
        bit [DATA_WIDTH-1:0]       writeData[];
        acknowledge_e              readDataStatus[];
   rand bit [31:0]                 size;
+rand bit [15:0] hdr_data[$];
+bit [4:0] hdr_crc;
+bit hdr_parity;
+bit hdr_tbit;
+
 
  
-  typedef enum bit {
-    SDR = 1'b0,
-    DAA = 1'b1
+  typedef enum bit[1:0] {
+    SDR = 2'b0,
+    DAA = 2'b1,
+ HDR_WRITE = 2'b10,
+    HDR_READ = 2'b11
   } txn_type_e;
 
   rand txn_type_e   txn_type;         

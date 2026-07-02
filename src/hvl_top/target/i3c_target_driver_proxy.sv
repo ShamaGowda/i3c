@@ -135,7 +135,45 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
       // The sequence's body() checks req.daa_ack after finish_item()
       // returns, so those fields must remain intact.
 
-    end else begin
+
+else if(req.txn_type == i3c_target_tx::HDR_WRITE) begin
+ `uvm_info("TGT_DRV_PROXY",
+      "Transaction type = HDR_WRITE", UVM_NONE)
+
+    i3c_target_seq_item_converter::from_class(req, struct_packet);
+
+    i3c_target_drv_bfm_h.drive_hdr_write(
+      struct_packet,
+      struct_cfg
+    );
+
+    i3c_target_seq_item_converter::to_class(struct_packet, req);
+
+  end
+
+
+
+    else  if(req.txn_type == i3c_target_tx::HDR_READ) begin
+`uvm_info("TGT_DRV_PROXY",
+      "Transaction type = HDR_READ", UVM_NONE)
+
+    i3c_target_seq_item_converter::from_class(req, struct_packet);
+
+    i3c_target_drv_bfm_h.drive_hdr_read(
+      struct_packet,
+      struct_cfg
+    );
+
+    i3c_target_seq_item_converter::to_class(struct_packet, req);
+
+  end
+
+
+
+
+
+
+else begin
       // -----------------------------------------------------------------------
       // SDR TRANSACTION
       // -----------------------------------------------------------------------
