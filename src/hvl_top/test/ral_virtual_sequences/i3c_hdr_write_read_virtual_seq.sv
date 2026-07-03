@@ -80,6 +80,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
     // Step 1c: write CTRL — HDR WRITE
     `uvm_info(get_type_name(),
       "Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)", UVM_LOW)
+     i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 1;
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(write_len);
@@ -100,7 +101,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
 
     // Wait for DUT to complete HDR write
     #50us;
-
+    i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 0;
     `uvm_info(get_type_name(), "Phase 1 (HDR WRITE) complete", UVM_LOW)
 
 
@@ -121,6 +122,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
     // Step 2b: write CTRL — HDR READ
     `uvm_info(get_type_name(),
       "Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)", UVM_LOW)
+      i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 1;
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
     i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(read_len);
@@ -141,7 +143,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
 
     // Wait for DUT to complete HDR read
     #50us;
-
+i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 0;   
     // Step 2c: read back RDATAB bytes
     `uvm_info(get_type_name(),
       "Step 12: Reading RX FIFO via RDATAB", UVM_LOW)

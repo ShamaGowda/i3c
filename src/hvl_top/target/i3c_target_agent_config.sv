@@ -15,7 +15,7 @@ class i3c_target_agent_config extends uvm_object;
   int unsigned                       target_id            = 0;
 
  bit  has_daa               = 0;
- 
+bit  hdr_mode               = 0; 
  
   bit                                daa_accept_address   = 1;
   bit [47:0] pid = 48'hAABBCCDDEEFF;  

@@ -106,7 +106,23 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
 
       i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
 
-    end else begin
+
+
+
+
+
+    end
+    ////////////////////////////////////HDR/////////////////////////////////////////
+   else if (i3c_target_agent_cfg_h != null && i3c_target_agent_cfg_h.hdr_mode) begin
+  i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
+end  
+
+///////////////////////////////////////////////////////////////////////////////////    
+    
+    
+    
+    
+    else begin
 
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] Waiting to sample SDR transaction",

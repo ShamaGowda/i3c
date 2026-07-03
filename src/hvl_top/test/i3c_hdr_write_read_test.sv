@@ -15,7 +15,7 @@ class i3c_hdr_write_read_test extends i3c_base_test;
   extern function new(string name = "i3c_hdr_write_read_test",
                       uvm_component parent = null);
   extern virtual task run_phase(uvm_phase phase);
-
+extern virtual function void build_phase(uvm_phase phase);
 endclass : i3c_hdr_write_read_test
 
 
@@ -26,8 +26,17 @@ function i3c_hdr_write_read_test::new(
 endfunction : new
 
 
+
+function void i3c_hdr_write_read_test::build_phase(uvm_phase phase);
+      super.build_phase(phase);
+        i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 1;
+    endfunction : build_phase
+
+
 task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
   i3c_hdr_write_read_virtual_seq hdr_wr_rd_vseq;
+ i3c_daa_virtual_seq            daaSeq;  
+
   phase.raise_objection(this);
 
   `uvm_info(get_type_name(),
@@ -36,6 +45,10 @@ task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
     daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
     daaSeq.start(i3c_env_h.top_virtual_seqr_h);
 
+i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 0;
+
+
+
  `uvm_info(get_type_name(),
       "DAA done - updating target address to dynamic 0x08",
       UVM_LOW)
@@ -43,6 +56,12 @@ task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
   hdr_wr_rd_vseq =
     i3c_hdr_write_read_virtual_seq::type_id::create("hdr_wr_rd_vseq");
   hdr_wr_rd_vseq.start(i3c_env_h.top_virtual_seqr_h);
+
+
+
+
+
+
 
   phase.drop_objection(this);
 endtask : run_phase

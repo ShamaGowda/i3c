@@ -38,7 +38,8 @@ module hdl_top;
   logic [7:0]  w_data;
   logic [31:0] rd_data;
   logic [7:0]  r_data;
-
+logic dut_cmd_dc_type;
+assign dut_cmd_dc_type = 1'b0; 
   logic scl_o;
   wire  sda_o;
   logic sda_oe;
@@ -116,7 +117,7 @@ module hdl_top;
     .rd_data    (rd_data),
     .r_data     (r_data),
     .scl_i      (I3C_SCL),
-    
+      .cmd_dc_type (dut_cmd_dc_type),
     .sda_i      (I3C_SDA),
     .sda_o      (sda_o),
     .sda_oe     (sda_oe)

@@ -279,6 +279,63 @@ interface i3c_target_monitor_bfm (
     end while (!(scl_loc_m == edgeSCL));
   endtask : detectEdge_scl
 
+///////////////////////////////////////////////HDR/////////////////////////////////////
+
+task sample_hdr_ddr_word_wr(output bit [15:0] word);   // WRITE: DUT drives
+  word = '0;
+  for (int b = 15; b >= 0; b -= 2) begin
+    detectEdge_scl(POSEDGE);
+    word[b]   = sda_i;
+    detectEdge_scl(NEGEDGE);
+    word[b-1] = sda_i;
+  end
+endtask : sample_hdr_ddr_word_wr
+
+task sample_hdr_ddr_word_rd(output bit [15:0] word);   // READ: target drives,
+  word = '0;                                            // DUT captures fall-first
+  for (int b = 15; b >= 0; b -= 2) begin
+    detectEdge_scl(NEGEDGE);
+    word[b]   = sda_i;
+    detectEdge_scl(POSEDGE);
+    word[b-1] = sda_i;
+  end
+endtask : sample_hdr_ddr_word_rd
+
+task sample_hdr_data(inout i3c_transfer_bits_s pkt,
+                      inout i3c_transfer_cfg_s  cfg);
+  int byte_idx;
+  detect_start();
+  sample_target_address(pkt);
+  sample_operation(pkt.operation);
+  sampleAddressAck(pkt.targetAddressStatus);
+
+  if (pkt.targetAddressStatus != ACK) begin
+    detect_stop();
+    return;
+  end
+
+  pkt.txn_type = (pkt.operation == WRITE) ? i3c_target_tx::HDR_WRITE : i3c_target_tx::HDR_READ;
+  byte_idx = 0;
+
+  fork
+    begin
+      bit [15:0] w;
+      while (byte_idx < MAXIMUM_BYTES) begin
+        if (pkt.operation == WRITE) sample_hdr_ddr_word_wr(w);
+        else                        sample_hdr_ddr_word_rd(w);
+        pkt.writeData[byte_idx]   = w[15:8];  // harmless if READ; readData set below
+        pkt.readData[byte_idx]    = w[15:8];
+        pkt.writeData[byte_idx+1] = w[7:0];
+        pkt.readData[byte_idx+1]  = w[7:0];
+        pkt.no_of_i3c_bits_transfer += 16;
+        byte_idx += 2;
+      end
+    end
+  join_none
+  detect_stop();
+  disable fork;
+endtask : sample_hdr_data
+
 endinterface : i3c_target_monitor_bfm
 
 `endif

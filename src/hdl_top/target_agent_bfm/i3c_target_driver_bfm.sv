@@ -822,7 +822,135 @@ interface i3c_target_driver_bfm (
     scl_edge_value = edge_detect_e'(scl_local);
     `uvm_info("TARGET_DRIVER_BFM",
       $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH)
+  
   endtask : detectEdge_scl
+
+
+//////////////////////////////////////HDR/////////////////////////////////////////////
+
+
+
+// =========================================================================
+// HDR-DDR word helpers
+// =========================================================================
+
+// WRITE direction: target SAMPLES what DUT drives. DUT shifts a new bit
+// out on every edge (rise or fall) uniformly -> sample POSEDGE-first.
+task sample_hdr_ddr_word_wr(output bit [15:0] word);
+  word = '0;
+  for (int b = 15; b >= 0; b -= 2) begin
+    detectEdge_scl(POSEDGE);
+    word[b]   = sda_i;
+    detectEdge_scl(NEGEDGE);
+    word[b-1] = sda_i;
+  end
+endtask : sample_hdr_ddr_word_wr
+
+// READ direction: target DRIVES, DUT's rx engine captures FALL-bit first,
+// then RISE-bit (capture_fall gate in i3c_hdr_ddr_engine.v) -> drive
+// NEGEDGE-first, matching the DUT's own capture order exactly.
+task drive_hdr_ddr_word_rd(input bit [15:0] word);
+  for (int b = 15; b >= 0; b -= 2) begin
+    drive_sda(word[b]);
+    detectEdge_scl(NEGEDGE);
+    drive_sda(word[b-1]);
+    detectEdge_scl(POSEDGE);
+  end
+endtask : drive_hdr_ddr_word_rd
+
+// =========================================================================
+// HDR WRITE  (flow steps 3-13)
+// =========================================================================
+task drive_hdr_write(
+    inout i3c_transfer_bits_s dataPacketStruck,
+    input i3c_transfer_cfg_s  configPacketStruck);
+
+  int byte_idx;
+
+  `uvm_info(name, "HDR WRITE started", UVM_HIGH)
+  detect_start();
+  sample_target_address(configPacketStruck, dataPacketStruck);   // Step 5
+  sample_operation(dataPacketStruck.operation);
+  driveAddressAck(dataPacketStruck.targetAddressStatus);          // Step 6
+
+  if (dataPacketStruck.targetAddressStatus != ACK) begin
+    detect_stop();
+    return;
+  end
+
+  dataPacketStruck.txn_type = i3c_target_tx::HDR_WRITE;  // maps to i3c_target_tx::HDR_WRITE, see change 6 note
+  byte_idx = 0;
+
+  fork
+    begin
+      bit [15:0] w;
+      while (byte_idx < MAXIMUM_BYTES) begin        // Steps 9-11: DDR data
+        sample_hdr_ddr_word_wr(w);
+        dataPacketStruck.writeData[byte_idx]         = w[15:8];
+        dataPacketStruck.writeData[byte_idx+1]       = w[7:0];
+        dataPacketStruck.writeDataStatus[byte_idx]   = ACK;
+        dataPacketStruck.writeDataStatus[byte_idx+1] = ACK;
+        dataPacketStruck.no_of_i3c_bits_transfer += 16;
+        byte_idx += 2;
+      end
+    end
+  join_none
+  wrDetect_stop();                                    // Steps 12-13: STOP
+  disable fork;
+
+  `uvm_info(name, $sformatf("HDR WRITE done: %0d bytes", byte_idx), UVM_LOW)
+endtask : drive_hdr_write
+
+// =========================================================================
+// HDR READ  (flow steps 2-11)
+// =========================================================================
+task drive_hdr_read(
+    inout i3c_transfer_bits_s dataPacketStruck,
+    input i3c_transfer_cfg_s  configPacketStruck);
+
+  int byte_idx;
+
+  `uvm_info(name, "HDR READ started", UVM_HIGH)
+  detect_start();
+  sample_target_address(configPacketStruck, dataPacketStruck);   // Step 4
+  sample_operation(dataPacketStruck.operation);
+  driveAddressAck(dataPacketStruck.targetAddressStatus);          // Step 5
+
+  if (dataPacketStruck.targetAddressStatus != ACK) begin
+    detect_stop();
+    return;
+  end
+
+  dataPacketStruck.txn_type = i3c_target_tx::HDR_READ;
+  byte_idx = 0;
+
+  fork
+    begin
+      bit [15:0] w;
+      bit [7:0]  b0, b1;
+      while (byte_idx < MAXIMUM_BYTES) begin        // Steps 6-8
+        if (targetFIFOMemory.size() >= 2) begin
+          b0 = targetFIFOMemory.pop_front();
+          b1 = targetFIFOMemory.pop_front();
+        end else begin
+          b0 = configPacketStruck.defaultReadData;
+          b1 = configPacketStruck.defaultReadData;
+        end
+        drive_hdr_ddr_word_rd({b0, b1});
+        dataPacketStruck.readData[byte_idx]         = b0;
+        dataPacketStruck.readData[byte_idx+1]       = b1;
+        dataPacketStruck.readDataStatus[byte_idx]   = ACK;
+        dataPacketStruck.readDataStatus[byte_idx+1] = ACK;
+        dataPacketStruck.no_of_i3c_bits_transfer += 16;
+        byte_idx += 2;
+      end
+    end
+  join_none
+  wrDetect_stop();                                    // Steps 10-11: STOP
+  disable fork;
+
+  `uvm_info(name, $sformatf("HDR READ done: %0d bytes", byte_idx), UVM_LOW)
+endtask : drive_hdr_read
 
 endinterface : i3c_target_driver_bfm
 

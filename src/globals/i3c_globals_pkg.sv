@@ -118,7 +118,7 @@ package i3c_globals_pkg;
     bit [DATA_WIDTH-1:0]             readData[MAXIMUM_BYTES];
     int                              no_of_i3c_bits_transfer;
     bit [REGISTER_ADDRESS_WIDTH-1:0] register_address;
-    bit                              txn_type;
+    bit [1:0]                             txn_type;
     bit [47:0]                       pid;
     bit [7:0]                        bcr;
     bit [7:0]                        dcr;
