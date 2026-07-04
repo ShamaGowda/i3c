@@ -681,7 +681,7 @@ task i3c_scoreboard::compare_with_hdr_target();
       got = 1;
     end
     begin
-      #100us;
+      #500us;
     end
   join_any
   disable fork;

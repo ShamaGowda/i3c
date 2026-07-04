@@ -102,7 +102,8 @@ always @(posedge clk or negedge rst_n) begin
     done_second     <= 1'b0;
 
   end else begin
-
+if (state != next)
+    $display("[%0t] HDR_FSM: state=%0d next=%0d", $time, state, next);
     done        <= 0;
     hdr_valid   <= 0;
     tx_ready    <= 0;
@@ -114,7 +115,11 @@ always @(posedge clk or negedge rst_n) begin
       busy <= 0;
       hdr_stop <= 0;
 
+
       if (start_hdr) begin
+
+ $display("[%0t] HDR_FSM: Entering HDR mode dir=%0b len=%0d",
+             $time, hdr_dir, hdr_len);
         byte_cnt       <= hdr_len;
         busy           <= 1;
         hdr_start      <= 1;
@@ -138,11 +143,17 @@ always @(posedge clk or negedge rst_n) begin
         end
 
         else if (!byte_buf_valid && tx_valid) begin
+ $display("[%0t] HDR_FSM: First HDR byte received = 0x%02h",
+               $time, tx_data);
           byte_buf       <= tx_data;
           byte_buf_valid <= 1'b1;
         end
 
         else if (byte_buf_valid && tx_valid) begin
+
+
+ $display("[%0t] HDR_FSM: First HDR byte received = 0x%02h",
+               $time, tx_data);
           hdr_valid      <= 1'b1;
           hdr_rw         <= 1'b0;
           hdr_tx_data    <= {byte_buf, tx_data};
@@ -150,6 +161,12 @@ always @(posedge clk or negedge rst_n) begin
         end
 
         else if (byte_buf_valid && (byte_cnt == 1)) begin
+
+
+  $display("[%0t] HDR_FSM: Sending last HDR word = 0x%04h",
+               $time, {byte_buf, 8'h00});
+
+
           hdr_valid      <= 1'b1;
           hdr_rw         <= 1'b0;
           hdr_tx_data    <= {byte_buf, 8'h00};
@@ -167,6 +184,8 @@ always @(posedge clk or negedge rst_n) begin
     end
 
     RECV: begin
+$display("[%0t] HDR_FSM: RECV state hdr_busy=%0b hdr_done=%0b byte_cnt=%0d",
+         $time, hdr_busy, hdr_done, byte_cnt);
       hdr_start <= 0;
 
       if (push_second) begin
@@ -197,6 +216,7 @@ always @(posedge clk or negedge rst_n) begin
     end
 
     STOP: begin
+$display("[%0t] HDR_FSM: STOP state", $time);
       hdr_stop <= 1'b1;
       done     <= 1'b1;
     end

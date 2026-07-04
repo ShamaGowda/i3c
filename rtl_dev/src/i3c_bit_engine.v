@@ -230,6 +230,8 @@ always @ (posedge clk or negedge rst_n) begin
 
       START  : begin 
         busy <= 1'b1;
+$display("[%0t] BIT_ENGINE: START state SCL=%0b SDA=%0b",
+         $time, scl_i, sda_i);
         s_o  <= sda_o;
         s_oe <= sda_oe;
 
@@ -247,6 +249,11 @@ always @ (posedge clk or negedge rst_n) begin
 		  arbitration_lost <= 1'b1;
 
         if (scl_fall) begin
+ $display("[%0t] BIT_ENGINE: SHIFT bit=%0d SCL=%0b SDA_OUT=%0b SDA_IN=%0b shift_reg=0x%02h",
+             $time, bit_cnt, scl_i, sda_o, sda_i, shift_reg);
+
+
+
             bit_cnt <= bit_cnt == 0 ? 3'd7 : bit_cnt - 1'b1;
         end
 
@@ -287,6 +294,8 @@ always @ (posedge clk or negedge rst_n) begin
 	    if (push_pull) begin
 
 		  if (!rd_wr && scl_rise) begin
+$display("[%0t] BIT_ENGINE: ACK sampled SDA=%0b parity=%0b",
+         $time, sda_i, parity_bit);
             parity_error <= (sda_i != parity_bit);
             nack <= 1'b0;
 		  end
@@ -318,6 +327,9 @@ always @ (posedge clk or negedge rst_n) begin
       end
 	  
       STOP   : begin
+
+
+$display("[%0t] BIT_ENGINE: STOP generated", $time);
         busy <= 1'b0;
         s_oe <= 1'b1;
 

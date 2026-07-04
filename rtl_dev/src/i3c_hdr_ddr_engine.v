@@ -49,6 +49,7 @@ always @(posedge clk or negedge rst_n) begin
     done <= 0;
 
     if (valid && !busy) begin
+        $display("[%0t] HDR_DDR: START rw=%0b tx_data=0x%04h", $time, rw, tx_data);
       busy      <= 1;
       bit_cnt   <= 16;
       shift_reg <= (rw) ? 16'b0 : tx_data;
@@ -70,6 +71,9 @@ always @(posedge clk or negedge rst_n) begin
         capture_fall <= 0;
 
         if (bit_cnt == 2) begin
+            $display("[%0t] HDR_DDR: RX COMPLETE data=0x%04h",
+                         $time,
+                                  {shift_reg[13:0], bit_fall, sda_i});
           rx_data <= {shift_reg[13:0], bit_fall, sda_i};
           busy    <= 0;
           done    <= 1;
@@ -80,10 +84,14 @@ always @(posedge clk or negedge rst_n) begin
     else if (busy && !rw) begin
 
       if (scl_rise || scl_fall) begin
+           $display("[%0t] HDR_DDR: TX shift_reg=0x%04h bit_cnt=%0d",
+                                $time, shift_reg, bit_cnt);
+
         shift_reg <= {shift_reg[14:0], 1'b0};
         bit_cnt   <= bit_cnt - 1;
 
         if (bit_cnt == 1) begin
+            $display("[%0t] HDR_DDR: TX COMPLETE", $time);
           busy <= 0;
           done <= 1;
         end
@@ -91,6 +99,7 @@ always @(posedge clk or negedge rst_n) begin
     end
 
     if (hdr_stop) begin
+        $display("[%0t] HDR_DDR: hdr_stop received", $time);
       busy <= 0;
     end
 

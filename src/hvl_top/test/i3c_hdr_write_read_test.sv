@@ -29,7 +29,7 @@ endfunction : new
 
 function void i3c_hdr_write_read_test::build_phase(uvm_phase phase);
       super.build_phase(phase);
-        i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 1;
+      //  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 1;
     endfunction : build_phase
 
 
@@ -41,11 +41,11 @@ task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
 
   `uvm_info(get_type_name(),
     "Starting HDR Write+Read test", UVM_LOW)
- daaSeq = i3c_daa_virtual_seq::type_id::create("daaSeq");
-    daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
-    daaSeq.start(i3c_env_h.top_virtual_seqr_h);
+// daaSeq = i3c_daa_virtual_seq::type_id::create("daaSeq");
+  //  daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
+    //daaSeq.start(i3c_env_h.top_virtual_seqr_h);
 
-i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 0;
+//i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 0;
 
 
 

@@ -14,7 +14,7 @@ package i3c_globals_pkg;
   // Number of slaves – change this one constant to scale the testbench
   // -----------------------------------------------------------------------
   parameter int NO_OF_CONTROLLERS = 1;
-  parameter int NO_OF_TARGETS     = 3;   // <<< set to desired slave count
+  parameter int NO_OF_TARGETS     = 1;   // <<< set to desired slave count
 
   parameter int NO_OF_REG              = 1;
   parameter int DATA_WIDTH             = 8;

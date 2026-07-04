@@ -163,7 +163,9 @@ always @(*) begin
 
       IDLE: begin
         if (start)
-          next_state = SEND_ADDR;
+ $display("[%0t] SDR_FSM: START received", $time); 
+         next_state = SEND_ADDR;
+ 
       end
 
       SEND_ADDR: begin
@@ -171,6 +173,12 @@ always @(*) begin
         be_rd_wr = 0;
 
         be_tx_data = is_i3c ? {dyn_addr, dir} : {addr, dir};
+$display("[%0t] SDR_FSM: Sending Address = 0x%02h dir=%0b is_i3c=%0b be_tx_data=0x%02h",
+         $time,
+         is_i3c ? dyn_addr : addr,
+         dir,
+         is_i3c,
+         be_tx_data);
         sdr_addr   = addr;
 
         if (!be_busy)
@@ -179,7 +187,11 @@ always @(*) begin
 
       WAIT_ADDR: begin
         if (!be_busy && be_done) begin
-
+$display("[%0t] SDR_FSM: Address phase complete be_done=%0b nack=%0b parity=%0b",
+         $time,
+         be_done,
+         be_nack,
+         parity_error);
           if (is_i3c) begin
             if (parity_error)
               next_state = ERROR;
@@ -201,7 +213,10 @@ always @(*) begin
       end
 
       SEND_WR: begin
-
+$display("[%0t] SDR_FSM: Enter SEND_WR start_hdr=%0b cmd_mode=%0b",
+         $time,
+         start_hdr,
+         cmd_mode);
         if(start_hdr || cmd_mode==1)
           next_state = STOP;
 
@@ -315,6 +330,7 @@ always @(*) begin
       end
 
       STOP: begin
+$display("[%0t] SDR_FSM: STOP", $time);
         done       = 1'b1;
         next_state = IDLE;
       end

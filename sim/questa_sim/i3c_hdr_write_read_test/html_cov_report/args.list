@@ -1,0 +1,5 @@
+-html
+i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb
+-htmldir
+i3c_hdr_write_read_test/html_cov_report
+-details
