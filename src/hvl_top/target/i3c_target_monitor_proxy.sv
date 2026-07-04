@@ -34,11 +34,13 @@ endfunction : new
 
 
 function void i3c_target_monitor_proxy::build_phase(uvm_phase phase);
- if(!uvm_config_db #(virtual i3c_target_monitor_bfm)::get(this,"","i3c_target_monitor_bfm",i3c_target_mon_bfm_h))begin
-  `uvm_fatal("FATAL_MDP_CANNOT_GET_target_MONITOR_BFM","cannot get () i3c_target_monitor_bfm from uvm_config_db")
-  end
 
-  super.build_phase(phase);
+super.build_phase(phase);
+// if(!uvm_config_db #(virtual i3c_target_monitor_bfm)::get(this,"","i3c_target_monitor_bfm",i3c_target_mon_bfm_h))begin
+  //`uvm_fatal("FATAL_MDP_CANNOT_GET_target_MONITOR_BFM","cannot get () i3c_target_monitor_bfm from uvm_config_db")
+
+
+
 endfunction : build_phase
 
 

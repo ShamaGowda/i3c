@@ -878,7 +878,7 @@ task drive_hdr_write(
     return;
   end
 
-  dataPacketStruck.txn_type = i3c_target_tx::HDR_WRITE;  // maps to i3c_target_tx::HDR_WRITE, see change 6 note
+  //dataPacketStruck.txn_type = i3c_target_tx::HDR_WRITE;  // maps to i3c_target_tx::HDR_WRITE, see change 6 note
   byte_idx = 0;
 
   fork
@@ -921,7 +921,7 @@ task drive_hdr_read(
     return;
   end
 
-  dataPacketStruck.txn_type = i3c_target_tx::HDR_READ;
+  //dataPacketStruck.txn_type = i3c_target_tx::HDR_READ;
   byte_idx = 0;
 
   fork

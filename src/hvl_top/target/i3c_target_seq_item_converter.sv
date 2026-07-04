@@ -80,7 +80,7 @@ function void i3c_target_seq_item_converter::to_class(
 int byte_count;
   output_conv = new();
 
-
+output_conv.no_of_i3c_bits_transfer = input_conv_h.no_of_i3c_bits_transfer;   // <-- ADD
 
   output_conv.targetAddress =
       input_conv_h.targetAddress;

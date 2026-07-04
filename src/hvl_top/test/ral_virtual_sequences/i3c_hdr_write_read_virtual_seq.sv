@@ -64,7 +64,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
       begin
         i3c_target_hdr_write_seq tgt_write;
         tgt_write = i3c_target_hdr_write_seq::type_id::create("tgt_write");
-        tgt_write.start(p_sequencer.i3c_target_seqr_h);
+        tgt_write.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
@@ -81,13 +81,14 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
     `uvm_info(get_type_name(),
       "Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)", UVM_LOW)
      i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 1;
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
-      i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(write_len);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b0);  // WRITE
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_mode.set(1'b1);   // HDR
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
+   i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
+  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(write_len);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b0);   // WRITE
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_mode.set(1'b1);  // HDR
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
+ 
 
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();
     `uvm_info(get_type_name(),
@@ -115,7 +116,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
       begin
         i3c_target_hdr_read_seq tgt_read;
         tgt_read = i3c_target_hdr_read_seq::type_id::create("tgt_read");
-        tgt_read.start(p_sequencer.i3c_target_seqr_h);
+        tgt_read.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
 
@@ -123,14 +124,13 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
     `uvm_info(get_type_name(),
       "Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)", UVM_LOW)
       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].hdr_mode = 1;
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.address.set(
-      i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.length.set(read_len);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.direction.set(1'b1);  // READ
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_mode.set(1'b1);   // HDR
-    i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
-
+    i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_addr.set(
+  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(read_len);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);   // READ
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_mode.set(1'b1);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();
     `uvm_info(get_type_name(),
       $sformatf("  CTRL = 0x%08x", ctrl_val), UVM_LOW)

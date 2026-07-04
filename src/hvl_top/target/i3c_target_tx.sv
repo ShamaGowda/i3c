@@ -28,6 +28,7 @@ bit hdr_tbit;
   } txn_type_e;
 
   rand txn_type_e   txn_type;         
+ int               no_of_i3c_bits_transfer;  
   rand bit [47:0]   pid;               
   rand bit [7:0]    bcr;          
   rand bit [7:0]    dcr;             
@@ -109,7 +110,8 @@ function void i3c_target_tx::do_copy(uvm_object rhs);
 
  
   txn_type        = target_rhs.txn_type;
-  pid             = target_rhs.pid;
+no_of_i3c_bits_transfer = target_rhs.no_of_i3c_bits_transfer;  
+pid             = target_rhs.pid;
   bcr             = target_rhs.bcr;
   dcr             = target_rhs.dcr;
   dynamic_address = target_rhs.dynamic_address;
@@ -138,6 +140,7 @@ function bit i3c_target_tx::do_compare(uvm_object rhs,
     readDataStatus      == target_rhs.readDataStatus      &&
  
     txn_type        == target_rhs.txn_type        &&
+no_of_i3c_bits_transfer == target_rhs.no_of_i3c_bits_transfer  &&   // <-- ADD
     pid             == target_rhs.pid             &&
     bcr             == target_rhs.bcr             &&
     dcr             == target_rhs.dcr             &&
