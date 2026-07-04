@@ -135,7 +135,8 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
       // The sequence's body() checks req.daa_ack after finish_item()
       // returns, so those fields must remain intact.
 
-
+  end
+ 
 else if(req.txn_type == i3c_target_tx::HDR_WRITE) begin
  `uvm_info("TGT_DRV_PROXY",
       "Transaction type = HDR_WRITE", UVM_NONE)

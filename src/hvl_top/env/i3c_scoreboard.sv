@@ -47,7 +47,7 @@ class i3c_scoreboard extends uvm_component;
   bit [7:0] exp_length;
   bit       exp_direction;
   bit [1:0] exp_cmd_type;
-  bit [7:0] exp_ccct       
+  bit [7:0] exp_ccct;       
 
    bit       exp_mode;
 
