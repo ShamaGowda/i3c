@@ -1,5 +1,5 @@
 # vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=i3c_hdr_write_read_test" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3c_hdr_write_read_test/i3c_hdr_write_read_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb; run -all; exit" -wlf i3c_hdr_write_read_test/waveform.wlf 
-# Start time: 00:33:42 on Jul 05,2026
+# Start time: 10:53:19 on Jul 05,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_bit_engine(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_sdr_fsm(fast)".
@@ -73,7 +73,7 @@
 # ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
 #    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
-# Sv_Seed = 11246130
+# Sv_Seed = 3114212094
 # log -r /*
 #  add wave -r /*
 #  coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb
@@ -204,7 +204,7 @@
 # UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(43) @ 0: uvm_test_top [i3c_hdr_write_read_test] Starting HDR Write+Read test
 # UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(54) @ 0: uvm_test_top [i3c_hdr_write_read_test] DAA done - updating target address to dynamic 0x08
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_monitor_proxy.sv(84) @ 0: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_mon_proxy_h [apb_master_monitor_proxy] Inside the master_monitor_proxy
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(55) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=2 write_data='{215, 208}  read_len=2
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(55) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=1 write_data='{24}  read_len=4
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(60) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] === PHASE 1: HDR WRITE ===
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(72) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 1: Loading TX FIFO (WDATAB)
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(103) @ 90: reporter [DEBUG_MSHA] drive_apb_idle state = IDLE and state = 1
@@ -220,9 +220,9 @@
 #   parent sequence (full name)  string         72    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_write
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h          
 #   txn_type                     string         9     HDR_WRITE                                                               
-#   pid                          integral       48    'hc0cf4b6b2afe                                                          
-#   bcr                          integral       8     'h97                                                                    
-#   dcr                          integral       8     'h8b                                                                    
+#   pid                          integral       48    'h519c3b8433a8                                                          
+#   bcr                          integral       8     'h35                                                                    
+#   dcr                          integral       8     'hb0                                                                    
 #   dynamic_address              integral       7     'h0                                                                     
 #   daa_ack                      integral       1     'b0                                                                     
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -240,7 +240,7 @@
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h30              
 #   pwrite                      string         5     WRITE             
-#   pwdata                      integral       32    'hd7              
+#   pwdata                      integral       32    'h18              
 #   transfer_size               string         0     ""                
 #   pstrb                       integral       4     'b1111            
 #   pprot                       string         18    NORMAL_SECURE_DATA
@@ -249,11 +249,15 @@
 #   no_of_wait_states_detected  integral       32    'd1               
 # ---------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 170: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   WDATAB[0] = 0xd7
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 170: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   WDATAB[0] = 0x18
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(82) @ 170: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(95) @ 170: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x840000e8
 # [190] BIT_ENGINE: START state SCL=1 SDA=0
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 190: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
 # [210] BIT_ENGINE: START state SCL=1 SDA=0
 # [230] BIT_ENGINE: START state SCL=0 SDA=0
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(215) @ 240: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x68 dir=0 len=1 cmd_type=0x0 ccc=0x0
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(172) @ 240: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
 # [250] BIT_ENGINE: START state SCL=0 SDA=0
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 250: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
@@ -261,32 +265,9 @@
 # ---------------------------------------------------------------------
 # apb_master_tx                 apb_master_tx  -     @1300             
 #   pselx                       string         7     SLAVE_0           
-#   paddr                       integral       32    'h30              
-#   pwrite                      string         5     WRITE             
-#   pwdata                      integral       32    'hd0              
-#   transfer_size               string         0     ""                
-#   pstrb                       integral       4     'b1111            
-#   pprot                       string         18    NORMAL_SECURE_DATA
-#   prdata                      integral       32    'h0               
-#   pslverr                     string         8     NO_ERROR          
-#   no_of_wait_states_detected  integral       32    'd1               
-# ---------------------------------------------------------------------
-# 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   WDATAB[1] = 0xd0
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(82) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(95) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x84000168
-# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 270: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(215) @ 320: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x68 dir=0 len=2 cmd_type=0x0 ccc=0x0
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(172) @ 320: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 330: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
-#  ---------------------------------------------------------------------
-# Name                          Type           Size  Value             
-# ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1316             
-#   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'hc               
 #   pwrite                      string         5     WRITE             
-#   pwdata                      integral       32    'h84000168        
+#   pwdata                      integral       32    'h840000e8        
 #   transfer_size               string         0     ""                
 #   pstrb                       integral       4     'b1111            
 #   pprot                       string         18    NORMAL_SECURE_DATA
@@ -295,9 +276,9 @@
 #   no_of_wait_states_detected  integral       32    'd1               
 # ---------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(101) @ 330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Steps 3-13: DUT performs SDR address ÿÿ’ HDR entrÿÿÿ†’ DDR WRITE ÿÿ’ STOP
-# [350] CMD_CTRL: cmd_start=1 mode=1 type=0 addr=0x68 dir=0 len=2
-# [350] CMD_CTRL: HDR command received
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(101) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Steps 3-13: DUT performs SDR address ÿÿ’ HDR entrÿÿÿ†’ DDR WRITE ÿÿ’ STOP
+# [270] CMD_CTRL: cmd_start=1 mode=1 type=0 addr=0x68 dir=0 len=1
+# [270] CMD_CTRL: HDR command received
 # [410] BIT_ENGINE: SHIFT bit=7 SCL=0 SDA_OUT=0 SDA_IN=0 shift_reg=0xX0
 # [570] BIT_ENGINE: SHIFT bit=6 SCL=0 SDA_OUT=0 SDA_IN=0 shift_reg=0xX0
 # [730] BIT_ENGINE: SHIFT bit=5 SCL=0 SDA_OUT=0 SDA_IN=0 shift_reg=0xX0
@@ -310,30 +291,29 @@
 # [1630] CMD_CTRL: be_done=1 hdr_pending=1 -> starting HDR
 # [1630] SDR_FSM: Address phase complete be_done=1 nack=0 parity=0
 # [1650] HDR_FSM: state=0 next=1
-# [1650] HDR_FSM: Entering HDR mode dir=0 len=2
+# [1650] HDR_FSM: Entering HDR mode dir=0 len=1
 # [1650] SDR_FSM: Enter SEND_WR start_hdr=1 cmd_mode=1
 # [1670] SDR_FSM: STOP
 # [1690] CMD_CTRL: Transaction completed
-# [1690] HDR_FSM: First HDR byte received = 0xd7
 # [1710] BIT_ENGINE: STOP generated
 # [1710] SDR_FSM: Sending Address = 0x68 dir=0 is_i3c=0 be_tx_data=0xd0
 # [1730] BIT_ENGINE: STOP generated
 # [1750] BIT_ENGINE: STOP generated
 # [1770] BIT_ENGINE: STOP generated
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(106) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Phase 1 (HDR WRITE) complete
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(112) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] === PHASE 2: HDR READ ===
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(125) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(136) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x84008168
-# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50350: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50410: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(106) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Phase 1 (HDR WRITE) complete
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(112) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] === PHASE 2: HDR READ ===
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(125) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(136) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x84008268
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50270: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50330: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1332             
+# apb_master_tx                 apb_master_tx  -     @1316             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'hc               
 #   pwrite                      string         5     WRITE             
-#   pwdata                      integral       32    'h84008168        
+#   pwdata                      integral       32    'h84008268        
 #   transfer_size               string         0     ""                
 #   pstrb                       integral       4     'b1111            
 #   pprot                       string         18    NORMAL_SECURE_DATA
@@ -342,16 +322,35 @@
 #   no_of_wait_states_detected  integral       32    'd1               
 # ---------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(142) @ 50410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Steps 2-11: DUT performs SDR addressÿÿÿ’ HDR entÿÿÿâÿ’ DDR READ ÿÿ’ STOP
-# [50430] CMD_CTRL: cmd_start=1 mode=1 type=0 addr=0x68 dir=1 len=2
-# [50430] CMD_CTRL: HDR command received
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(149) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 12: Reading RX FIFO via RDATAB
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(142) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Steps 2-11: DUT performs SDR addressÿÿÿ’ HDR entÿÿÿâÿ’ DDR READ ÿÿ’ STOP
+# [50350] CMD_CTRL: cmd_start=1 mode=1 type=0 addr=0x68 dir=1 len=4
+# [50350] CMD_CTRL: HDR command received
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(149) @ 100330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Step 12: Reading RX FIFO via RDATAB
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100350: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100410: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1344             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'h40              
+#   pwrite                      string         4     READ              
+#   pwdata                      integral       32    'h0               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b0               
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[0] = 0x00
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100430: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100490: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1360             
+# apb_master_tx                 apb_master_tx  -     @1364             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -364,13 +363,13 @@
 #   no_of_wait_states_detected  integral       32    'd1               
 # ---------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100490: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[0] = 0x00
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100490: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[1] = 0x00
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100510: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100570: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1380             
+# apb_master_tx                 apb_master_tx  -     @1384             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -383,13 +382,32 @@
 #   no_of_wait_states_detected  integral       32    'd1               
 # ---------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[1] = 0x00
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(156) @ 100570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(157) @ 100570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
-# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 103570: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(578) @ 103570: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[2] = 0x00
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100590: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1404             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'h40              
+#   pwrite                      string         4     READ              
+#   pwdata                      integral       32    'h0               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b0               
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(153) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq]   RDATAB[3] = 0x00
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(156) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(157) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdr_wr_rd_vseq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 103650: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(578) @ 103650: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
 # ============= SCOREBOARD SUMMARY =============
-#   APB transactions seen      : 3
+#   APB transactions seen      : 2
 #   I3C target transactions    : 0
 #   -- SDR --
 #   Write byte pass / fail     : 0 / 0
@@ -399,28 +417,28 @@
 #   Dyn address pass / fail    : 0 / 0
 #   Parity/ACK  pass / fail    : 0 / 0
 # ==============================================
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(654) @ 103570: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 103570: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(654) @ 103650: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 103650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
 # 
 # --------------------------------------
 # target COVERAGE
 # --------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(173) @ 103570: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent SDR Coverage = 0.00 %
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(177) @ 103570: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent DAA Coverage = 0.00 %
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(182) @ 103570: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent Total Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(173) @ 103650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent SDR Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(177) @ 103650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent DAA Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(182) @ 103650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent Total Coverage = 0.00 %
 # 
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :   60
+# UVM_INFO :   63
 # UVM_WARNING :    0
 # UVM_ERROR :    0
 # UVM_FATAL :    0
 # ** Report counts by id
 # [APB_MASTER_DRIVER_BFM]     1
 # [APB_MASTER_MONITOR_BFM]     1
-# [DEBUG_MSHA]     7
+# [DEBUG_MSHA]     8
 # [I3C_TARGET_DRIVER_BFM]     1
 # [Questa UVM]     2
 # [RNTST]     1
@@ -433,14 +451,14 @@
 # [UVMTOP]     1
 # [apb master agent bfm]     1
 # [apb_master_coverage]     1
-# [apb_master_driver_proxy]     6
+# [apb_master_driver_proxy]     7
 # [apb_master_monitor_proxy]     1
 # [i3c_hdr_write_read_test]     4
-# [i3c_hdr_write_read_virtual_seq]    18
+# [i3c_hdr_write_read_virtual_seq]    19
 # [i3c_target_coverage]     3
 # [i3c_target_hdr_write_seq]     1
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 103570 ns  Iteration: 54  Instance: /hvl_top
+#    Time: 103650 ns  Iteration: 54  Instance: /hvl_top
 # Saving coverage database on exit...
-# End time: 00:33:47 on Jul 05,2026, Elapsed time: 0:00:05
+# End time: 10:53:24 on Jul 05,2026, Elapsed time: 0:00:05
 # Errors: 0, Warnings: 1
