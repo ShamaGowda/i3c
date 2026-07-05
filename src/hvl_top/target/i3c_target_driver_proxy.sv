@@ -1,14 +1,4 @@
-// ============================================================================
-// FILE: i3c_target_driver_proxy.sv  (MULTI-SLAVE VERSION)
-//
-// Key changes vs single-slave:
-//   * Looks up the BFM from config_db using a per-target key:
-//       "i3c_target_driver_bfm_<target_id>"
-//     where target_id comes from i3c_target_agent_config.target_id.
-//   * For DAA: to_class() is NOT called after drive_daa_data() because
-//     to_class() creates a new object that would clobber the pid/bcr/dcr/
-//     daa_ack/dynamic_address outputs written back into req.
-// ============================================================================
+
 `ifndef I3C_TARGET_DRIVER_PROXY_INCLUDED_
 `define I3C_TARGET_DRIVER_PROXY_INCLUDED_
 
@@ -17,6 +7,7 @@ class i3c_target_driver_proxy extends uvm_driver #(i3c_target_tx);
 
   i3c_target_agent_config  i3c_target_agent_cfg_h;
   virtual i3c_target_driver_bfm i3c_target_drv_bfm_h;
+    static int daa_count = 0;
 
   extern function new(string name = "i3c_target_driver_proxy",
                       uvm_component parent = null);
@@ -82,12 +73,11 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
                 i3c_target_agent_cfg_h.target_id, req.txn_type.name()),
       UVM_NONE)
 
-    // Populate the struct_cfg from agent config (carries PID/BCR/DCR)
+    // (carries PID/BCR/DCR)
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg);
 
-    // -----------------------------------------------------------------------
     // DAA TRANSACTION
-    // -----------------------------------------------------------------------
+
     if (req.txn_type == i3c_target_tx::DAA) begin
       `uvm_info("TGT_DRV_PROXY",
         $sformatf("[target_id=%0d] DAA transaction",
@@ -105,7 +95,6 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
         daa_ack_out
       );
 
-      // Write BFM outputs back into req so the sequence can read them.
       req.pid             = pid_out;
       req.bcr             = bcr_out;
       req.dcr             = dcr_out;
@@ -118,8 +107,6 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
                   pid_out, bcr_out, dcr_out, dyn_addr_out, daa_ack_out),
         UVM_NONE)
 
-      // If this slave was assigned an address, update the config so
-      // subsequent SDR transactions use the dynamic address.
       if (daa_ack_out == ACK) begin
         i3c_target_agent_cfg_h.targetAddress = dyn_addr_out;
         `uvm_info("TGT_DRV_PROXY",
@@ -128,15 +115,8 @@ task i3c_target_driver_proxy::run_phase(uvm_phase phase);
           UVM_LOW)
       end
 
-      // FIX: Do NOT call to_class() for DAA transactions.
-      // to_class() constructs a brand-new i3c_target_tx object (new()),
-      // which would overwrite the pid/bcr/dcr/daa_ack/dynamic_address
-      // outputs that drive_daa_data() just wrote back into req above.
-      // The sequence's body() checks req.daa_ack after finish_item()
-      // returns, so those fields must remain intact.
+    end 
 
-  end
- 
 else if(req.txn_type == i3c_target_tx::HDR_WRITE) begin
  `uvm_info("TGT_DRV_PROXY",
       "Transaction type = HDR_WRITE", UVM_NONE)
@@ -169,15 +149,8 @@ else if(req.txn_type == i3c_target_tx::HDR_WRITE) begin
 
   end
 
-
-
-
-
-
 else begin
-      // -----------------------------------------------------------------------
       // SDR TRANSACTION
-      // -----------------------------------------------------------------------
       `uvm_info("TGT_DRV_PROXY",
         $sformatf("[target_id=%0d] SDR transaction",
                   i3c_target_agent_cfg_h.target_id), UVM_NONE)

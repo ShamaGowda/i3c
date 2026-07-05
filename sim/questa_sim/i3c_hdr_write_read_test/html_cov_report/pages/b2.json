@@ -584,7 +584,7 @@ b7886:[{dummy:0},
 ,{cr:'m',t:'A',z:'    `uvm_info(get_type_name(), &#34;Step 1: Loading TX FIFO (WDATAB)&#34;, UVM_LO...',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'72',h:'0',c:'r'}
 ]},
 {anchor:'cvg7892',items:[{z:'        $sformatf(&#34;  WDATAB[%0d] = 0x%02x&#34;, i, wdata[i]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'77',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'        $sformatf(&#34;  WDATAB[%0d] = 0x%02x&#34;, i, wdata[i]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'77',h:'1',c:'g'}
+,{cr:'c',t:'I',z:'        $sformatf(&#34;  WDATAB[%0d] = 0x%02x&#34;, i, wdata[i]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'77',h:'4',c:'g'}
 ,{cr:'m',t:'A',z:'        $sformatf(&#34;  WDATAB[%0d] = 0x%02x&#34;, i, wdata[i]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'77',h:'0',c:'r'}
 ]},
 {anchor:'cvg7893',items:[{z:'      &#34;Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)&#34;, UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'82',c:'Y',p:'50.00'}
@@ -624,7 +624,7 @@ b7886:[{dummy:0},
 ,{cr:'m',t:'A',z:'      &#34;Step 12: Reading RX FIFO via RDATAB&#34;, UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'149',h:'0',c:'r'}
 ]},
 {anchor:'cvg7902',items:[{z:'        $sformatf(&#34;  RDATAB[%0d] = 0x%02x&#34;, i, rdata[7:0]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'153',c:'Y',p:'50.00'}
-,{cr:'c',t:'I',z:'        $sformatf(&#34;  RDATAB[%0d] = 0x%02x&#34;, i, rdata[7:0]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'153',h:'4',c:'g'}
+,{cr:'c',t:'I',z:'        $sformatf(&#34;  RDATAB[%0d] = 0x%02x&#34;, i, rdata[7:0]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'153',h:'1',c:'g'}
 ,{cr:'m',t:'A',z:'        $sformatf(&#34;  RDATAB[%0d] = 0x%02x&#34;, i, rdata[7:0]), UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'153',h:'0',c:'r'}
 ]},
 {anchor:'cvg7903',items:[{z:'    `uvm_info(get_type_name(), &#34;Phase 2 (HDR READ) complete&#34;, UVM_LOW)',f:'../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv',l:'156',c:'Y',p:'50.00'}
