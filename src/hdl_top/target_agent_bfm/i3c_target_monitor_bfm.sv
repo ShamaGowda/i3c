@@ -1,4 +1,3 @@
-
 `ifndef I3C_TARGET_MONITOR_BFM_INCLUDED_
 `define I3C_TARGET_MONITOR_BFM_INCLUDED_
 
@@ -97,54 +96,81 @@ interface i3c_target_monitor_bfm (
     disable fork;
   endtask : sampleReadDataAndAck
 
-  // -------------------------------------------------------------------------
-  // DAA monitoring (passive – just capture what happened on bus)
-  // -------------------------------------------------------------------------
+  int unsigned mon_round = 0;
+
+  task automatic detect_rep_start_or_stop_mon(output bit got_rep_start);
+    bit [1:0] scl_loc;
+    bit [1:0] sda_loc;
+    scl_loc = {scl_i, scl_i};
+    sda_loc = {sda_i, sda_i};
+    forever begin
+      @(negedge pclk);
+      scl_loc = {scl_loc[0], scl_i};
+      sda_loc = {sda_loc[0], sda_i};
+      if (scl_loc == 2'b11 && sda_loc == 2'b10) begin
+        got_rep_start = 1; return;
+      end
+
+      if (scl_loc == 2'b11 && sda_loc == 2'b01) begin
+        got_rep_start = 0; return;
+      end
+    end
+  endtask : detect_rep_start_or_stop_mon
+
   task sample_daa_data(inout i3c_transfer_bits_s pkt,
                        inout i3c_transfer_cfg_s  cfg);
     bit [63:0] arb_shift;
     bit [7:0]  dyn_byte;
     bit [1:0]  scl_loc;
     bit [1:0]  sda_loc;
+    bit        got_rep_start;
 
-    detect_start();
+    if (mon_round == 0) begin
 
-    // Sample 7E+W (8 bits) + ACK
-    for (int k = 7; k >= 0; k--) begin
-      detectEdge_scl(POSEDGE);
-      //void'(sda_i);
+      detect_start();
+
+      for (int k = 7; k >= 0; k--)
+        detectEdge_scl(POSEDGE);
+      detectEdge_scl(NEGEDGE);
+      detectEdge_scl(POSEDGE);   // ACK
+      detectEdge_scl(NEGEDGE);
+
+      // ENTDAA CCC byte (8 bits) + ACK
+      for (int k = 7; k >= 0; k--)
+        detectEdge_scl(POSEDGE);
+      detectEdge_scl(NEGEDGE);
+      detectEdge_scl(POSEDGE);   // ACK
+      detectEdge_scl(NEGEDGE);
+
+      // First REP_START
+      do begin
+        @(negedge pclk);
+        scl_loc = {scl_loc[0], scl_i};
+        sda_loc = {sda_loc[0], sda_i};
+      end while (!(sda_loc == 2'b10 && scl_loc == 2'b11));
+
+      // 7E+R header (8 bits) + ACK
+      detectEdge_scl(NEGEDGE);
+      for (int k = 7; k >= 0; k--)
+        detectEdge_scl(POSEDGE);
+      detectEdge_scl(NEGEDGE);
+      detectEdge_scl(POSEDGE);   // ACK
+      detectEdge_scl(NEGEDGE);
+
     end
-    detectEdge_scl(NEGEDGE);
-    detectEdge_scl(POSEDGE);  // ACK bit
-    detectEdge_scl(NEGEDGE);
+    else begin
 
-    // Sample ENTDAA byte (8 bits) + ACK
-    for (int k = 7; k >= 0; k--) begin
-      detectEdge_scl(POSEDGE);
-      //void'(sda_i);
+      // 7E+R header (8 bits) + ACK
+      detectEdge_scl(NEGEDGE);
+      for (int k = 7; k >= 0; k--)
+        detectEdge_scl(POSEDGE);
+      detectEdge_scl(NEGEDGE);
+      detectEdge_scl(POSEDGE);   // ACK
+      detectEdge_scl(NEGEDGE);
+
     end
-    detectEdge_scl(NEGEDGE);
-    detectEdge_scl(POSEDGE);
-    detectEdge_scl(NEGEDGE);
 
-    // Detect Repeated START
-    do begin
-      @(negedge pclk);
-      scl_loc = {scl_loc[0], scl_i};
-      sda_loc = {sda_loc[0], sda_i};
-    end while (!(sda_loc == NEGEDGE && scl_loc == 2'b11));
-
-    // Sample 7E+R (8 bits) + ACK
-    detectEdge_scl(NEGEDGE);
-    for (int k = 7; k >= 0; k--) begin
-      detectEdge_scl(POSEDGE);
-      //void'(sda_i);
-    end
-    detectEdge_scl(NEGEDGE);
-    detectEdge_scl(POSEDGE);
-    detectEdge_scl(NEGEDGE);
-
-    // Sample 64 arbitration bits
+    // ARB phase: sample 64 bits (winner's PID|BCR|DCR on the wire)
     for (int k = 63; k >= 0; k--) begin
       detectEdge_scl(POSEDGE);
       arb_shift[k] = sda_i;
@@ -155,26 +181,26 @@ interface i3c_target_monitor_bfm (
     pkt.bcr = arb_shift[15:8];
     pkt.dcr = arb_shift[7:0];
 
-    // Sample dynamic address byte (8 bits)
+    // Dynamic address byte (8 bits) driven by master
     for (int k = 7; k >= 0; k--) begin
       detectEdge_scl(POSEDGE);
       dyn_byte[k] = sda_i;
     end
     pkt.dynamic_address = dyn_byte[7:1];
 
-    // Sample ACK from slave
+    // ACK from winning slave
     detectEdge_scl(NEGEDGE);
     detectEdge_scl(POSEDGE);
     pkt.daa_ack = sda_i;
     detectEdge_scl(NEGEDGE);
 
-    detect_stop();
+  
+    detect_rep_start_or_stop_mon(got_rep_start);
+
+    mon_round++;
 
   endtask : sample_daa_data
 
-  // -------------------------------------------------------------------------
-  // Helpers
-  // -------------------------------------------------------------------------
   task detect_start();
     bit [1:0] scl_d;
     bit [1:0] sda_d;
@@ -279,6 +305,8 @@ interface i3c_target_monitor_bfm (
     end while (!(scl_loc_m == edgeSCL));
   endtask : detectEdge_scl
 
+
+
 ///////////////////////////////////////////////HDR/////////////////////////////////////
 
 task sample_hdr_ddr_word_wr(output bit [15:0] word);   // WRITE: DUT drives
@@ -336,8 +364,7 @@ task sample_hdr_data(inout i3c_transfer_bits_s pkt,
   disable fork;
 endtask : sample_hdr_data
 
+
 endinterface : i3c_target_monitor_bfm
 
 `endif
-
-

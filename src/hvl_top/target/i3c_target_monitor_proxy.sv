@@ -1,4 +1,3 @@
-
 `ifndef I3C_TARGET_MONITOR_PROXY_INCLUDED_
 `define I3C_TARGET_MONITOR_PROXY_INCLUDED_
 
@@ -35,12 +34,7 @@ endfunction : new
 
 function void i3c_target_monitor_proxy::build_phase(uvm_phase phase);
 
-super.build_phase(phase);
-// if(!uvm_config_db #(virtual i3c_target_monitor_bfm)::get(this,"","i3c_target_monitor_bfm",i3c_target_mon_bfm_h))begin
-  //`uvm_fatal("FATAL_MDP_CANNOT_GET_target_MONITOR_BFM","cannot get () i3c_target_monitor_bfm from uvm_config_db")
-
-
-
+  super.build_phase(phase);
 endfunction : build_phase
 
 
@@ -54,7 +48,6 @@ function void i3c_target_monitor_proxy::end_of_elaboration_phase(
   string mon_key;
   super.end_of_elaboration_phase(phase);
 
-  // Build the per-target key that i3c_target_agent_bfm registered
   mon_key = $sformatf("i3c_target_monitor_bfm_%0d",
                        i3c_target_agent_cfg_h.target_id);
 
@@ -95,7 +88,6 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
 
     tx = i3c_target_tx::type_id::create("tx");
 
-    // Build cfg struct
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg);
     i3c_target_seq_item_converter::from_class(tx, struct_packet);
 
@@ -108,23 +100,23 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
 
       i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
 
-
-
-
-
+      i3c_target_seq_item_converter::to_class(struct_packet, tx);
+      tx.txn_type = i3c_target_tx::DAA;
 
     end
+
     ////////////////////////////////////HDR/////////////////////////////////////////
    else if (i3c_target_agent_cfg_h != null && i3c_target_agent_cfg_h.hdr_mode) begin
   i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
 end  
 
 ///////////////////////////////////////////////////////////////////////////////////    
-    
-    
-    
-    
-    else begin
+   
+
+
+
+
+ else begin
 
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] Waiting to sample SDR transaction",
@@ -132,9 +124,9 @@ end
 
       i3c_target_mon_bfm_h.sample_data(struct_packet, struct_cfg);
 
-    end
+      i3c_target_seq_item_converter::to_class(struct_packet, tx);
 
-    i3c_target_seq_item_converter::to_class(struct_packet, tx);
+    end
 
     `uvm_info(get_type_name(),
       $sformatf("[target_id=%0d] Sampled transaction – writing to analysis port",
@@ -147,4 +139,3 @@ end
 endtask : run_phase
 
 `endif
-

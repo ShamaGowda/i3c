@@ -1,5 +1,5 @@
 # vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=i3cAllSeqTest" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3cAllSeqTest/i3cAllSeqTest.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3cAllSeqTest_seedrandom  i3cAllSeqTest/i3cAllSeqTest_coverage.ucdb; run -all; exit" -wlf i3cAllSeqTest/waveform.wlf 
-# Start time: 15:17:00 on Jun 16,2026
+# Start time: 16:18:17 on Jul 05,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_bit_engine(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_sdr_fsm(fast)".
@@ -7,8 +7,6 @@
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_hdr_fsm(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_ibi_fsm(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_scl_gen(fast)".
-# ** Warning: ../../src/hdl_top/hdl_top.sv(108): (vopt-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 14, found 13.
-# ** Warning: ../../src/hdl_top/hdl_top.sv(108): (vopt-2718) [TFMPC] - Missing connection for port 'cmd_dc_type'.
 # //  Questa Sim
 # //  Version 10.6c linux Jul 25 2017
 # //
@@ -71,13 +69,11 @@
 # Loading work.i3c_target_driver_bfm(fast)
 # Loading work.i3c_target_monitor_bfm_sv_unit(fast)
 # Loading work.i3c_target_monitor_bfm(fast)
-# Loading work.i3c_target_agent_bfm(fast__1)
-# Loading work.i3c_target_agent_bfm(fast__2)
 # Loading mtiUvm.questa_uvm_pkg(fast)
 # ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
 #    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
-# Sv_Seed = 2550334269
+# Sv_Seed = 2911169507
 # log -r /*
 #  add wave -r /*
 #  coverage save -onexit -assert -directive -cvg -codeAll -testname i3cAllSeqTest_seedrandom  i3cAllSeqTest/i3cAllSeqTest_coverage.ucdb
@@ -121,5 +117,5 @@
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_report_object.svh(292)
 #    Time: 0 ns  Iteration: 0  Instance: /hvl_top
 # Saving coverage database on exit...
-# End time: 15:17:04 on Jun 16,2026, Elapsed time: 0:00:04
-# Errors: 0, Warnings: 3
+# End time: 16:18:21 on Jul 05,2026, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 1
