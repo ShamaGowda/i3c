@@ -35,7 +35,7 @@ function void i3c_hdr_write_read_test::build_phase(uvm_phase phase);
 
 task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
   i3c_hdr_write_read_virtual_seq hdr_wr_rd_vseq;
- i3c_daa_virtual_seq            daaSeq;  
+// i3c_daa_virtual_seq            daaSeq;  
 
   phase.raise_objection(this);
 
@@ -49,9 +49,9 @@ task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
 
 
 
- `uvm_info(get_type_name(),
-      "DAA done - updating target address to dynamic 0x08",
-      UVM_LOW)
+ //`uvm_info(get_type_name(),
+   //   "DAA done - updating target address to dynamic 0x08",
+     // UVM_LOW)
 
   hdr_wr_rd_vseq =
     i3c_hdr_write_read_virtual_seq::type_id::create("hdr_wr_rd_vseq");

@@ -128,7 +128,7 @@ i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
   i3c_env_cfg_h.i3c_target_agent_cfg_h[0].targetAddress);
 i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_len.set(read_len);
 i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_dir.set(1'b1);   // READ
-i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b00);
+i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_type.set(2'b01);
 i3c_env_cfg_h.regBlockHandle.ctrl_inst.cmd_mode.set(1'b1);
 i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
     ctrl_val = i3c_env_cfg_h.regBlockHandle.ctrl_inst.get();
