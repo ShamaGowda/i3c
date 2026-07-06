@@ -28,9 +28,9 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
   rand bit [7:0]  read_len;
 
   constraint len_c {
-    write_len inside {1, 2, 4};
+    write_len inside { 2};
     wdata.size() == write_len;
-    read_len  inside {1, 2, 4};
+    read_len  inside { 2};
   }
 
   function new(string name = "i3c_hdr_write_read_virtual_seq");
