@@ -193,7 +193,7 @@ $display("[%0t] CMD_CTRL: be_done=%0b hdr_pending=%0b -> starting HDR",
     end
     
     if (daa_done || hdr_done || (sdr_done && !hdr_pending)) begin
-$display("[%0t] CMD_CTRL: Transaction completed", $time);
+$display("[%0t] CMD_CTRL: Transaction completed   hdr_done  =  %d  , sdr_done = %d  , hdr_pending = %d ", $time, hdr_done , sdr_done  , hdr_pending );
       cmd_busy <= 1'b0;
       
       if (ccc_is_rstdAA && sdr_done)

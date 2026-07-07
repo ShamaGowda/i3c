@@ -143,7 +143,7 @@ if (state != next)
         end
 
         else if (!byte_buf_valid && tx_valid) begin
- $display("[%0t] HDR_FSM: First HDR byte received = 0x%02h",
+ $display("[%0t] HDR_FSM: First HDR byte received = %d",
                $time, tx_data);
           byte_buf       <= tx_data;
           byte_buf_valid <= 1'b1;
@@ -152,7 +152,7 @@ if (state != next)
         else if (byte_buf_valid && tx_valid) begin
 
 
- $display("[%0t] HDR_FSM: First HDR byte received = 0x%02h",
+ $display("[%0t] HDR_FSM: second HDR byte received = %d",
                $time, tx_data);
           hdr_valid      <= 1'b1;
           hdr_rw         <= 1'b0;

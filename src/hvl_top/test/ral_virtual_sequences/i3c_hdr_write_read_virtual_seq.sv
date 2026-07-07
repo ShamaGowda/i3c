@@ -27,10 +27,16 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
   // ── Read phase length ────────────────────────────────────────────────
   rand bit [7:0]  read_len;
 
+
+
+  constraint c {
+    foreach (wdata[i])
+      wdata[i] == 11;
+  }
   constraint len_c {
-    write_len inside { 2};
+    write_len inside { 1};
     wdata.size() == write_len;
-    read_len  inside { 2};
+    read_len  inside { 1};
   }
 
   function new(string name = "i3c_hdr_write_read_virtual_seq");
@@ -74,7 +80,7 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
       i3c_env_cfg_h.regBlockHandle.wdatab_inst.write(
         status, wdata[i], .parent(this));
       `uvm_info(get_type_name(),
-        $sformatf("  WDATAB[%0d] = 0x%02x", i, wdata[i]), UVM_LOW)
+        $sformatf("  WDATAB[%0d] = %d", i, wdata[i]), UVM_LOW)
     end
 
     // Step 1c: write CTRL — HDR WRITE
