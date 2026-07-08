@@ -215,7 +215,12 @@ always @ (posedge clk or negedge rst_n) begin
         bit_cnt   <= 3'd7;
         byte_cnt <= 3'd0;
         shift_reg <= rd_wr ? 8'b0 : tx_data;
-        busy <= valid;
+        if(valid)
+        begin
+$display("[%0t] BIT_ENGINE(IDLE): valid=%0b rd_wr=%0b tx_data=0x%02h",
+         $time, valid, rd_wr, tx_data);
+ end   
+     busy <= valid;
         start_done<= valid ? 1'b1 : 1'b0;
         stop_done <= 1'b0;
 
@@ -245,15 +250,15 @@ $display("[%0t] BIT_ENGINE: START state SCL=%0b SDA=%0b",
         busy <= 1'b1;
         sr_latch    <= 1'b0;
 
-	    if (!rd_wr && sda_oe && sda_o && !sda_i)
+
+	       if (bit_cnt == 3'd7) begin
+        $display("[%0t] BIT_ENGINE: STARTING SHIFT  tx_data=0x%02h  shift_reg=0x%02h  rd_wr=%0b",
+                 $time, tx_data, shift_reg, rd_wr);
+         end
+
+if  (!rd_wr && sda_oe && sda_o && !sda_i)
 		  arbitration_lost <= 1'b1;
-
         if (scl_fall) begin
- $display("[%0t] BIT_ENGINE: SHIFT bit=%0d SCL=%0b SDA_OUT=%0b SDA_IN=%0b shift_reg=0x%02h",
-             $time, bit_cnt, scl_i, sda_o, sda_i, shift_reg);
-
-
-
             bit_cnt <= bit_cnt == 0 ? 3'd7 : bit_cnt - 1'b1;
         end
 
@@ -328,8 +333,11 @@ $display("[%0t] BIT_ENGINE: ACK sampled SDA=%0b parity=%0b",
 	  
       STOP   : begin
 
-
-$display("[%0t] BIT_ENGINE: STOP generated", $time);
+ $display("[%0t] BIT_ENGINE: STOP generated busy=%0b valid=%0b rd_wr=%0b",
+             $time,
+             busy,
+             valid,
+             rd_wr);
         busy <= 1'b0;
         s_oe <= 1'b1;
 

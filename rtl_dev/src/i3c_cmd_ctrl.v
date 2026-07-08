@@ -186,7 +186,17 @@ $display("[%0t] CMD_CTRL: cmd_start=%0b mode=%0b type=%0d addr=0x%02h dir=%0b le
     if (be_done && hdr_pending) begin
 $display("[%0t] CMD_CTRL: be_done=%0b hdr_pending=%0b -> starting HDR",
          $time, be_done, hdr_pending);
-      start_hdr   <= 1'b1;
+   
+    $display("[%0t] CMD_CTRL: start_hdr=%0b hdr_pending=%0b sdr_done=%0b hdr_done=%0b",
+         $time,
+         start_hdr,
+         hdr_pending,
+         sdr_done,
+         hdr_done); 
+     
+     
+     
+     start_hdr   <= 1'b1;
       hdr_pending <= 1'b0;
       sdr_len     <= cmd_len;
       sdr_dir     <= cmd_dir;

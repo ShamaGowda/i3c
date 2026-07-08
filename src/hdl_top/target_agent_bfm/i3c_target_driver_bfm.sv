@@ -660,7 +660,7 @@ interface i3c_target_driver_bfm (
       scl_local_d = {scl_local_d[0], scl_i};
       sda_local_d = {sda_local_d[0], sda_i};
     end while (!(sda_local_d == NEGEDGE && scl_local_d == 2'b11));
-    `uvm_info(name, "Start condition detected", UVM_HIGH)
+    `uvm_info(name, "Start condition detected", UVM_NONE)
     scl_local = {scl_i, scl_i};  // resync: uses local vars, never updates scl_local
   endtask : detect_start
 
@@ -669,7 +669,7 @@ interface i3c_target_driver_bfm (
       inout  i3c_transfer_bits_s pkt);
 
     bit [TARGET_ADDRESS_WIDTH-1:0] local_addr;
-    `uvm_info(name, "sample_target_address started", UVM_HIGH)
+    `uvm_info(name, "sample_target_address started", UVM_NONE)
     state = ADDRESS;
 
     detectEdge_scl(NEGEDGE);
@@ -700,15 +700,15 @@ interface i3c_target_driver_bfm (
 
     if (operation == 1'b0) begin
       wr_rd = WRITE;
-      `uvm_info(name, "operation = WRITE", UVM_HIGH)
+      `uvm_info(name, "operation = WRITE", UVM_NONE)
     end else begin
       wr_rd = READ;
-      `uvm_info(name, "operation = READ", UVM_HIGH)
+      `uvm_info(name, "operation = READ", UVM_NONE)
     end
   endtask : sample_operation
 
   task driveAddressAck(input bit ack);
-    `uvm_info(name, $sformatf("driveAddressAck = %0d", ack), UVM_HIGH)
+    `uvm_info(name, $sformatf("driveAddressAck = %0d", ack), UVM_NONE)
     state = ACK_NACK;
     detectEdge_scl(NEGEDGE);
     drive_sda(ack);
@@ -770,19 +770,34 @@ interface i3c_target_driver_bfm (
     ack = sda_i;
     detectEdge_scl(NEGEDGE);
   endtask : sample_ack
-
+/*
   task wrDetect_stop();
-    bit [1:0] scl_d;
-    bit [1:0] sda_d;
+  bit [1:0] scl_d;
+  bit [1:0] sda_d;
+  forever begin
     do begin
       @(negedge pclk);
       #1;
       scl_d = {scl_d[0], scl_i};
       sda_d = {sda_d[0], sda_i};
     end while (!(sda_d == POSEDGE && scl_d == 2'b11));
-    state = STOP;
-    `uvm_info(name, "Stop condition detected", UVM_HIGH)
-  endtask : wrDetect_stop
+
+    // Candidate STOP seen -- confirm SCL actually stays high
+    @(negedge pclk);
+    #1;
+    if (scl_i === 1'b1 && sda_i === 1'b1) begin
+      state = STOP;
+      `uvm_info(name, "Stop condition detected", UVM_HIGH)
+      return;                       // real STOP -- exit the task
+    end
+    else begin
+      `uvm_info(name, "wrDetect_stop: false STOP candidate rejected, still scanning", UVM_HIGH)
+      // do nothing else -- just loop back to `forever` and keep scanning
+    end
+  end
+endtask : wrDetect_stop
+
+
 
   task detect_stop();
     bit [1:0] scl_d;
@@ -794,8 +809,87 @@ interface i3c_target_driver_bfm (
       scl_d = {scl_d[0], scl_i};
       sda_d = {sda_d[0], sda_i};
     end while (!(sda_d == POSEDGE && scl_d == 2'b11));
-    `uvm_info(name, "Stop condition detected", UVM_HIGH)
+    `uvm_info(name, "Stop condition detected", UVM_NONE)
   endtask : detect_stop
+*/
+
+
+
+
+task wrDetect_stop();
+  bit [1:0] scl_d;
+  bit [1:0] sda_d;
+  // A real STOP holds SCL (and SDA) high indefinitely. Mid-word HDR DDR
+  // bit toggling (SDA changes on both SCL edges) only holds SCL high for
+  // about half a bit-period (~2 pclk cycles here) before it drops again.
+  // Require SCL/SDA to stay high for longer than a full bit-period so
+  // DDR toggling can never pass this check, only a genuine STOP can.
+  localparam int STOP_CONFIRM_CYCLES = 8;
+  int stable_count;
+
+  forever begin
+    do begin
+      @(negedge pclk);
+      #1;
+      scl_d = {scl_d[0], scl_i};
+      sda_d = {sda_d[0], sda_i};
+    end while (!(sda_d == POSEDGE && scl_d == 2'b11));
+
+    // Candidate STOP seen -- confirm SCL/SDA remain high for
+    // STOP_CONFIRM_CYCLES consecutive pclk cycles.
+    stable_count = 0;
+    while (stable_count < STOP_CONFIRM_CYCLES) begin
+      @(negedge pclk);
+      #1;
+      if (scl_i === 1'b1 && sda_i === 1'b1)
+        stable_count++;
+      else
+        break;
+    end
+
+    if (stable_count == STOP_CONFIRM_CYCLES) begin
+      state = STOP;
+      `uvm_info(name, "Stop condition detected", UVM_HIGH)
+      return;
+    end
+    // else: false match from DDR bit toggling -- keep scanning
+  end
+endtask : wrDetect_stop
+
+task detect_stop();
+  bit [1:0] scl_d;
+  bit [1:0] sda_d;
+  localparam int STOP_CONFIRM_CYCLES = 8;
+  int stable_count;
+  state = STOP;
+
+  forever begin
+    do begin
+      @(negedge pclk);
+      #1;
+      scl_d = {scl_d[0], scl_i};
+      sda_d = {sda_d[0], sda_i};
+    end while (!(sda_d == POSEDGE && scl_d == 2'b11));
+
+    stable_count = 0;
+    while (stable_count < STOP_CONFIRM_CYCLES) begin
+      @(negedge pclk);
+      #1;
+      if (scl_i === 1'b1 && sda_i === 1'b1)
+        stable_count++;
+      else
+        break;
+    end
+
+    if (stable_count == STOP_CONFIRM_CYCLES) begin
+      `uvm_info(name, "Stop condition detected", UVM_HIGH)
+      return;
+    end
+    // else: false match -- keep scanning
+  end
+endtask : detect_stop
+
+
 
   // =========================================================================
   // Low-level drive/edge helpers
@@ -821,7 +915,7 @@ interface i3c_target_driver_bfm (
     end while (!(scl_local == edgeSCL));
     scl_edge_value = edge_detect_e'(scl_local);
     `uvm_info("TARGET_DRIVER_BFM",
-      $sformatf("scl %s detected", scl_edge_value.name()), UVM_HIGH)
+      $sformatf("scl %s detected", scl_edge_value.name()), UVM_NONE)
   
   endtask : detectEdge_scl
 
@@ -841,9 +935,18 @@ task sample_hdr_ddr_word_wr(output bit [15:0] word);
   for (int b = 15; b >= 0; b -= 2) begin
     detectEdge_scl(POSEDGE);
     word[b]   = sda_i;
+`uvm_info(name,
+          $sformatf("HDR SAMPLE bit[%0d]=%0b", b, sda_i),
+          UVM_NONE)
     detectEdge_scl(NEGEDGE);
     word[b-1] = sda_i;
+ `uvm_info(name,
+          $sformatf("HDR SAMPLE bit[%0d]=%0b", b-1, sda_i),
+          UVM_NONE)
   end
+  `uvm_info(name,
+      $sformatf("HDR WORD COMPLETE = 0x%04h", word),
+      UVM_NONE)
 endtask : sample_hdr_ddr_word_wr
 
 // READ direction: target DRIVES, DUT's rx engine captures FALL-bit first,
@@ -867,7 +970,7 @@ task drive_hdr_write(
 
   int byte_idx;
 
-  `uvm_info(name, "HDR WRITE started", UVM_HIGH)
+  `uvm_info(name, "HDR WRITE started", UVM_NONE)
   detect_start();
   sample_target_address(configPacketStruck, dataPacketStruck);   // Step 5
   sample_operation(dataPacketStruck.operation);
@@ -885,24 +988,39 @@ task drive_hdr_write(
     begin
       bit [15:0] w;
       while (byte_idx < 3) begin        // Steps 9-11: DDR data
- `uvm_info(name, $sformatf("HDR WRITE: waiting for word, byte_idx=%0d", byte_idx), UVM_LOW)
+ `uvm_info(name, $sformatf("HDR WRITE: waiting for word, byte_idx=%0d", byte_idx), UVM_NONE)
         sample_hdr_ddr_word_wr(w);
-`uvm_info(name, $sformatf("HDR WRITE: got word 0x%04h, byte_idx=%0d", w, byte_idx), UVM_LOW) 
+`uvm_info(name, $sformatf("HDR WRITE: got word 0x%04h, byte_idx=%0d", w, byte_idx), UVM_NONE) 
         dataPacketStruck.writeData[byte_idx]         = w[15:8];
         dataPacketStruck.writeData[byte_idx+1]       = w[7:0];
         dataPacketStruck.writeDataStatus[byte_idx]   = ACK;
         dataPacketStruck.writeDataStatus[byte_idx+1] = ACK;
         dataPacketStruck.no_of_i3c_bits_transfer += 16;
-        byte_idx += 2;
+        
+
+`uvm_info(name,
+$sformatf("HDR WRITE: stored byte[%0d]=0x%02h byte[%0d]=0x%02h",
+           byte_idx,   w[15:8],
+           byte_idx+1, w[7:0]),
+UVM_NONE)
+           byte_idx += 2;
       end
     end
-  join
-`uvm_info(name, "HDR WRITE: calling wrDetect_stop()", UVM_LOW) 
-  wrDetect_stop();                                    // Steps 12-13: STOP
-`uvm_info(name, "HDR WRITE: wrDetect_stop() returned", UVM_LOW)
+  join_none
+`uvm_info(name,
+    $sformatf("Before wrDetect_stop: SCL=%0b SDA=%0b",
+              scl_i, sda_i),
+    UVM_NONE)
+  `uvm_info(name, "HDR WRITE: calling wrDetect_stop()", UVM_NONE) 
+  wrDetect_stop();
+`uvm_info(name,
+    $sformatf("After wrDetect_stop: SCL=%0b SDA=%0b",
+              scl_i, sda_i),
+    UVM_NONE)                                    // Steps 12-13: STOP
+`uvm_info(name, "HDR WRITE: wrDetect_stop() returned", UVM_NONE)
   disable fork;
 
-  `uvm_info(name, $sformatf("HDR WRITE done: %0d bytes", byte_idx), UVM_LOW)
+  `uvm_info(name, $sformatf("HDR WRITE done: %0d bytes", byte_idx), UVM_NONE)
 endtask : drive_hdr_write
 
 // =========================================================================
@@ -914,7 +1032,7 @@ task drive_hdr_read(
 
   int byte_idx;
 
-  `uvm_info(name, "HDR READ started", UVM_HIGH)
+  `uvm_info(name, "HDR READ started", UVM_NONE)
   detect_start();
   sample_target_address(configPacketStruck, dataPacketStruck);   // Step 4
   sample_operation(dataPacketStruck.operation);
@@ -956,7 +1074,7 @@ task drive_hdr_read(
   wrDetect_stop();                                    // Steps 10-11: STOP
   disable fork;
 
-  `uvm_info(name, $sformatf("HDR READ done: %0d bytes", byte_idx), UVM_LOW)
+  `uvm_info(name, $sformatf("HDR READ done: %0d bytes", byte_idx), UVM_NONE)
 endtask : drive_hdr_read
 
 endinterface : i3c_target_driver_bfm

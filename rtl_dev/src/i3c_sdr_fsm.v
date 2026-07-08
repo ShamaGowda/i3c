@@ -169,7 +169,11 @@ always @(*) begin
       SEND_ADDR: begin
         be_valid = 1;
         be_rd_wr = 0;
-
+       $display("[%0t] SDR_FSM: addr=0x%02h dir=%0b be_tx_data=0x%02h",
+         $time,
+         addr,
+         dir,
+         {addr, dir});  
 //        be_tx_data = is_i3c ? {dyn_addr, dir} : {addr, dir};
 be_tx_data = {addr, dir};  
       sdr_addr   = addr;
@@ -204,8 +208,12 @@ be_tx_data = {addr, dir};
       SEND_WR: begin
 
         if(start_hdr || cmd_mode==1)
-          next_state = STOP;
+        begin
+         $display("[%0t] SDR_FSM: HDR requested -> STOP, start_hdr=%0b cmd_mode=%0b byte_cnt=%0d be_busy=%0b",
+             $time, start_hdr, cmd_mode, byte_cnt, be_busy);
 
+  next_state = STOP;
+end
         else if (tx_valid) begin
           tx_ready   = 1'b1;
           be_valid   = 1'b1;
@@ -316,6 +324,8 @@ be_tx_data = {addr, dir};
       end
 
       STOP: begin
+ $display("[%0t] SDR_FSM: STOP state entered, done=%0b byte_cnt=%0d",
+             $time, done, byte_cnt);
         done       = 1'b1;
         next_state = IDLE;
       end

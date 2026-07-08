@@ -134,8 +134,34 @@ if (state != next)
 
     SEND: begin
       hdr_start <= 0;
+/*$display("[%0t] SEND: hdr_busy=%0b first_read_done=%0b byte_buf_valid=%0b tx_valid=%0b tx_ready=%0b tx_data=%0h",
+         $time,
+         hdr_busy,
+         first_read_done,
+         byte_buf_valid,
+         tx_valid,
+         tx_ready,
+         tx_data);*/
 
-      if (!hdr_busy) begin
+
+$display("[%0t] HDR_FSM SEND: hdr_busy=%0b tx_valid=%0b tx_ready=%0b byte_buf_valid=%0b first_read_done=%0b tx_data=0x%02h byte_cnt=%0d",
+         $time,
+         hdr_busy,
+         tx_valid,
+         tx_ready,
+         byte_buf_valid,
+         first_read_done,
+         tx_data,
+         byte_cnt);
+
+$display("[%0t] HDR_FSM: hdr_busy=%0b hdr_done=%0b hdr_valid=%0b",
+         $time,
+         hdr_busy,
+         hdr_done,
+         hdr_valid);
+
+
+     if (!hdr_busy) begin
 
         if (!first_read_done) begin
           tx_ready        <= 1'b1;
@@ -155,9 +181,16 @@ if (state != next)
  $display("[%0t] HDR_FSM: second HDR byte received = %d",
                $time, tx_data);
           hdr_valid      <= 1'b1;
+         
+          
           hdr_rw         <= 1'b0;
           hdr_tx_data    <= {byte_buf, tx_data};
-          byte_buf_valid <= 1'b0;
+          
+$display("[%0t] HDR_FSM: hdr_valid asserted, hdr_tx_data=%04h",
+         $time,
+         {byte_buf, tx_data});
+
+byte_buf_valid <= 1'b0;
         end
 
         else if (byte_buf_valid && (byte_cnt == 1)) begin

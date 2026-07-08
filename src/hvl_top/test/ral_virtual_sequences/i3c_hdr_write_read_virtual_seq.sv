@@ -31,14 +31,23 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
 
   constraint c {
     foreach (wdata[i])
+    if(i == 0)
       wdata[i] == 11;
+  else if(i == 1)
+      wdata[i] == 22;
+  else if(i == 2)
+   
+     wdata[i] == 33;
+
+else 
+    wdata[i] == 44;
   }
   constraint len_c {
     write_len inside { 1};
     wdata.size() == write_len;
     read_len  inside { 1};
-  }
-
+  
+}
   function new(string name = "i3c_hdr_write_read_virtual_seq");
     super.new(name);
   endfunction
