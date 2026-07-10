@@ -143,7 +143,7 @@ if (state != next)
          tx_ready,
          tx_data);*/
 
-
+/*
 $display("[%0t] HDR_FSM SEND: hdr_busy=%0b tx_valid=%0b tx_ready=%0b byte_buf_valid=%0b first_read_done=%0b tx_data=0x%02h byte_cnt=%0d",
          $time,
          hdr_busy,
@@ -160,7 +160,7 @@ $display("[%0t] HDR_FSM: hdr_busy=%0b hdr_done=%0b hdr_valid=%0b",
          hdr_done,
          hdr_valid);
 
-
+*/
      if (!hdr_busy) begin
 
         if (!first_read_done) begin

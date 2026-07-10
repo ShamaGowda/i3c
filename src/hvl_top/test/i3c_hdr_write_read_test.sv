@@ -29,43 +29,49 @@ endfunction : new
 
 function void i3c_hdr_write_read_test::build_phase(uvm_phase phase);
       super.build_phase(phase);
-      //  i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 1;
+       i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 1;
     endfunction : build_phase
 
 
 task i3c_hdr_write_read_test::run_phase(uvm_phase phase);
   i3c_hdr_write_read_virtual_seq hdr_wr_rd_vseq;
-// i3c_daa_virtual_seq            daaSeq;  
+  i3c_daa_virtual_seq            daaSeq;
 
   phase.raise_objection(this);
 
   `uvm_info(get_type_name(),
     "Starting HDR Write+Read test", UVM_LOW)
-// daaSeq = i3c_daa_virtual_seq::type_id::create("daaSeq");
-  //  daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
-    //daaSeq.start(i3c_env_h.top_virtual_seqr_h);
-
-//i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 0;
-
+ daaSeq = i3c_daa_virtual_seq::type_id::create("daaSeq");
+ daaSeq.i3c_env_cfg_h = i3c_env_cfg_h;
+ daaSeq.start(i3c_env_h.top_virtual_seqr_h);
+i3c_env_cfg_h.i3c_target_agent_cfg_h[0].has_daa = 0;
 
 
- //`uvm_info(get_type_name(),
-   //   "DAA done - updating target address to dynamic 0x08",
-     // UVM_LOW)
+
+ `uvm_info(get_type_name(),
+     "DAA done - updating target address to dynamic 0x08",
+      UVM_LOW)
+
+ foreach(i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
+      i3c_env_cfg_h.i3c_target_agent_cfg_h[i].targetAddress = 7'h08;
+    end
+
+`uvm_info(get_type_name(),
+      "Starting HDR WRITE read write read with dynamic address", UVM_LOW)
+
+
 
   hdr_wr_rd_vseq =
     i3c_hdr_write_read_virtual_seq::type_id::create("hdr_wr_rd_vseq");
   hdr_wr_rd_vseq.start(i3c_env_h.top_virtual_seqr_h);
 
 
-
-
-
-
-
   phase.drop_objection(this);
 endtask : run_phase
 
 `endif
+
+
+
 
 

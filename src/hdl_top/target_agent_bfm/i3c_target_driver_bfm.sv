@@ -987,7 +987,7 @@ task drive_hdr_write(
   fork
     begin
       bit [15:0] w;
-      while (byte_idx < 3) begin        // Steps 9-11: DDR data
+      while (byte_idx < 4) begin        // Steps 9-11: DDR data
  `uvm_info(name, $sformatf("HDR WRITE: waiting for word, byte_idx=%0d", byte_idx), UVM_NONE)
         sample_hdr_ddr_word_wr(w);
 `uvm_info(name, $sformatf("HDR WRITE: got word 0x%04h, byte_idx=%0d", w, byte_idx), UVM_NONE) 
