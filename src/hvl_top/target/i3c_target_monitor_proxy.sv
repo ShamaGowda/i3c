@@ -107,8 +107,17 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
 
     ////////////////////////////////////HDR/////////////////////////////////////////
    else if (i3c_target_agent_cfg_h != null && i3c_target_agent_cfg_h.hdr_mode) begin
-  i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
-end  
+
+`uvm_info("MON_PROXY",
+          "Calling sample_hdr_data()",
+          UVM_LOW)
+
+
+       i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
+
+  i3c_target_seq_item_converter::to_class(struct_packet, tx); 
+   
+   end  
 
 ///////////////////////////////////////////////////////////////////////////////////    
    

@@ -1,5 +1,5 @@
 # vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=i3c_hdr_write_read_test" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3c_hdr_write_read_test/i3c_hdr_write_read_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb; run -all; exit" -wlf i3c_hdr_write_read_test/waveform.wlf 
-# Start time: 16:15:43 on Jul 09,2026
+# Start time: 17:51:49 on Jul 10,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_bit_engine(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_sdr_fsm(fast)".
@@ -73,7 +73,7 @@
 # ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
 #    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
-# Sv_Seed = 1328304191
+# Sv_Seed = 1499414198
 # log -r /*
 #  add wave -r /*
 #  coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb
@@ -554,9 +554,9 @@
 #   parent sequence (full name)  string         72    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_write
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h          
 #   txn_type                     string         9     HDR_WRITE                                                               
-#   pid                          integral       48    'h3e86b81fafe0                                                          
-#   bcr                          integral       8     'h77                                                                    
-#   dcr                          integral       8     'hf0                                                                    
+#   pid                          integral       48    'h4a93b4d17da2                                                          
+#   bcr                          integral       8     'hba                                                                    
+#   dcr                          integral       8     'h79                                                                    
 #   dynamic_address              integral       7     'h0                                                                     
 #   daa_ack                      integral       1     'b0                                                                     
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -859,9 +859,9 @@
 #   parent sequence (full name)  string         71    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_read
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h         
 #   txn_type                     string         8     HDR_READ                                                               
-#   pid                          integral       48    'h6b5c32ffc1ca                                                         
-#   bcr                          integral       8     'hf1                                                                   
-#   dcr                          integral       8     'h61                                                                   
+#   pid                          integral       48    'h6ac1b4728ef7                                                         
+#   bcr                          integral       8     'h4f                                                                   
+#   dcr                          integral       8     'h39                                                                   
 #   dynamic_address              integral       7     'h0                                                                    
 #   daa_ack                      integral       1     'b0                                                                    
 # ---------------------------------------------------------------------------------------------------------------------------
@@ -1181,5 +1181,5 @@
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
 #    Time: 154050 ns  Iteration: 53  Instance: /hvl_top
 # Saving coverage database on exit...
-# End time: 16:15:48 on Jul 09,2026, Elapsed time: 0:00:05
+# End time: 17:51:55 on Jul 10,2026, Elapsed time: 0:00:06
 # Errors: 0, Warnings: 1

@@ -330,12 +330,49 @@ task sample_hdr_ddr_word_rd(output bit [15:0] word);   // READ: target drives,
 endtask : sample_hdr_ddr_word_rd
 
 task sample_hdr_data(inout i3c_transfer_bits_s pkt,
-                      inout i3c_transfer_cfg_s  cfg);
-  int byte_idx;
+
+    inout i3c_transfer_cfg_s  cfg);
+
+int byte_idx;
+
+
+`uvm_info(name,
+    "HDR monitor entered",
+    UVM_NONE)  
+
+
+
+
+//int byte_idx;
   detect_start();
   sample_target_address(pkt);
-  sample_operation(pkt.operation);
-  sampleAddressAck(pkt.targetAddressStatus);
+  
+
+`uvm_info(name,
+$sformatf("HDR MON: Address = 0x%0h",
+pkt.targetAddress),
+UVM_NONE)
+
+
+
+
+
+sample_operation(pkt.operation);
+  
+
+`uvm_info(name,
+  $sformatf("HDR MON: Operation = %s",
+            (pkt.operation == WRITE) ? "WRITE" : "READ"),
+  UVM_NONE)
+
+sampleAddressAck(pkt.targetAddressStatus);
+
+
+`uvm_info(name,
+$sformatf("HDR MON: ACK = %0b",
+pkt.targetAddressStatus),
+UVM_NONE)
+
 
   if (pkt.targetAddressStatus != ACK) begin
     detect_stop();
@@ -356,12 +393,26 @@ task sample_hdr_data(inout i3c_transfer_bits_s pkt,
         pkt.writeData[byte_idx+1] = w[7:0];
         pkt.readData[byte_idx+1]  = w[7:0];
         pkt.no_of_i3c_bits_transfer += 16;
+
+
+`uvm_info(name,
+$sformatf("HDR MON: sampled word = 0x%04h", w),
+UVM_NONE)
         byte_idx += 2;
       end
     end
   join_none
   detect_stop();
   disable fork;
+
+
+
+`uvm_info(name,
+"HDR monitor finished",
+UVM_NONE)
+
+
+
 endtask : sample_hdr_data
 
 
