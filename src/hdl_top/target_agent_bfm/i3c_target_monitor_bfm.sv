@@ -50,12 +50,41 @@ interface i3c_target_monitor_bfm (
     state = IDLE;
   endtask : wait_for_idle_state
 
+  // ============================================================
+  // ADDED -- new task. Not present in the original file.
+  //
+  // Why: HDR wasn't being sampled because i3c_target_monitor_proxy checked
+  // hdr_mode BEFORE calling detect_start() for the next transaction. That
+  // check happens right when the loop finishes the PREVIOUS transaction --
+  // always before the virtual sequence has actually set hdr_mode=1 for the
+  // transaction that's about to start. No amount of code inside sample_data()
+  // or sample_hdr_data() can fix that, because the decision of which one to
+  // call is made by the proxy before either task runs.
+  //
+  // Fix: move just the 4 address-phase lines (detect_start + address +
+  // operation + ack -- identical for SDR and HDR, this DUT does a normal SDR
+  // address phase before switching into HDR/DDR) out to here, called ONCE by
+  // the proxy. The proxy checks hdr_mode right after this returns -- i.e.
+  // immediately before the data phase of the transaction that just started,
+  // which is the one moment that check is guaranteed correct.
+  // ============================================================
+  task mon_address_phase(inout i3c_transfer_bits_s pkt);
+    detect_start();
+    sample_target_address(pkt);
+    sample_operation(pkt.operation);
+    sampleAddressAck(pkt.targetAddressStatus);
+  endtask : mon_address_phase
+
   task sample_data(inout i3c_transfer_bits_s struct_packet,
                    inout i3c_transfer_cfg_s  struct_cfg);
-    detect_start();
-    sample_target_address(struct_packet);
-    sample_operation(struct_packet.operation);
-    sampleAddressAck(struct_packet.targetAddressStatus);
+    // CHANGED -- these 4 lines used to be here:
+    //   detect_start();
+    //   sample_target_address(struct_packet);
+    //   sample_operation(struct_packet.operation);
+    //   sampleAddressAck(struct_packet.targetAddressStatus);
+    // They now live in mon_address_phase() above, called once by the proxy
+    // before this task, so the same address phase isn't sampled twice and
+    // hdr_mode can be checked in between. Everything below is unchanged.
     if (struct_packet.targetAddressStatus == ACK) begin
       if (struct_packet.operation == WRITE)
         sampleWriteDataAndAck(struct_packet, struct_cfg);
@@ -344,35 +373,17 @@ int byte_idx;
 
 
 //int byte_idx;
-  detect_start();
-  sample_target_address(pkt);
-  
-
-`uvm_info(name,
-$sformatf("HDR MON: Address = 0x%0h",
-pkt.targetAddress),
-UVM_NONE)
-
-
-
-
-
-sample_operation(pkt.operation);
-  
-
-`uvm_info(name,
-  $sformatf("HDR MON: Operation = %s",
-            (pkt.operation == WRITE) ? "WRITE" : "READ"),
-  UVM_NONE)
-
-sampleAddressAck(pkt.targetAddressStatus);
-
-
-`uvm_info(name,
-$sformatf("HDR MON: ACK = %0b",
-pkt.targetAddressStatus),
-UVM_NONE)
-
+  // CHANGED -- this task used to start with its own copy of:
+  //   detect_start();
+  //   sample_target_address(pkt);       (+ uvm_info "HDR MON: Address = ...")
+  //   sample_operation(pkt.operation);  (+ uvm_info "HDR MON: Operation = ...")
+  //   sampleAddressAck(pkt.targetAddressStatus); (+ uvm_info "HDR MON: ACK = ...")
+  // That address phase is now sampled ONCE by i3c_target_monitor_proxy via
+  // mon_address_phase(), called before this task, so pkt.targetAddress /
+  // pkt.operation / pkt.targetAddressStatus already hold the sampled values
+  // by the time we get here. See mon_address_phase() above for why.
+  // Everything from here down (the ACK check and the entire DDR word loop)
+  // is 100% unchanged.
 
   if (pkt.targetAddressStatus != ACK) begin
     detect_stop();

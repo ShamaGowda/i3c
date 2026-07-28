@@ -60,11 +60,13 @@ always @(posedge clk or negedge rst_n) begin
       if (scl_fall) begin
         bit_fall <= sda_i;
         capture_fall <= 1;
-      end
+
+    $display("[%0t] HDR_DDR RX: FALL captured sda_i=%0b bit_cnt=%0d", $time, sda_i, bit_cnt); 
+    end
 
       if (scl_rise && capture_fall) begin
         bit_rise <= sda_i;
-
+ $display("[%0t] HDR_DDR RX: RISE captured sda_i=%0b bit_cnt=%0d", $time, sda_i, bit_cnt);
         shift_reg <= {shift_reg[13:0], bit_fall, sda_i};
         bit_cnt   <= bit_cnt - 2;
 

@@ -33,7 +33,7 @@ wire [7:0]  tx_rdata;
 
 wire        rx_rd_en;
 wire [7:0]  rx_wdata1;
-wire        rx_wdata2;
+wire      rx_wdata2;
 wire [7:0]  rx_wdata;
 
 wire        rx_valid1;

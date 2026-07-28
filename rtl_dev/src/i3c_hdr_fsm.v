@@ -68,9 +68,16 @@ always @(*) begin
         next = STOP;
 
     RECV:
-      if (done_second)
+    if (done_second)
         next = STOP;
 
+
+
+/*RECV:
+    if (done_second && (byte_cnt == 0))
+        next = STOP;
+
+*/
     STOP:
       next = IDLE;
 

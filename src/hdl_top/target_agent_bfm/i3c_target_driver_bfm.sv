@@ -952,7 +952,7 @@ endtask : sample_hdr_ddr_word_wr
 // READ direction: target DRIVES, DUT's rx engine captures FALL-bit first,
 // then RISE-bit (capture_fall gate in i3c_hdr_ddr_engine.v) -> drive
 // NEGEDGE-first, matching the DUT's own capture order exactly.
-task drive_hdr_ddr_word_rd(input bit [15:0] word);
+/*task drive_hdr_ddr_word_rd(input bit [15:0] word);
   for (int b = 15; b >= 0; b -= 2) begin
     drive_sda(word[b]);
     detectEdge_scl(NEGEDGE);
@@ -960,11 +960,143 @@ task drive_hdr_ddr_word_rd(input bit [15:0] word);
     detectEdge_scl(POSEDGE);
   end
 endtask : drive_hdr_ddr_word_rd
+*/
+
+task drive_hdr_write(
+    inout i3c_transfer_bits_s dataPacketStruck,
+    input i3c_transfer_cfg_s  configPacketStruck);
+  int byte_idx;
+  `uvm_info(name, "HDR WRITE started", UVM_HIGH)
+  detect_start();
+  sample_target_address(configPacketStruck, dataPacketStruck);
+  sample_operation(dataPacketStruck.operation);
+  driveAddressAck(dataPacketStruck.targetAddressStatus);
+  if (dataPacketStruck.targetAddressStatus != ACK) begin
+    detect_stop();
+    return;
+  end
+  
+  
+ 
+  byte_idx = 0;
+  fork
+    begin
+      bit [15:0] w;
+      while (byte_idx < 4) begin
+        sample_hdr_ddr_word_wr(w);
+        // Split the 16-bit DDR word into two 8-bit FIFO entries —
+        // targetFIFOMemory only ever stores DATA_WIDTH(=8)-bit bytes.
+        targetFIFOMemory.push_back(w[15:8]);
+        targetFIFOMemory.push_back(w[7:0]);
+        dataPacketStruck.writeData[byte_idx]         = w[15:8];
+        dataPacketStruck.writeData[byte_idx+1]       = w[7:0];
+        dataPacketStruck.writeDataStatus[byte_idx]   = ACK;
+        dataPacketStruck.writeDataStatus[byte_idx+1] = ACK;
+        dataPacketStruck.no_of_i3c_bits_transfer    += 16;
+        `uvm_info(name,
+          $sformatf("HDR WRITE: stored word 0x%04h, byte_idx=%0d",
+                    w, byte_idx), UVM_HIGH)
+        byte_idx += 2;
+      end
+    end
+  join_none
+  wrDetect_stop();
+  disable fork;
+  `uvm_info(name, $sformatf("HDR WRITE done: %0d bytes", byte_idx), UVM_HIGH)
+endtask : drive_hdr_write 
+
+
+
+
+// =========================================================================
+// HDR-DDR word helper — TARGET transmits read data to the Controller.
+// Drives NEGEDGE-first to match the capture_fall-style RX on the other
+// end (flip to POSEDGE-first if the far side is actually TX-style).
+// =========================================================================
+task drive_hdr_ddr_word_rd(input bit [15:0] word);
+  for (int b = 15; b >= 0; b -= 2) begin
+    drive_sda(word[b]);
+`uvm_info(name, $sformatf("[%0t] HDR DRIVE bit[%0d]=%0b", $time, b, word[b]), UVM_NONE)
+    
+    detectEdge_scl(NEGEDGE);
+    #35;
+    drive_sda(word[b-1]);
+     `uvm_info(name, $sformatf("[%0t] HDR DRIVE bit[%0d]=%0b", $time, b-1, word[b-1]), UVM_NONE)
+    detectEdge_scl(POSEDGE);
+    #35;
+  end
+endtask : drive_hdr_ddr_word_rd
+
+
+task drive_hdr_read(
+    inout i3c_transfer_bits_s dataPacketStruck,
+    input i3c_transfer_cfg_s  configPacketStruck);
+
+  int byte_idx;
+
+  `uvm_info(name, "HDR READ started", UVM_HIGH)
+
+  detect_start();
+  sample_target_address(configPacketStruck, dataPacketStruck);
+  sample_operation(dataPacketStruck.operation);
+  driveAddressAck(dataPacketStruck.targetAddressStatus);
+
+  if (dataPacketStruck.targetAddressStatus != ACK) begin
+    detect_stop();
+    return;
+  end
+
+ //detectEdge_scl(POSEDGE);
+
+
+  byte_idx = 0;
+
+  fork
+    begin
+      bit [15:0] w;
+      bit [7:0]  b0, b1;
+      while (byte_idx < MAXIMUM_BYTES) begin
+        if (targetFIFOMemory.size() >= 2) begin
+          b0 = targetFIFOMemory.pop_front();
+          $display(" b0 = %d ", b0);
+          b1 = targetFIFOMemory.pop_front();
+          $display("b1 = %d", b1);
+        end else begin
+          b0 = configPacketStruck.defaultReadData;
+          b1 = configPacketStruck.defaultReadData;
+        end
+
+        drive_hdr_ddr_word_rd({b0, b1});
+
+        dataPacketStruck.readData[byte_idx]         = b0;
+        dataPacketStruck.readData[byte_idx+1]       = b1;
+        dataPacketStruck.readDataStatus[byte_idx]   = ACK;
+        dataPacketStruck.readDataStatus[byte_idx+1] = ACK;
+        dataPacketStruck.no_of_i3c_bits_transfer   += 16;
+
+        `uvm_info(name,
+          $sformatf("HDR READ: drove word 0x%02h%02h, byte_idx=%0d",
+                    b0, b1, byte_idx), UVM_HIGH)
+
+        byte_idx += 2;
+      end
+    end
+  join_none
+
+  wrDetect_stop();   // Controller ends the read with STOP (or restart)
+  disable fork;
+
+  `uvm_info(name, $sformatf("HDR READ done: %0d bytes", byte_idx), UVM_HIGH)
+endtask : drive_hdr_read
+
+
+
+
 
 // =========================================================================
 // HDR WRITE  (flow steps 3-13)
 // =========================================================================
-task drive_hdr_write(
+/*task drive_hdr_write(
     inout i3c_transfer_bits_s dataPacketStruck,
     input i3c_transfer_cfg_s  configPacketStruck);
 
@@ -1076,7 +1208,7 @@ task drive_hdr_read(
 
   `uvm_info(name, $sformatf("HDR READ done: %0d bytes", byte_idx), UVM_NONE)
 endtask : drive_hdr_read
-
+*/
 endinterface : i3c_target_driver_bfm
 
 `endif

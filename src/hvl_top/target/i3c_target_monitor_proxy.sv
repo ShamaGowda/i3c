@@ -92,40 +92,45 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
     i3c_target_seq_item_converter::from_class(tx, struct_packet);
 
     if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.has_daa) begin
+        i3c_target_agent_cfg_h.has_daa  ) begin
 
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] Waiting to sample DAA transaction",
                   i3c_target_agent_cfg_h.target_id), UVM_HIGH)
 
       i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
-
+      //daa_done_for_this_target = 1'b1; 
       i3c_target_seq_item_converter::to_class(struct_packet, tx);
       tx.txn_type = i3c_target_tx::DAA;
 
     end
 
     ////////////////////////////////////HDR/////////////////////////////////////////
-   else if (i3c_target_agent_cfg_h != null && i3c_target_agent_cfg_h.hdr_mode) begin
+   else begin
+
+      // ADDED -- one call, not present in the original file.
+      // Samples START + address + operation + ACK once, here, before we
+      // decide HDR vs SDR. Reason: hdr_mode used to be checked before this
+      // point (before any bus sampling for this transaction had even
+      // started), which reads a value from before the virtual sequence set
+      // hdr_mode for THIS transaction -- always stale. Checking it right
+      // after this call, immediately below, is the one moment it's
+      // guaranteed correct. See mon_address_phase() in
+      // i3c_target_monitor_bfm.sv for the full explanation.
+      i3c_target_mon_bfm_h.mon_address_phase(struct_packet);
+
+      if (i3c_target_agent_cfg_h.hdr_mode) begin
 
 `uvm_info("MON_PROXY",
           "Calling sample_hdr_data()",
           UVM_LOW)
 
+        i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
 
-       i3c_target_mon_bfm_h.sample_hdr_data(struct_packet, struct_cfg);   // NEW branch
+  i3c_target_seq_item_converter::to_class(struct_packet, tx);
 
-  i3c_target_seq_item_converter::to_class(struct_packet, tx); 
-   
-   end  
-
-///////////////////////////////////////////////////////////////////////////////////    
-   
-
-
-
-
- else begin
+      end
+      else begin
 
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] Waiting to sample SDR transaction",
@@ -135,7 +140,11 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
 
       i3c_target_seq_item_converter::to_class(struct_packet, tx);
 
+      end
+
     end
+
+///////////////////////////////////////////////////////////////////////////////////
 
     `uvm_info(get_type_name(),
       $sformatf("[target_id=%0d] Sampled transaction – writing to analysis port",

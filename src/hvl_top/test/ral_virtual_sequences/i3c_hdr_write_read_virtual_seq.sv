@@ -39,13 +39,15 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
    
      wdata[i] == 33;
 
-else 
+else if(i == 3) 
     wdata[i] == 44;
+else 
+    wdata[i] == 55;
   }
   constraint len_c {
-    write_len inside { 4};
+    write_len inside { 5};
     wdata.size() == write_len;
-    read_len  inside { 4};
+    read_len  inside { 5 };
   
 }
   function new(string name = "i3c_hdr_write_read_virtual_seq");
