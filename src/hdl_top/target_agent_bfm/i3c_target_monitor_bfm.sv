@@ -33,7 +33,6 @@ interface i3c_target_monitor_bfm (
     $display(name);
   end
 
-
   task wait_for_reset();
     @(negedge areset);
     @(posedge areset);
@@ -51,22 +50,10 @@ interface i3c_target_monitor_bfm (
   endtask : wait_for_idle_state
 
   // ============================================================
-  // ADDED -- new task. Not present in the original file.
-  //
-  // Why: HDR wasn't being sampled because i3c_target_monitor_proxy checked
-  // hdr_mode BEFORE calling detect_start() for the next transaction. That
-  // check happens right when the loop finishes the PREVIOUS transaction --
-  // always before the virtual sequence has actually set hdr_mode=1 for the
-  // transaction that's about to start. No amount of code inside sample_data()
-  // or sample_hdr_data() can fix that, because the decision of which one to
-  // call is made by the proxy before either task runs.
-  //
-  // Fix: move just the 4 address-phase lines (detect_start + address +
-  // operation + ack -- identical for SDR and HDR, this DUT does a normal SDR
-  // address phase before switching into HDR/DDR) out to here, called ONCE by
-  // the proxy. The proxy checks hdr_mode right after this returns -- i.e.
-  // immediately before the data phase of the transaction that just started,
-  // which is the one moment that check is guaranteed correct.
+  // Address phase -- identical for SDR and HDR (this DUT always does a
+  // normal SDR-style address phase before switching into HDR/DDR).
+  // Called ONCE by the proxy, before it decides HDR vs SDR, so hdr_mode
+  // is checked at the one moment it's guaranteed to be current.
   // ============================================================
   task mon_address_phase(inout i3c_transfer_bits_s pkt);
     detect_start();
@@ -77,14 +64,7 @@ interface i3c_target_monitor_bfm (
 
   task sample_data(inout i3c_transfer_bits_s struct_packet,
                    inout i3c_transfer_cfg_s  struct_cfg);
-    // CHANGED -- these 4 lines used to be here:
-    //   detect_start();
-    //   sample_target_address(struct_packet);
-    //   sample_operation(struct_packet.operation);
-    //   sampleAddressAck(struct_packet.targetAddressStatus);
-    // They now live in mon_address_phase() above, called once by the proxy
-    // before this task, so the same address phase isn't sampled twice and
-    // hdr_mode can be checked in between. Everything below is unchanged.
+    // Address phase already sampled by mon_address_phase() above.
     if (struct_packet.targetAddressStatus == ACK) begin
       if (struct_packet.operation == WRITE)
         sampleWriteDataAndAck(struct_packet, struct_cfg);
@@ -139,7 +119,6 @@ interface i3c_target_monitor_bfm (
       if (scl_loc == 2'b11 && sda_loc == 2'b10) begin
         got_rep_start = 1; return;
       end
-
       if (scl_loc == 2'b11 && sda_loc == 2'b01) begin
         got_rep_start = 0; return;
       end
@@ -186,8 +165,7 @@ interface i3c_target_monitor_bfm (
       detectEdge_scl(POSEDGE);   // ACK
       detectEdge_scl(NEGEDGE);
 
-    end
-    else begin
+    end else begin
 
       // 7E+R header (8 bits) + ACK
       detectEdge_scl(NEGEDGE);
@@ -223,7 +201,6 @@ interface i3c_target_monitor_bfm (
     pkt.daa_ack = sda_i;
     detectEdge_scl(NEGEDGE);
 
-  
     detect_rep_start_or_stop_mon(got_rep_start);
 
     mon_round++;
@@ -326,7 +303,7 @@ interface i3c_target_monitor_bfm (
     detectEdge_scl(NEGEDGE);
   endtask : sampleReadAck
 
-  task automatic detectEdge_scl(input edge_detect_e edgeSCL);                         //made as automatic in driver bfm too
+  task automatic detectEdge_scl(input edge_detect_e edgeSCL);
     bit [1:0] scl_loc_m = 2'b11;
     do begin
       @(negedge pclk);
@@ -334,98 +311,70 @@ interface i3c_target_monitor_bfm (
     end while (!(scl_loc_m == edgeSCL));
   endtask : detectEdge_scl
 
+  // =========================================================================
+  // HDR
+  // =========================================================================
 
-
-///////////////////////////////////////////////HDR/////////////////////////////////////
-
-task sample_hdr_ddr_word_wr(output bit [15:0] word);   // WRITE: DUT drives
-  word = '0;
-  for (int b = 15; b >= 0; b -= 2) begin
-    detectEdge_scl(POSEDGE);
-    word[b]   = sda_i;
-    detectEdge_scl(NEGEDGE);
-    word[b-1] = sda_i;
-  end
-endtask : sample_hdr_ddr_word_wr
-
-task sample_hdr_ddr_word_rd(output bit [15:0] word);   // READ: target drives,
-  word = '0;                                            // DUT captures fall-first
-  for (int b = 15; b >= 0; b -= 2) begin
-    detectEdge_scl(NEGEDGE);
-    word[b]   = sda_i;
-    detectEdge_scl(POSEDGE);
-    word[b-1] = sda_i;
-  end
-endtask : sample_hdr_ddr_word_rd
-
-task sample_hdr_data(inout i3c_transfer_bits_s pkt,
-
-    inout i3c_transfer_cfg_s  cfg);
-
-int byte_idx;
-
-
-`uvm_info(name,
-    "HDR monitor entered",
-    UVM_NONE)  
-
-
-
-
-//int byte_idx;
-  // CHANGED -- this task used to start with its own copy of:
-  //   detect_start();
-  //   sample_target_address(pkt);       (+ uvm_info "HDR MON: Address = ...")
-  //   sample_operation(pkt.operation);  (+ uvm_info "HDR MON: Operation = ...")
-  //   sampleAddressAck(pkt.targetAddressStatus); (+ uvm_info "HDR MON: ACK = ...")
-  // That address phase is now sampled ONCE by i3c_target_monitor_proxy via
-  // mon_address_phase(), called before this task, so pkt.targetAddress /
-  // pkt.operation / pkt.targetAddressStatus already hold the sampled values
-  // by the time we get here. See mon_address_phase() above for why.
-  // Everything from here down (the ACK check and the entire DDR word loop)
-  // is 100% unchanged.
-
-  if (pkt.targetAddressStatus != ACK) begin
-    detect_stop();
-    return;
-  end
-
-  pkt.txn_type = (pkt.operation == WRITE) ? i3c_target_tx::HDR_WRITE : i3c_target_tx::HDR_READ;
-  byte_idx = 0;
-
-  fork
-    begin
-      bit [15:0] w;
-      while (byte_idx < MAXIMUM_BYTES) begin
-        if (pkt.operation == WRITE) sample_hdr_ddr_word_wr(w);
-        else                        sample_hdr_ddr_word_rd(w);
-        pkt.writeData[byte_idx]   = w[15:8];  // harmless if READ; readData set below
-        pkt.readData[byte_idx]    = w[15:8];
-        pkt.writeData[byte_idx+1] = w[7:0];
-        pkt.readData[byte_idx+1]  = w[7:0];
-        pkt.no_of_i3c_bits_transfer += 16;
-
-
-`uvm_info(name,
-$sformatf("HDR MON: sampled word = 0x%04h", w),
-UVM_NONE)
-        byte_idx += 2;
-      end
+  // WRITE direction: DUT drives DDR bits -- sample POSEDGE-first.
+  task sample_hdr_ddr_word_wr(output bit [15:0] word);
+    word = '0;
+    for (int b = 15; b >= 0; b -= 2) begin
+      detectEdge_scl(POSEDGE);
+      word[b]   = sda_i;
+      detectEdge_scl(NEGEDGE);
+      word[b-1] = sda_i;
     end
-  join_none
-  detect_stop();
-  disable fork;
+  endtask : sample_hdr_ddr_word_wr
 
+  // READ direction: target drives, DUT captures fall-first --
+  // sample NEGEDGE-first to match.
+  task sample_hdr_ddr_word_rd(output bit [15:0] word);
+    word = '0;
+    for (int b = 15; b >= 0; b -= 2) begin
+      detectEdge_scl(NEGEDGE);
+      word[b]   = sda_i;
+      detectEdge_scl(POSEDGE);
+      word[b-1] = sda_i;
+    end
+  endtask : sample_hdr_ddr_word_rd
 
+  // HDR data phase. Called by the proxy AFTER mon_address_phase() has
+  // already sampled START + address + operation + ACK, and after hdr_mode
+  // was confirmed. pkt.targetAddress / pkt.operation / pkt.targetAddressStatus
+  // are already populated by the time we get here.
+  task sample_hdr_data(inout i3c_transfer_bits_s pkt,
+                       inout i3c_transfer_cfg_s  cfg);
+    int byte_idx;
 
-`uvm_info(name,
-"HDR monitor finished",
-UVM_NONE)
+    if (pkt.targetAddressStatus != ACK) begin
+      detect_stop();
+      return;
+    end
 
+    pkt.txn_type = (pkt.operation == WRITE) ?
+                   i3c_target_tx::HDR_WRITE : i3c_target_tx::HDR_READ;
+    byte_idx = 0;
 
+    fork
+      begin
+        bit [15:0] w;
+        while (byte_idx < MAXIMUM_BYTES) begin
+          if (pkt.operation == WRITE) sample_hdr_ddr_word_wr(w);
+          else                        sample_hdr_ddr_word_rd(w);
 
-endtask : sample_hdr_data
+          pkt.writeData[byte_idx]      = w[15:8];
+          pkt.writeData[byte_idx+1]    = w[7:0];
+          pkt.readData[byte_idx]       = w[15:8];
+          pkt.readData[byte_idx+1]     = w[7:0];
+          pkt.no_of_i3c_bits_transfer += 16;
 
+          byte_idx += 2;
+        end
+      end
+    join_none
+    detect_stop();
+    disable fork;
+  endtask : sample_hdr_data
 
 endinterface : i3c_target_monitor_bfm
 
