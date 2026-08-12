@@ -60,11 +60,14 @@ function void i3c_target_monitor_proxy::start_of_simulation_phase(
 endfunction : start_of_simulation_phase
 
 task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
-  i3c_transfer_bits_s struct_packet;
-  i3c_transfer_cfg_s  struct_cfg;
+  i3c_transfer_bits_s        struct_packet;
+  i3c_transfer_cfg_s         struct_cfg;
+  i3c_target_tx::txn_type_e  expected_kind;
+
   `uvm_info(get_type_name(),
     $sformatf("[target_id=%0d] Monitor Proxy running",
               i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
   i3c_target_mon_bfm_h.wait_for_reset();
   i3c_target_mon_bfm_h.sample_idle_state();
 
@@ -73,120 +76,139 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
     tx = i3c_target_tx::type_id::create("tx");
     i3c_target_cfg_converter::from_class(i3c_target_agent_cfg_h, struct_cfg);
     i3c_target_seq_item_converter::from_class(tx, struct_packet);
+
     `uvm_info(get_type_name(),
-      $sformatf("[target_id=%0d] cfg snapshot -> targetAddress=0x%0h  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  has_daa=%0b",
-                i3c_target_agent_cfg_h.target_id,
-                struct_cfg.targetAddress,
-                struct_cfg.pid,
-                struct_cfg.bcr,
-                struct_cfg.dcr,
-                i3c_target_agent_cfg_h.has_daa),
+      $sformatf("[target_id=%0d] Waiting on mailbox for next expected txn type",
+                i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
+    // ------------------------------------------------------------------
+    // BLOCKS here until the arming sequence (DAA / HDR_WRITE / HDR_READ)
+    // actually puts a value into the mailbox. This removes the old
+    // race where has_daa / pending_hdr_write / pending_hdr_read were
+    // polled at an arbitrary point in this forever loop and could be
+    // stale relative to when the testbench actually set them.
+    // ------------------------------------------------------------------
+    i3c_target_agent_cfg_h.mon_expected_txn_mbx.get(expected_kind);
+
+    `uvm_info(get_type_name(),
+      $sformatf("[target_id=%0d] Mailbox delivered expected txn_type=%s",
+                i3c_target_agent_cfg_h.target_id, expected_kind.name()),
       UVM_NONE)
 
-    if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.has_daa) begin
+    case (expected_kind)
 
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample DAA transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+      i3c_target_tx::DAA: begin
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] Waiting to sample DAA transaction",
+                    i3c_target_agent_cfg_h.target_id), UVM_HIGH)
 
-      i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
+        i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
 
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] DAA BFM returned struct -> pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
-                  i3c_target_agent_cfg_h.target_id,
-                  struct_packet.pid,
-                  struct_packet.bcr,
-                  struct_packet.dcr,
-                  struct_packet.daa_ack,
-                  struct_packet.dynamic_address),
-        UVM_NONE)
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::DAA;
-    
-      
-      i3c_target_agent_cfg_h.has_daa = 0;  
-      
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] DAA tx -> txn_type=%s  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
-                  i3c_target_agent_cfg_h.target_id,
-                  tx.txn_type.name(),
-                  tx.pid,
-                  tx.bcr,
-                  tx.dcr,
-                  tx.daa_ack,
-                  tx.dynamic_address),
-        UVM_NONE)
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] DAA BFM returned struct -> pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
+                    i3c_target_agent_cfg_h.target_id,
+                    struct_packet.pid,
+                    struct_packet.bcr,
+                    struct_packet.dcr,
+                    struct_packet.daa_ack,
+                    struct_packet.dynamic_address),
+          UVM_NONE)
 
-    end else if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.pending_hdr_write) begin
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample HDR WRITE transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-      i3c_target_mon_bfm_h.sample_hdr_write(struct_packet, struct_cfg);
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::HDR_WRITE;
-      i3c_target_agent_cfg_h.pending_hdr_write = 0;
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] HDR WRITE tx -> txn_type=%s bytes=%0d",
-                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
-                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+        i3c_target_seq_item_converter::to_class(struct_packet, tx);
+        tx.txn_type = i3c_target_tx::DAA;
 
-    end else if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.pending_hdr_read) begin
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample HDR READ transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-      i3c_target_mon_bfm_h.sample_hdr_read(struct_packet, struct_cfg);
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::HDR_READ;
-      i3c_target_agent_cfg_h.pending_hdr_read = 0;
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] HDR READ tx -> txn_type=%s bytes=%0d",
-                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
-                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] DAA tx -> txn_type=%s  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
+                    i3c_target_agent_cfg_h.target_id,
+                    tx.txn_type.name(),
+                    tx.pid,
+                    tx.bcr,
+                    tx.dcr,
+                    tx.daa_ack,
+                    tx.dynamic_address),
+          UVM_NONE)
+      end
 
-    end else begin
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample SDR transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-      i3c_target_mon_bfm_h.sample_data(struct_packet, struct_cfg);
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] SDR BFM returned struct -> targetAddress=0x%0h  targetAddressStatus=%0b  operation=%0s  no_of_bits=%0d",
-                  i3c_target_agent_cfg_h.target_id,
-                  struct_packet.targetAddress,
-                  struct_packet.targetAddressStatus,
-                  struct_packet.operation ? "READ" : "WRITE",
-                  struct_packet.no_of_i3c_bits_transfer),
-        UVM_NONE)
-      // Log write data bytes if it was a write operation
-      if (struct_packet.operation == WRITE) begin
-        for (int b = 0; b < MAXIMUM_BYTES; b++) begin
-          if (b * DATA_WIDTH < struct_packet.no_of_i3c_bits_transfer) begin
-            `uvm_info(get_type_name(),
-              $sformatf("[target_id=%0d] SDR write data[%0d] = 0x%0h",
-                        i3c_target_agent_cfg_h.target_id, b,
-                        struct_packet.writeData[b]),
-              UVM_NONE)
+      i3c_target_tx::HDR_WRITE: begin
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] Waiting to sample HDR WRITE transaction",
+                    i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
+        i3c_target_mon_bfm_h.sample_hdr_write(struct_packet, struct_cfg);
+        i3c_target_seq_item_converter::to_class(struct_packet, tx);
+        tx.txn_type = i3c_target_tx::HDR_WRITE;
+
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] HDR WRITE tx -> txn_type=%s bytes=%0d",
+                    i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
+                    struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+      end
+
+      i3c_target_tx::HDR_READ: begin
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] Waiting to sample HDR READ transaction",
+                    i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
+        i3c_target_mon_bfm_h.sample_hdr_read(struct_packet, struct_cfg);
+        i3c_target_seq_item_converter::to_class(struct_packet, tx);
+        tx.txn_type = i3c_target_tx::HDR_READ;
+
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] HDR READ tx -> txn_type=%s bytes=%0d",
+                    i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
+                    struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+      end
+
+      default: begin // SDR
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] Waiting to sample SDR transaction",
+                    i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
+        i3c_target_mon_bfm_h.sample_data(struct_packet, struct_cfg);
+
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] SDR BFM returned struct -> targetAddress=0x%0h  targetAddressStatus=%0b  operation=%0s  no_of_bits=%0d",
+                    i3c_target_agent_cfg_h.target_id,
+                    struct_packet.targetAddress,
+                    struct_packet.targetAddressStatus,
+                    struct_packet.operation ? "READ" : "WRITE",
+                    struct_packet.no_of_i3c_bits_transfer),
+          UVM_NONE)
+
+        // Log write data bytes if it was a write operation
+        if (struct_packet.operation == WRITE) begin
+          for (int b = 0; b < MAXIMUM_BYTES; b++) begin
+            if (b * DATA_WIDTH < struct_packet.no_of_i3c_bits_transfer) begin
+              `uvm_info(get_type_name(),
+                $sformatf("[target_id=%0d] SDR write data[%0d] = 0x%0h",
+                          i3c_target_agent_cfg_h.target_id, b,
+                          struct_packet.writeData[b]),
+                UVM_NONE)
+            end
           end
         end
+
+        i3c_target_seq_item_converter::to_class(struct_packet, tx);
+
+        `uvm_info(get_type_name(),
+          $sformatf("[target_id=%0d] SDR tx -> txn_type=%s  targetAddress=0x%0h  targetAddressStatus=%0b  operation=%0s",
+                    i3c_target_agent_cfg_h.target_id,
+                    tx.txn_type.name(),
+                    tx.targetAddress,
+                    tx.targetAddressStatus,
+                    tx.operation.name()),
+          UVM_NONE)
       end
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] SDR tx -> txn_type=%s  targetAddress=0x%0h  targetAddressStatus=%0b  operation=%0s",
-                  i3c_target_agent_cfg_h.target_id,
-                  tx.txn_type.name(),
-                  tx.targetAddress,
-                  tx.targetAddressStatus,
-                  tx.operation.name()),
-        UVM_NONE)
-    end
+
+    endcase
+
     `uvm_info(get_type_name(),
       $sformatf("[target_id=%0d] --> writing to analysis port (scoreboard): txn_type=%s",
                 i3c_target_agent_cfg_h.target_id,
                 tx.txn_type.name()),
       UVM_NONE)
     target_analysis_port.write(tx);
+
   end // forever
 endtask : run_phase
 `endif
