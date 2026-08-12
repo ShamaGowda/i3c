@@ -678,7 +678,6 @@ else
 
 
 
-///////////////////////////////////////////////////////////////HDR/////////////////////////////////////////
 // ADDED: HDR-DDR WRITE word sample — identical cadence to the driver's
   // sample_hdr_ddr_word_wr (POSEDGE-first), since both sides passively
   // sample what the DUT/master drives during an HDR WRITE.
@@ -818,6 +817,12 @@ else
     disable fork;
     `uvm_info(name, $sformatf("HDR READ MON done: %0d bytes", byte_idx), UVM_HIGH)
   endtask : sample_hdr_read
+
+
+
+
+
+
 
 endinterface : i3c_target_monitor_bfm
 `endif
