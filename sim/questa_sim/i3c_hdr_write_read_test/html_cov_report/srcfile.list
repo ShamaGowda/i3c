@@ -101,6 +101,8 @@
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_fifo_full_write_virtual_seq.sv
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv
+../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_virtual_seq_empty.sv
+../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_virtual_seq_full.sv
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_invalid_addr_write_virtual_seq.sv
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_multi_wdatab_seq.sv
 ../../src/hvl_top/test/ral_virtual_sequences//i3c_multi_write_read_back_req.sv

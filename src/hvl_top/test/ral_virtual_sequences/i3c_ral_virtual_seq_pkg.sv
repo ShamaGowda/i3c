@@ -52,8 +52,8 @@ package i3c_ral_virtual_seq_pkg;
 
 ///hdr
 `include "i3c_hdr_write_read_virtual_seq.sv" 
-
-
+`include "i3c_hdr_write_virtual_seq_full.sv"
+`include "i3c_hdr_write_virtual_seq_empty.sv"
 endpackage : i3c_ral_virtual_seq_pkg
 
 `endif

@@ -982,7 +982,7 @@ task drive_hdr_write(
   fork
     begin
       bit [15:0] w;
-      while (byte_idx < 4) begin
+      while (byte_idx < 18) begin
         sample_hdr_ddr_word_wr(w);
         // Split the 16-bit DDR word into two 8-bit FIFO entries —
         // targetFIFOMemory only ever stores DATA_WIDTH(=8)-bit bytes.
