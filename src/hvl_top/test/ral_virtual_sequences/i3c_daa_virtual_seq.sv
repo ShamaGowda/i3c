@@ -57,6 +57,10 @@ class i3c_daa_virtual_seq extends top_virtual_base_seq;
           tgt_daa_seq.cfg_dcr = i3c_env_cfg_h.i3c_target_agent_cfg_h[idx].dcr;
           // -----------------------------------------------------------------
 
+ i3c_env_cfg_h.i3c_target_agent_cfg_h[idx].mon_expected_txn_mbx.put(
+        i3c_target_tx::DAA);
+
+          
           `uvm_info(get_type_name(),
             $sformatf("Launching DAA seq for target[%0d]", idx), UVM_LOW)
           tgt_daa_seq.start(p_sequencer.i3c_target_seqr_h[idx]);
