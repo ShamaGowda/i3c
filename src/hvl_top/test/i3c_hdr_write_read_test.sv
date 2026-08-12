@@ -78,7 +78,7 @@ class i3c_hdr_write_read_test extends i3c_base_test;
   `uvm_component_utils(i3c_hdr_write_read_test)
 
   i3c_daa_virtual_seq             daaSeq;
-  i3c_hdr_write_empty_fifo_seq hdrWriteReadSeq;
+  i3c_hdr_write_read_virtual_seq hdrWriteReadSeq;
 
   function new(string name = "i3c_hdr_write_read_test",
                uvm_component parent = null);
@@ -117,7 +117,7 @@ class i3c_hdr_write_read_test extends i3c_base_test;
       UVM_LOW)
 
     hdrWriteReadSeq =
-      i3c_hdr_write_empty_fifo_seq::type_id::create("hdrWriteReadSeq");
+      i3c_hdr_write_read_virtual_seq::type_id::create("hdrWriteReadSeq");
     hdrWriteReadSeq.i3c_env_cfg_h = i3c_env_cfg_h;
     hdrWriteReadSeq.start(i3c_env_h.top_virtual_seqr_h);
 

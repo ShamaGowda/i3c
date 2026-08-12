@@ -10,7 +10,8 @@ class i3c_target_agent_config extends uvm_object;
   dataTransferDirection_e            dataTransferDirection;
   bit [TARGET_ADDRESS_WIDTH-1:0]     targetAddress =  'h68;
   bit [DATA_WIDTH-1:0]               defaultReadData      = 'hFF;
-
+bit  pending_hdr_write      = 0;   
+bit  pending_hdr_read       = 0;   
 
   int unsigned                       target_id            = 0;
 
