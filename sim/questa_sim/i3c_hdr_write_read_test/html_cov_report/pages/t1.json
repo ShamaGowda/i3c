@@ -35,18 +35,18 @@ t318:{items:[{dummy:0}
 ,{id:'cvg325',s:'2',cr:'c',z:'sda_i',h1:'1',h2:'1',c:'G',p:'100.00'}
 ,{id:'cvg326',s:'2',cr:'c',z:'sda_o',h1:'1',h2:'1',c:'G',p:'100.00'}
 ,{id:'cvg327',s:'2',cr:'c',z:'sda_oen',h1:'1',h2:'1',c:'G',p:'100.00'}
-,{id:'cvg328 ',s:9,z:'state',c:'R',p:'45.45'}
+,{id:'cvg328 ',s:9,z:'state',c:'R',p:'9.09'}
 ,{cr:'m',st:'1',z:'RESET_DEACTIVATED',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'RESET_ACTIVATED',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'IDLE',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'FREE',h1:'0',c:'r'}
-,{cr:'c',st:'1',z:'START',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'ADDRESS',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'WR_BIT',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'ACK_NACK',h1:'2',c:'g'}
+,{cr:'c',st:'1',z:'START',h1:'1',c:'g'}
+,{cr:'m',st:'1',z:'ADDRESS',h1:'0',c:'r'}
+,{cr:'m',st:'1',z:'WR_BIT',h1:'0',c:'r'}
+,{cr:'m',st:'1',z:'ACK_NACK',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'WRITE_DATA',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'READ_DATA',h1:'0',c:'r'}
-,{cr:'c',st:'1',z:'STOP',h1:'1',c:'g'}
+,{cr:'m',st:'1',z:'STOP',h1:'0',c:'r'}
 ]
 ,footnote:1
 },
@@ -2149,18 +2149,18 @@ t8:{items:[{dummy:0}
 ,{id:'cvg6737',s:'2',cr:'c',z:'sda_i',h1:'1',h2:'1',c:'G',p:'100.00'}
 ,{id:'cvg6738',s:'2',cr:'c',z:'sda_o',h1:'1',h2:'1',c:'G',p:'100.00'}
 ,{id:'cvg6739',s:'2',cr:'c',z:'sda_oen',h1:'1',h2:'1',c:'G',p:'100.00'}
-,{id:'cvg6740 ',s:9,z:'state',c:'R',p:'45.45'}
+,{id:'cvg6740 ',s:9,z:'state',c:'R',p:'9.09'}
 ,{cr:'m',st:'1',z:'RESET_DEACTIVATED',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'RESET_ACTIVATED',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'IDLE',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'FREE',h1:'0',c:'r'}
-,{cr:'c',st:'1',z:'START',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'ADDRESS',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'WR_BIT',h1:'2',c:'g'}
-,{cr:'c',st:'1',z:'ACK_NACK',h1:'2',c:'g'}
+,{cr:'c',st:'1',z:'START',h1:'1',c:'g'}
+,{cr:'m',st:'1',z:'ADDRESS',h1:'0',c:'r'}
+,{cr:'m',st:'1',z:'WR_BIT',h1:'0',c:'r'}
+,{cr:'m',st:'1',z:'ACK_NACK',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'WRITE_DATA',h1:'0',c:'r'}
 ,{cr:'m',st:'1',z:'READ_DATA',h1:'0',c:'r'}
-,{cr:'c',st:'1',z:'STOP',h1:'1',c:'g'}
+,{cr:'m',st:'1',z:'STOP',h1:'0',c:'r'}
 ]
 },
 t18:{items:[{dummy:0}
