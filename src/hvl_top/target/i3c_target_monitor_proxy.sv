@@ -84,41 +84,6 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
       UVM_NONE)
 
     if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.has_daa) begin
-
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample DAA transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-
-      i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
-
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] DAA BFM returned struct -> pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
-                  i3c_target_agent_cfg_h.target_id,
-                  struct_packet.pid,
-                  struct_packet.bcr,
-                  struct_packet.dcr,
-                  struct_packet.daa_ack,
-                  struct_packet.dynamic_address),
-        UVM_NONE)
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::DAA;
-    
-      
-      i3c_target_agent_cfg_h.has_daa = 0;  
-      
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] DAA tx -> txn_type=%s  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
-                  i3c_target_agent_cfg_h.target_id,
-                  tx.txn_type.name(),
-                  tx.pid,
-                  tx.bcr,
-                  tx.dcr,
-                  tx.daa_ack,
-                  tx.dynamic_address),
-        UVM_NONE)
-
-    end else if (i3c_target_agent_cfg_h != null &&
         i3c_target_agent_cfg_h.pending_hdr_write) begin
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] Waiting to sample HDR WRITE transaction",
@@ -145,6 +110,37 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
         $sformatf("[target_id=%0d] HDR READ tx -> txn_type=%s bytes=%0d",
                   i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
                   struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+
+    end else if (i3c_target_agent_cfg_h != null &&
+        i3c_target_agent_cfg_h.has_daa) begin
+
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] Waiting to sample DAA transaction",
+                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+
+      i3c_target_mon_bfm_h.sample_daa_data(struct_packet, struct_cfg);
+
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] DAA BFM returned struct -> pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
+                  i3c_target_agent_cfg_h.target_id,
+                  struct_packet.pid,
+                  struct_packet.bcr,
+                  struct_packet.dcr,
+                  struct_packet.daa_ack,
+                  struct_packet.dynamic_address),
+        UVM_NONE)
+      i3c_target_seq_item_converter::to_class(struct_packet, tx);
+      tx.txn_type = i3c_target_tx::DAA;
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] DAA tx -> txn_type=%s  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
+                  i3c_target_agent_cfg_h.target_id,
+                  tx.txn_type.name(),
+                  tx.pid,
+                  tx.bcr,
+                  tx.dcr,
+                  tx.daa_ack,
+                  tx.dynamic_address),
+        UVM_NONE)
 
     end else begin
       `uvm_info(get_type_name(),
@@ -190,9 +186,6 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
   end // forever
 endtask : run_phase
 `endif
-
-
-
 
 
 
