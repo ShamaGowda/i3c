@@ -84,34 +84,6 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
       UVM_NONE)
 
     if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.pending_hdr_write) begin
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample HDR WRITE transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-      i3c_target_mon_bfm_h.sample_hdr_write(struct_packet, struct_cfg);
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::HDR_WRITE;
-      i3c_target_agent_cfg_h.pending_hdr_write = 0;
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] HDR WRITE tx -> txn_type=%s bytes=%0d",
-                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
-                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
-
-    end else if (i3c_target_agent_cfg_h != null &&
-        i3c_target_agent_cfg_h.pending_hdr_read) begin
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] Waiting to sample HDR READ transaction",
-                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
-      i3c_target_mon_bfm_h.sample_hdr_read(struct_packet, struct_cfg);
-      i3c_target_seq_item_converter::to_class(struct_packet, tx);
-      tx.txn_type = i3c_target_tx::HDR_READ;
-      i3c_target_agent_cfg_h.pending_hdr_read = 0;
-      `uvm_info(get_type_name(),
-        $sformatf("[target_id=%0d] HDR READ tx -> txn_type=%s bytes=%0d",
-                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
-                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
-
-    end else if (i3c_target_agent_cfg_h != null &&
         i3c_target_agent_cfg_h.has_daa) begin
 
       `uvm_info(get_type_name(),
@@ -141,6 +113,34 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
                   tx.daa_ack,
                   tx.dynamic_address),
         UVM_NONE)
+
+    end else if (i3c_target_agent_cfg_h != null &&
+        i3c_target_agent_cfg_h.pending_hdr_write) begin
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] Waiting to sample HDR WRITE transaction",
+                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+      i3c_target_mon_bfm_h.sample_hdr_write(struct_packet, struct_cfg);
+      i3c_target_seq_item_converter::to_class(struct_packet, tx);
+      tx.txn_type = i3c_target_tx::HDR_WRITE;
+      i3c_target_agent_cfg_h.pending_hdr_write = 0;
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] HDR WRITE tx -> txn_type=%s bytes=%0d",
+                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
+                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
+
+    end else if (i3c_target_agent_cfg_h != null &&
+        i3c_target_agent_cfg_h.pending_hdr_read) begin
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] Waiting to sample HDR READ transaction",
+                  i3c_target_agent_cfg_h.target_id), UVM_HIGH)
+      i3c_target_mon_bfm_h.sample_hdr_read(struct_packet, struct_cfg);
+      i3c_target_seq_item_converter::to_class(struct_packet, tx);
+      tx.txn_type = i3c_target_tx::HDR_READ;
+      i3c_target_agent_cfg_h.pending_hdr_read = 0;
+      `uvm_info(get_type_name(),
+        $sformatf("[target_id=%0d] HDR READ tx -> txn_type=%s bytes=%0d",
+                  i3c_target_agent_cfg_h.target_id, tx.txn_type.name(),
+                  struct_packet.no_of_i3c_bits_transfer/8), UVM_NONE)
 
     end else begin
       `uvm_info(get_type_name(),
@@ -186,9 +186,4 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
   end // forever
 endtask : run_phase
 `endif
-
-
-
-
-
 
