@@ -90,7 +90,9 @@ class i3c_hdr_write_read_test extends i3c_base_test;
 
     foreach(i3c_env_cfg_h.i3c_target_agent_cfg_h[i]) begin
       i3c_env_cfg_h.i3c_target_agent_cfg_h[i].has_daa = 1;
-    end
+  i3c_env_cfg_h.i3c_target_agent_cfg_h[i].pending_hdr_write = 1;   // ADDED
+      i3c_env_cfg_h.i3c_target_agent_cfg_h[i].pending_hdr_read  = 1;   // ADDED   
+  end
   endfunction
 
   virtual task run_phase(uvm_phase phase);

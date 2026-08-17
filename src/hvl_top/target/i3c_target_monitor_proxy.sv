@@ -103,6 +103,7 @@ task i3c_target_monitor_proxy::run_phase(uvm_phase phase);
         UVM_NONE)
       i3c_target_seq_item_converter::to_class(struct_packet, tx);
       tx.txn_type = i3c_target_tx::DAA;
+ i3c_target_agent_cfg_h.has_daa = 0;
       `uvm_info(get_type_name(),
         $sformatf("[target_id=%0d] DAA tx -> txn_type=%s  pid=0x%0h  bcr=0x%0h  dcr=0x%0h  daa_ack=%0b  dynamic_address=0x%0h",
                   i3c_target_agent_cfg_h.target_id,

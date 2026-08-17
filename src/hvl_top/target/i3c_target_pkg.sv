@@ -7,9 +7,9 @@ package i3c_target_pkg;
   import uvm_pkg::*;
 
   import i3c_globals_pkg::*;
-
+`include "i3c_target_tx.sv"
   `include "i3c_target_agent_config.sv"
-  `include "i3c_target_tx.sv"
+//  `include "i3c_target_tx.sv"
   `include "i3c_target_seq_item_converter.sv"
   `include "i3c_target_cfg_converter.sv"
   `include "i3c_target_sequencer.sv"

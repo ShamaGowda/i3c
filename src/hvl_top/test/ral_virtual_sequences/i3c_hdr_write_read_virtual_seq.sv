@@ -85,7 +85,7 @@ else
       end
     join_none
 
- i3c_env_cfg_h.i3c_target_agent_cfg_h[0].pending_hdr_write = 1;
+  //      i3c_env_cfg_h.i3c_target_agent_cfg_h[0].pending_hdr_write = 1;
 
 
     // Step 1b: load TX FIFO via WDATAB
@@ -139,7 +139,7 @@ i3c_env_cfg_h.regBlockHandle.ctrl_inst.start.set(1'b1);
         tgt_read.start(p_sequencer.i3c_target_seqr_h[0]);
       end
     join_none
- i3c_env_cfg_h.i3c_target_agent_cfg_h[0].pending_hdr_read = 1; 
+// i3c_env_cfg_h.i3c_target_agent_cfg_h[0].pending_hdr_read = 1; 
 
 
     // Step 2b: write CTRL — HDR READ

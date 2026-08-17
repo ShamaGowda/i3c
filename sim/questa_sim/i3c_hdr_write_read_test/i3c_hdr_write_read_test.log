@@ -1,5 +1,5 @@
 # vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=i3c_hdr_write_read_test" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3c_hdr_write_read_test/i3c_hdr_write_read_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb; run -all; exit" -wlf i3c_hdr_write_read_test/waveform.wlf 
-# Start time: 20:08:36 on Aug 12,2026
+# Start time: 16:27:36 on Aug 17,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_bit_engine(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_sdr_fsm(fast)".
@@ -73,7 +73,7 @@
 # ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
 #    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
-# Sv_Seed = 1643244867
+# Sv_Seed = 3713866674
 # log -r /*
 #  add wave -r /*
 #  coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb
@@ -137,7 +137,7 @@
 #   no_of_daa_devices      integral        32    'd0  
 # ----------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(153) @ 0: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] Scoreboard built for 1 target(s)
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(91) @ 0: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] Scoreboard built for 1 target(s)
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(40) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Looking up BFM with key: i3c_target_driver_bfm_0
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(47) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [TGT_MON_PROXY] [target_id=0] Looking up monitor BFM with key: i3c_target_monitor_bfm_0
 # UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
@@ -201,7 +201,7 @@
 #       num_last_rsps               integral                            32    'd1  
 # ---------------------------------------------------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(100) @ 0: uvm_test_top [i3c_hdr_write_read_test] Starting DAA sequence
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(102) @ 0: uvm_test_top [i3c_hdr_write_read_test] Starting DAA sequence
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_monitor_proxy.sv(84) @ 0: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_mon_proxy_h [apb_master_monitor_proxy] Inside the master_monitor_proxy
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(37) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Starting multi-slave DAA for 1 targets
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(82) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [CTRL_DEBUG] CTRL value before DAA write = 0x83070000
@@ -214,9 +214,9 @@
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(84) @ 90: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] DAA transaction
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(184) @ 90: reporter [I3C_TARGET_DRIVER_BFM] DAA transaction started
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 110: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(217) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x0 dir=0 len=0 cmd_type=0x3 ccc=0x7
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(170) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] DAA transaction detected: cmd_type=0x3 ccc=0x7
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(268) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_CTRL_CMD] CTRL cmd_type = 3 (explicit DAA) PASS
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x0 dir=0 len=0 cmd_type=0x3 ccc=0x7 mode=SDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(100) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] DAA transaction detected: cmd_type=0x3 ccc=0x7
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(171) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_CTRL_CMD] CTRL cmd_type = 3 (explicit DAA) PASS
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 170: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
@@ -497,21 +497,16 @@
 # [16510] REP_START completed
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(191) @ 16520: reporter [I3C_TARGET_MONITOR_BFM] DAA MON: STOP detected after round 1 — target not assigned (pid=0xaabbcc0001)
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(103) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA BFM returned struct -> pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
-# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(115) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA tx -> txn_type=DAA  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
-# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(184) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=DAA
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(116) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA tx -> txn_type=DAA  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(185) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=DAA
 # UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(142) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] I3C_target_TX {i3c_target_tx} 1316 1 1320 @uvm_status_container@1 @uvm_object_string_pool__1@93 @uvm_event@37 @uvm_event@38 -1 18446744073709551615 18446744073709551615 18446744073709551615 null 0 0 0 null -1 0 -1 null null 0 {} null null 0 0 {} ACK {} WRITE 0 {} {} 0 {} 0 0 0 DAA 0 733295149057 0 194 0 1 {i3c_target_tx}
 # ** Error: (vsim-8565) Illegal state bin was hit at value=0. The bin counter for the illegal bin '\/i3c_target_pkg::i3c_target_coverage::daa_covergroup .DAA_DYNADDR_CP.DYNADDR_RESERVED' is 1.
 #    Time: 16520 ns  Iteration: 1  Region: /uvm_pkg::uvm_task_phase::execute
-# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x68  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=1
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x68  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=0
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 16520: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(292) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] Got DAA result from target[0]: PID=0xaabbcc0001 BCR=0x0  DCR=0xc2 dynAddr=0x0 daa_ack=1
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(315) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_DYNADDR] [target 0] Dynamic address: expected 0x8 got 0x0
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(333) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_ACK] [target 0] daa_ack=NACK for addr 0x0 FAIL
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(345) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_BCR_ROLE] [target 0] BCR[7]=0 (target role) PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(362) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_PID] [target 0] PID 0xaabbcc0001 matches config PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(373) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_BCR] [target 0] BCR 0x0 PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(384) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_DCR] [target 0] DCR 0xc2 PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(402) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] DAA round complete: 1/1 devices assigned
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(184) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] Got DAA result from target[0]: PID=0xaabbcc0001 BCR=0x0  DCR=0xc2 dynAddr=0x0 daa_ack=1
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(265) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_ACK] [target 0] daa_ack=NACK this round (not assigned yet)
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(278) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] DAA round complete: 1/1 devices assigned
 # [16550] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0xfd
 # [16570] BIT_ENGINE: START state SCL=0 SDA=x
 # [16590] BIT_ENGINE: START state SCL=0 SDA=x
@@ -549,8 +544,8 @@
 # [18230] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(105) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Multi-slave DAA completed. Assigned addresses:
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(111) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq]   target[0]: dynamic addr = 0x10
-# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(108) @ 50250: uvm_test_top [i3c_hdr_write_read_test] DAA done - updating target address to dynamic 0x08
-# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(117) @ 50250: uvm_test_top [i3c_hdr_write_read_test] Starting HDR WRITE READ with dynamic address
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(110) @ 50250: uvm_test_top [i3c_hdr_write_read_test] DAA done - updating target address to dynamic 0x08
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(119) @ 50250: uvm_test_top [i3c_hdr_write_read_test] Starting HDR WRITE READ with dynamic address
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(72) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=4 write_data='{11, 22, 33, 44}  read_len=4
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 1: HDR WRITE ===
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(92) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 1: Loading TX FIFO (WDATAB)
@@ -565,9 +560,9 @@
 #   parent sequence (full name)  string         72    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_write
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h          
 #   txn_type                     string         9     HDR_WRITE                                                               
-#   pid                          integral       48    'h4923d6c8aa02                                                          
-#   bcr                          integral       8     'h50                                                                    
-#   dcr                          integral       8     'hb9                                                                    
+#   pid                          integral       48    'ha334a3ef95c4                                                          
+#   bcr                          integral       8     'h5c                                                                    
+#   dcr                          integral       8     'hbc                                                                    
 #   dynamic_address              integral       7     'h0                                                                     
 #   daa_ack                      integral       1     'b0                                                                     
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -656,9 +651,9 @@
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(115) @ 50570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x84070208
 # [50590] TX_FIFO WRITE: wr_ptr=3 data=0x2c
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50590: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(217) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=0 len=4 cmd_type=0x0 ccc=0x7
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(175) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(573) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=0 len=4 cmd_type=0x0 ccc=0x7 mode=HDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(104) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(412) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
@@ -806,7 +801,6 @@
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 54060: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(940) @ 54060: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[9]=1
 # [54090] HDR_DDR: TX shift_reg=0x8580 bit_cnt=10
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(237) @ 54100: reporter [I3C_TARGET_MONITOR_BFM]  repeated start detected@ time=54100
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 54140: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(945) @ 54140: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[8]=0
 # [54170] HDR_DDR: TX shift_reg=0x0b00 bit_cnt=9
@@ -844,7 +838,18 @@
 # [54850] HDR_FSM: STOP state
 # [54870] CMD_CTRL: Transaction completed   hdr_done  =  1  , sdr_done = 0  , hdr_pending = 0 
 # [54870] HDR_DDR: hdr_stop received
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(130) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] HDR WRITE tx -> txn_type=HDR_WRITE bytes=4
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(185) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=HDR_WRITE
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(142) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] I3C_target_TX {i3c_target_tx} 1418 1 1422 @uvm_status_container@1 @uvm_object_string_pool__1@118 @uvm_event@89 @uvm_event@90 -1 18446744073709551615 18446744073709551615 18446744073709551615 null 0 0 0 null -1 0 -1 null null 0 {} null null 0 0 {0 0 0 0} ACK {ACK ACK ACK ACK} WRITE 8 {11 22 22 22} {ACK ACK ACK ACK} 0 {} 0 0 0 HDR_WRITE 32 0 0 0 0 0 {i3c_target_tx}
+# UVM_WARNING ../../src/hvl_top/target//i3c_target_coverage.sv(161) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] Unknown txn_type=HDR_WRITE — not sampled
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x8  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=0
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(166) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] item_done
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(432) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_OP_MATCH] [target 0] HDR Operation WRITE PASS
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(444) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] [target 0] HDR Write: APB sent 4 bytes, CTRL length=4, target received 4 bytes
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(451) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[0]: expected 0xb got 0xb PASS
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(451) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[1]: expected 0x16 got 0x16 PASS
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(456) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[2]: expected 0x21 got 0x16 FAIL
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(456) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[3]: expected 0x2c got 0x16 FAIL
 # UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_write_seq.sv(43) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_write [i3c_target_hdr_write_seq] HDR_WRITE target seq done
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(126) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 1 (HDR WRITE) complete
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(132) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 2: HDR READ ===
@@ -854,27 +859,30 @@
 # ---------------------------------------------------------------------------------------------------------------------------
 # Name                           Type           Size  Value                                                                  
 # ---------------------------------------------------------------------------------------------------------------------------
-# req                            i3c_target_tx  -     @1434                                                                  
+# req                            i3c_target_tx  -     @1442                                                                  
 #   begin_time                   time           64    100650                                                                 
 #   depth                        int            32    'd2                                                                    
 #   parent sequence (name)       string         8     tgt_read                                                               
 #   parent sequence (full name)  string         71    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_read
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h         
 #   txn_type                     string         8     HDR_READ                                                               
-#   pid                          integral       48    'h9e6a8349df5f                                                         
-#   bcr                          integral       8     'hba                                                                   
-#   dcr                          integral       8     'hd5                                                                   
+#   pid                          integral       48    'h7e03df85c06c                                                         
+#   bcr                          integral       8     'h1a                                                                   
+#   dcr                          integral       8     'h6e                                                                   
 #   dynamic_address              integral       7     'h0                                                                    
 #   daa_ack                      integral       1     'b0                                                                    
 # ---------------------------------------------------------------------------------------------------------------------------
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(74) @ 100650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Got item from sequencer, txn_type=HDR_READ
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(139) @ 100650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Transaction type = HDR_READ
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100670: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=1 len=4 cmd_type=0x1 ccc=0x7 mode=HDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(104) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(412) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100730: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1426             
+# apb_master_tx                 apb_master_tx  -     @1434             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'hc               
 #   pwrite                      string         5     WRITE             
@@ -895,6 +903,7 @@
 # [100810] BIT_ENGINE: START state SCL=1 SDA=1
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 100820: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(672) @ 100820: reporter [I3C_TARGET_DRIVER_BFM] sample_target_address started
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(275) @ 100820: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=100820
 # [100830] BIT_ENGINE: START state SCL=1 SDA=0
 # [100850] BIT_ENGINE: START state SCL=1 SDA=0
 # [100870] BIT_ENGINE: START state SCL=1 SDA=0
@@ -1080,7 +1089,7 @@
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1454             
+# apb_master_tx                 apb_master_tx  -     @1462             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1100,7 +1109,7 @@
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1474             
+# apb_master_tx                 apb_master_tx  -     @1482             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1120,7 +1129,7 @@
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1494             
+# apb_master_tx                 apb_master_tx  -     @1502             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1139,7 +1148,7 @@
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1514             
+# apb_master_tx                 apb_master_tx  -     @1522             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1156,24 +1165,23 @@
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(178) @ 151050: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(179) @ 151050: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
 # UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 204050: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(725) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(538) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
 # ============= SCOREBOARD SUMMARY =============
-#   APB transactions seen      : 7
-#   I3C target transactions    : 1
+#   APB transactions seen      : 8
+#   I3C target transactions    : 2
 #   -- SDR --
 #   Write byte pass / fail     : 0 / 0
 #   Read  byte pass / fail     : 0 / 0
 #   -- HDR --
-#   Write byte pass / fail     : 0 / 0
+#   Write byte pass / fail     : 2 / 2
 #   Read  byte pass / fail     : 0 / 0
 #   -- DAA --
 #   Devices seen               : 1 / 0 expected
-#   Dyn address pass / fail    : 0 / 1
-#   Parity/ACK  pass / fail    : 0 / 1
+#   Dyn address pass / fail    : 0 / 0
+#   Parity/ACK  pass / fail    : 0 / 0
 # ==============================================
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(757) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 1 DAA dynamic address mismatch(es)
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(760) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 1 DAA parity/ACK failure(s)
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(809) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(546) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 2 HDR write data mismatch(es)
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(599) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 204050: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
 # 
 # --------------------------------------
@@ -1187,31 +1195,29 @@
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :  442
-# UVM_WARNING :    0
-# UVM_ERROR :    4
+# UVM_INFO :  450
+# UVM_WARNING :    1
+# UVM_ERROR :    3
 # UVM_FATAL :    0
 # ** Report counts by id
 # [APB_MASTER_DRIVER_BFM]     1
 # [APB_MASTER_MONITOR_BFM]     1
 # [CTRL_DEBUG]     2
 # [DEBUG_MSHA]    13
-# [DEBUG_m_coverage]     1
+# [DEBUG_m_coverage]     3
 # [I3C_TARGET_DRIVER_BFM]    74
 # [I3C_TARGET_MONITOR_BFM]     6
 # [Questa UVM]     2
 # [RNTST]     1
-# [SB]     5
+# [SB]     8
 # [SB_DAA]     2
 # [SB_DAA_ACK]     1
-# [SB_DAA_BCR]     1
-# [SB_DAA_BCR_ROLE]     1
 # [SB_DAA_CTRL_CMD]     1
-# [SB_DAA_DCR]     1
-# [SB_DAA_DYNADDR]     1
-# [SB_DAA_PID]     1
-# [SB_HDR]     1
-# [SB_SUMMARY]     4
+# [SB_HDR]     2
+# [SB_HDR_OP_MATCH]     1
+# [SB_HDR_WDATA_MATCH]     2
+# [SB_HDR_WDATA_MISMATCH]     2
+# [SB_SUMMARY]     3
 # [TARGET_DRIVER_BFM]   248
 # [TEST_DONE]     1
 # [TGT_AGENT_BFM]     1
@@ -1229,9 +1235,9 @@
 # [i3c_target_daa_seq]     4
 # [i3c_target_hdr_read_seq]     1
 # [i3c_target_hdr_write_seq]     2
-# [i3c_target_monitor_proxy]     5
+# [i3c_target_monitor_proxy]     8
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
 #    Time: 204050 ns  Iteration: 53  Instance: /hvl_top
 # Saving coverage database on exit...
-# End time: 20:08:41 on Aug 12,2026, Elapsed time: 0:00:05
+# End time: 16:27:41 on Aug 17,2026, Elapsed time: 0:00:05
 # Errors: 1, Warnings: 1

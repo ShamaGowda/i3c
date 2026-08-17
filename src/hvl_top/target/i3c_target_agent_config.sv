@@ -12,7 +12,7 @@ class i3c_target_agent_config extends uvm_object;
   bit [DATA_WIDTH-1:0]               defaultReadData      = 'hFF;
 bit  pending_hdr_write      = 0;   
 bit  pending_hdr_read       = 0;   
-mailbox #(i3c_target_tx::txn_type_e) mon_expected_txn_mbx;
+//mailbox #(i3c_target_tx::txn_type_e) mon_expected_txn_mbx;
 
   
   int unsigned                       target_id            = 0;
@@ -34,7 +34,7 @@ endclass : i3c_target_agent_config
 
 function i3c_target_agent_config::new(string name = "i3c_target_agent_config");
   super.new(name);
-   mon_expected_txn_mbx = new();   // unbounded, put() never blocks
+//   mon_expected_txn_mbx = new();   // unbounded, put() never blocks
 endfunction : new
 
 
