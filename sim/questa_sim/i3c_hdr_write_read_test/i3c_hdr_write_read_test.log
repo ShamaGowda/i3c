@@ -1,5 +1,5 @@
 # vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed random -assertdebug "+UVM_TESTNAME=i3c_hdr_write_read_test" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3c_hdr_write_read_test/i3c_hdr_write_read_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb; run -all; exit" -wlf i3c_hdr_write_read_test/waveform.wlf 
-# Start time: 16:27:36 on Aug 17,2026
+# Start time: 15:35:55 on Aug 18,2026
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_bit_engine(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "i3c_sdr_fsm(fast)".
@@ -73,7 +73,7 @@
 # ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
 #    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
 # Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
-# Sv_Seed = 3713866674
+# Sv_Seed = 455481171
 # log -r /*
 #  add wave -r /*
 #  coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seedrandom  i3c_hdr_write_read_test/i3c_hdr_write_read_test_coverage.ucdb
@@ -257,7 +257,7 @@
 # 
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(100) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Waiting 50000 ns for all 1 slaves to complete DAA
 # [270] BIT_ENGINE: START state SCL=1 SDA=1
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(275) @ 280: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=280
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(276) @ 280: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=280
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 280: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(208) @ 280: reporter [I3C_TARGET_DRIVER_BFM] DAA: START detected
 # [290] BIT_ENGINE: START state SCL=1 SDA=0
@@ -313,7 +313,7 @@
 # [3270] REP_START completed
 # [3310] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0xfd
 # [3330] BIT_ENGINE: START state SCL=1 SDA=1
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(237) @ 3340: reporter [I3C_TARGET_MONITOR_BFM]  repeated start detected@ time=3340
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(238) @ 3340: reporter [I3C_TARGET_MONITOR_BFM]  repeated start detected@ time=3340
 # [3350] BIT_ENGINE: START state SCL=1 SDA=0
 # [3370] BIT_ENGINE: START state SCL=1 SDA=0
 # [3390] BIT_ENGINE: START state SCL=1 SDA=0
@@ -469,7 +469,7 @@
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 15000: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
 # [15030] ARB_BITS completed, Captured Data = 80555de600008061
 # [15070] ASSIGN completed : PID=80555de60000 BCR=80 DCR=61 DYN_ADDR=08
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(155) @ 15080: reporter [I3C_TARGET_MONITOR_BFM] DAA MON [round 1] bus winner PID=0x80555de60000 BCR=0x80 DCR=0x61 | my PID=0xaabbcc0001
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(156) @ 15080: reporter [I3C_TARGET_MONITOR_BFM] DAA MON [round 1] bus winner PID=0x80555de60000 BCR=0x80 DCR=0x61 | my PID=0xaabbcc0001
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 15080: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
 # [15090] LOOP completed : Next Dynamic Address = 0x9
 # [15110] REP_START completed
@@ -495,7 +495,7 @@
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(711) @ 16440: reporter [I3C_TARGET_DRIVER_BFM] driveAddressAck = 0
 # [16470] BIT_ENGINE: ACK sampled SDA=0 parity=0
 # [16510] REP_START completed
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(191) @ 16520: reporter [I3C_TARGET_MONITOR_BFM] DAA MON: STOP detected after round 1 â€” target not assigned (pid=0xaabbcc0001)
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(192) @ 16520: reporter [I3C_TARGET_MONITOR_BFM] DAA MON: STOP detected after round 1 â€” target not assigned (pid=0xaabbcc0001)
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(103) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA BFM returned struct -> pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(116) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA tx -> txn_type=DAA  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(185) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=DAA
@@ -546,7 +546,7 @@
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(111) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq]   target[0]: dynamic addr = 0x10
 # UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(110) @ 50250: uvm_test_top [i3c_hdr_write_read_test] DAA done - updating target address to dynamic 0x08
 # UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(119) @ 50250: uvm_test_top [i3c_hdr_write_read_test] Starting HDR WRITE READ with dynamic address
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(72) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=4 write_data='{11, 22, 33, 44}  read_len=4
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(72) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=4 write_data='{11, 22, 33, 44}  read_len=2
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 1: HDR WRITE ===
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(92) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 1: Loading TX FIFO (WDATAB)
 # UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_write_seq.sv(38) @ 50250: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_write [i3c_target_hdr_write_seq] HDR_WRITE target seq randomized
@@ -560,9 +560,9 @@
 #   parent sequence (full name)  string         72    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_write
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h          
 #   txn_type                     string         9     HDR_WRITE                                                               
-#   pid                          integral       48    'ha334a3ef95c4                                                          
-#   bcr                          integral       8     'h5c                                                                    
-#   dcr                          integral       8     'hbc                                                                    
+#   pid                          integral       48    'h16fff361a787                                                          
+#   bcr                          integral       8     'h74                                                                    
+#   dcr                          integral       8     'hd8                                                                    
 #   dynamic_address              integral       7     'h0                                                                     
 #   daa_ack                      integral       1     'b0                                                                     
 # ----------------------------------------------------------------------------------------------------------------------------
@@ -653,7 +653,7 @@
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50590: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
 # UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=0 len=4 cmd_type=0x0 ccc=0x7 mode=HDR
 # UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(104) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(412) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(423) @ 50640: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
@@ -680,7 +680,7 @@
 # [50730] BIT_ENGINE: START state SCL=1 SDA=1
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 50740: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(672) @ 50740: reporter [I3C_TARGET_DRIVER_BFM] sample_target_address started
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(275) @ 50740: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=50740
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(276) @ 50740: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=50740
 # [50750] BIT_ENGINE: START state SCL=1 SDA=0
 # [50770] BIT_ENGINE: START state SCL=1 SDA=0
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 50780: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
@@ -844,17 +844,17 @@
 # UVM_WARNING ../../src/hvl_top/target//i3c_target_coverage.sv(161) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] Unknown txn_type=HDR_WRITE â€” not sampled
 # UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x8  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=0
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(166) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] item_done
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(432) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_OP_MATCH] [target 0] HDR Operation WRITE PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(444) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] [target 0] HDR Write: APB sent 4 bytes, CTRL length=4, target received 4 bytes
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(451) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[0]: expected 0xb got 0xb PASS
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(451) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[1]: expected 0x16 got 0x16 PASS
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(456) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[2]: expected 0x21 got 0x16 FAIL
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(456) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[3]: expected 0x2c got 0x16 FAIL
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(443) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_OP_MATCH] [target 0] HDR Operation WRITE PASS
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(461) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] [target 0] HDR Write: APB sent 4 bytes, CTRL length=4, target received 4 bytes
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(468) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[0]: expected 0xb got 0xb PASS
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(468) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MATCH] [target 0] HDR writeData[1]: expected 0x16 got 0x16 PASS
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(473) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[2]: expected 0x21 got 0x16 FAIL
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(473) @ 55041: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_WDATA_MISMATCH] [target 0] HDR writeData[3]: expected 0x2c got 0x16 FAIL
 # UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_write_seq.sv(43) @ 55041: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_write [i3c_target_hdr_write_seq] HDR_WRITE target seq done
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(126) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 1 (HDR WRITE) complete
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(132) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 2: HDR READ ===
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(147) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(158) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x85078208
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(158) @ 100650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x85078108
 # UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_read_seq.sv(44) @ 100650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_read [i3c_target_hdr_read_seq] HDR_READ target seq randomized
 # ---------------------------------------------------------------------------------------------------------------------------
 # Name                           Type           Size  Value                                                                  
@@ -866,18 +866,18 @@
 #   parent sequence (full name)  string         71    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_read
 #   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h         
 #   txn_type                     string         8     HDR_READ                                                               
-#   pid                          integral       48    'h7e03df85c06c                                                         
-#   bcr                          integral       8     'h1a                                                                   
-#   dcr                          integral       8     'h6e                                                                   
+#   pid                          integral       48    'hd4d5ececcd8f                                                         
+#   bcr                          integral       8     'hde                                                                   
+#   dcr                          integral       8     'hd7                                                                   
 #   dynamic_address              integral       7     'h0                                                                    
 #   daa_ack                      integral       1     'b0                                                                    
 # ---------------------------------------------------------------------------------------------------------------------------
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(74) @ 100650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Got item from sequencer, txn_type=HDR_READ
 # UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(139) @ 100650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Transaction type = HDR_READ
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100670: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=1 len=4 cmd_type=0x1 ccc=0x7 mode=HDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=1 len=2 cmd_type=0x1 ccc=0x7 mode=HDR
 # UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(104) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(412) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(423) @ 100720: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100730: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
@@ -886,7 +886,7 @@
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'hc               
 #   pwrite                      string         5     WRITE             
-#   pwdata                      integral       32    'h85078208        
+#   pwdata                      integral       32    'h85078108        
 #   transfer_size               string         0     ""                
 #   pstrb                       integral       4     'b1111            
 #   pprot                       string         18    NORMAL_SECURE_DATA
@@ -896,14 +896,14 @@
 # ---------------------------------------------------------------------
 # 
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(164) @ 100730: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Steps 2-11: DUT performs SDR addressÿÿÿ’ HDR entÿÿÿâÿ’ DDR READ ÿÿ’ STOP
-# [100750] CMD_CTRL: cmd_start=1 mode=1 type=1 addr=0x08 dir=1 len=4
+# [100750] CMD_CTRL: cmd_start=1 mode=1 type=1 addr=0x08 dir=1 len=2
 # [100750] CMD_CTRL: HDR command received
 # [100770] SDR_FSM: addr=0x08 dir=1 be_tx_data=0x11
 # [100790] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0x11
 # [100810] BIT_ENGINE: START state SCL=1 SDA=1
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 100820: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(672) @ 100820: reporter [I3C_TARGET_DRIVER_BFM] sample_target_address started
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(275) @ 100820: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=100820
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(276) @ 100820: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=100820
 # [100830] BIT_ENGINE: START state SCL=1 SDA=0
 # [100850] BIT_ENGINE: START state SCL=1 SDA=0
 # [100870] BIT_ENGINE: START state SCL=1 SDA=0
@@ -934,162 +934,161 @@
 # [102290] CMD_CTRL: be_done=1 hdr_pending=1 -> starting HDR
 # [102290] CMD_CTRL: start_hdr=0 hdr_pending=1 sdr_done=0 hdr_done=0
 # [102310] HDR_FSM: state=0 next=2
-# [102310] HDR_FSM: Entering HDR mode dir=1 len=4
+# [102310] HDR_FSM: Entering HDR mode dir=1 len=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102320: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
 #  b0 =  11 
 # b1 =  22
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 102320: reporter [I3C_TARGET_DRIVER_BFM] [102320] HDR DRIVE bit[15]=0
 # [102330] TX_FIFO READ : rd_ptr=2 data=0x21
-# [102330] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=4
+# [102330] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=2
 # [102330] SDR_FSM: STOP state entered, done=0 byte_cnt=0
 # [102350] CMD_CTRL: Transaction completed   hdr_done  =  0  , sdr_done = 1  , hdr_pending = 0 
 # [102350] HDR_DDR: START rw=1 tx_data=0x1616
-# [102350] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=4
+# [102350] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=2
 # [102370] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
-# [102370] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102390] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102370] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102390] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102390] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
 # [102410] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
-# [102410] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102430] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102410] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102430] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102430] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
-# [102450] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102470] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102450] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102470] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102480: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [102490] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102490] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102510] HDR_DDR RX: FALL captured sda_i=0 bit_cnt=16
-# [102510] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102510] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 102515: reporter [I3C_TARGET_DRIVER_BFM] [102515] HDR DRIVE bit[14]=0
-# [102530] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102550] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102530] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102550] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102560: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [102570] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102570] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102590] HDR_DDR RX: RISE captured sda_i=0 bit_cnt=16
-# [102590] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102590] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 102595: reporter [I3C_TARGET_DRIVER_BFM] [102595] HDR DRIVE bit[13]=0
-# [102610] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102630] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102610] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102630] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102640: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [102650] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102650] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102670] HDR_DDR RX: FALL captured sda_i=0 bit_cnt=14
-# [102670] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102670] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 102675: reporter [I3C_TARGET_DRIVER_BFM] [102675] HDR DRIVE bit[12]=0
-# [102690] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102710] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102690] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102710] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102720: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [102730] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102730] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102750] HDR_DDR RX: RISE captured sda_i=0 bit_cnt=14
-# [102750] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102750] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 102755: reporter [I3C_TARGET_DRIVER_BFM] [102755] HDR DRIVE bit[11]=1
-# [102770] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102790] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102770] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102790] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102800: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [102810] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102810] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102830] HDR_DDR RX: FALL captured sda_i=1 bit_cnt=12
-# [102830] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102830] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 102835: reporter [I3C_TARGET_DRIVER_BFM] [102835] HDR DRIVE bit[10]=0
-# [102850] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102870] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102850] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102870] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102880: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [102890] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102890] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102910] HDR_DDR RX: RISE captured sda_i=0 bit_cnt=12
-# [102910] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102910] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 102915: reporter [I3C_TARGET_DRIVER_BFM] [102915] HDR DRIVE bit[9]=1
-# [102930] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [102950] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102930] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [102950] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 102960: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [102970] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102970] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [102990] HDR_DDR RX: FALL captured sda_i=1 bit_cnt=10
-# [102990] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [102990] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 102995: reporter [I3C_TARGET_DRIVER_BFM] [102995] HDR DRIVE bit[8]=1
-# [103010] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103030] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103010] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103030] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103040: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [103050] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103050] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103070] HDR_DDR RX: RISE captured sda_i=1 bit_cnt=10
-# [103070] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103070] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103075: reporter [I3C_TARGET_DRIVER_BFM] [103075] HDR DRIVE bit[7]=0
-# [103090] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103110] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103090] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103110] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103120: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [103130] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103130] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103150] HDR_DDR RX: FALL captured sda_i=0 bit_cnt=8
-# [103150] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103150] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 103155: reporter [I3C_TARGET_DRIVER_BFM] [103155] HDR DRIVE bit[6]=0
-# [103170] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103190] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103170] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103190] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103200: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [103210] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103210] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103230] HDR_DDR RX: RISE captured sda_i=0 bit_cnt=8
-# [103230] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103230] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103235: reporter [I3C_TARGET_DRIVER_BFM] [103235] HDR DRIVE bit[5]=0
-# [103250] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103270] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103250] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103270] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103280: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [103290] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103290] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103310] HDR_DDR RX: FALL captured sda_i=0 bit_cnt=6
-# [103310] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103310] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 103315: reporter [I3C_TARGET_DRIVER_BFM] [103315] HDR DRIVE bit[4]=1
-# [103330] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103350] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103330] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103350] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103360: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [103370] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103370] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103390] HDR_DDR RX: RISE captured sda_i=1 bit_cnt=6
-# [103390] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103390] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103395: reporter [I3C_TARGET_DRIVER_BFM] [103395] HDR DRIVE bit[3]=0
-# [103410] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103430] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103410] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103430] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103440: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [103450] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103450] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103470] HDR_DDR RX: FALL captured sda_i=0 bit_cnt=4
-# [103470] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103470] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 103475: reporter [I3C_TARGET_DRIVER_BFM] [103475] HDR DRIVE bit[2]=1
-# [103490] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103510] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103490] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103510] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103520: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [103530] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103530] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103550] HDR_DDR RX: RISE captured sda_i=1 bit_cnt=4
-# [103550] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103550] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103555: reporter [I3C_TARGET_DRIVER_BFM] [103555] HDR DRIVE bit[1]=1
-# [103570] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103590] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103570] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103590] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103600: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
-# [103610] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103610] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103630] HDR_DDR RX: FALL captured sda_i=1 bit_cnt=2
-# [103630] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103630] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 103635: reporter [I3C_TARGET_DRIVER_BFM] [103635] HDR DRIVE bit[0]=0
-# [103650] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-# [103670] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103650] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103670] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103680: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# [103690] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
+# [103690] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
 # [103710] HDR_DDR RX: RISE captured sda_i=0 bit_cnt=2
 # [103710] HDR_DDR: RX COMPLETE data=0x0b16
-# [103710] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=4
-#  b0 =  22 
-# b1 =  22
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103715: reporter [I3C_TARGET_DRIVER_BFM] [103715] HDR DRIVE bit[15]=0
-# [103730] HDR_FSM: RECV state hdr_busy=0 hdr_done=1 byte_cnt=4
+# [103710] HDR_FSM: RECV state hdr_busy=1 hdr_done=0 byte_cnt=2
+# [103730] HDR_FSM: RECV state hdr_busy=0 hdr_done=1 byte_cnt=2
 # [103750] RX_FIFO WRITE: ptr=0 data=0x01
-# [103750] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=2
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103760: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [103750] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=0
 # [103770] HDR_FSM: state=2 next=3
-# [103770] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=2
+# [103770] HDR_FSM: RECV state hdr_busy=0 hdr_done=0 byte_cnt=0
 # [103770] RX_FIFO WRITE: ptr=1 data=0x00
-# [103790] HDR_DDR: START rw=1 tx_data=0x1616
 # [103790] HDR_FSM: state=3 next=0
 # [103790] HDR_FSM: STOP state
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1024) @ 103795: reporter [I3C_TARGET_DRIVER_BFM] [103795] HDR DRIVE bit[14]=0
 # [103810] CMD_CTRL: Transaction completed   hdr_done  =  1  , sdr_done = 0  , hdr_pending = 0 
 # [103810] HDR_DDR: hdr_stop received
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(918) @ 103820: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
-# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1019) @ 103855: reporter [I3C_TARGET_DRIVER_BFM] [103855] HDR DRIVE bit[13]=0
+# UVM_WARNING ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(835) @ 122320: reporter [I3C_TARGET_MONITOR_BFM] HDR READ MON: timed out after 2 bytes, DUT stopped clocking (transaction incomplete)
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(144) @ 122320: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] HDR READ tx -> txn_type=HDR_READ bytes=2
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(185) @ 122320: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=HDR_READ
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(142) @ 122320: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] I3C_target_TX {i3c_target_tx} 1454 1 1458 @uvm_status_container@1 @uvm_object_string_pool__1@127 @uvm_event@107 @uvm_event@108 -1 18446744073709551615 18446744073709551615 18446744073709551615 null 0 0 0 null -1 0 -1 null null 0 {} null null 0 0 {2 197} ACK {ACK ACK} READ 8 {0 0} {ACK ACK} 0 {} 0 0 0 HDR_READ 16 0 0 0 0 0 {i3c_target_tx}
+# UVM_WARNING ../../src/hvl_top/target//i3c_target_coverage.sv(161) @ 122320: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] Unknown txn_type=HDR_READ â€” not sampled
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 122320: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x8  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=0
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(443) @ 122320: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_OP_MATCH] [target 0] HDR Operation READ PASS
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(171) @ 150730: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 12: Reading RX FIFO via RDATAB
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150750: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 150810: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1462             
+# apb_master_tx                 apb_master_tx  -     @1470             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1105,11 +1104,13 @@
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 150810: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[0] = 0x00
 # [150830] RX_FIFO READ : ptr=0 data=0x01
 # UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150830: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(527) @ 150880: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_RDATA_MISMATCH] [target 0] HDR readData[0]: target drove 0x2, APB received 0x0 FAIL
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(527) @ 150880: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR_RDATA_MISMATCH] [target 0] HDR readData[1]: target drove 0xc5, APB received 0x0 FAIL
 # UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 150890: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
 #  ---------------------------------------------------------------------
 # Name                          Type           Size  Value             
 # ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1482             
+# apb_master_tx                 apb_master_tx  -     @1490             
 #   pselx                       string         7     SLAVE_0           
 #   paddr                       integral       32    'h40              
 #   pwrite                      string         4     READ              
@@ -1123,90 +1124,53 @@
 # ---------------------------------------------------------------------
 # 
 # UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 150890: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[1] = 0x00
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(178) @ 150890: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(179) @ 150890: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
 # [150910] RX_FIFO READ : ptr=1 data=0x00
-# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150910: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 150970: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
-#  ---------------------------------------------------------------------
-# Name                          Type           Size  Value             
-# ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1502             
-#   pselx                       string         7     SLAVE_0           
-#   paddr                       integral       32    'h40              
-#   pwrite                      string         4     READ              
-#   pwdata                      integral       32    'h0               
-#   transfer_size               string         0     ""                
-#   pstrb                       integral       4     'b0               
-#   pprot                       string         18    NORMAL_SECURE_DATA
-#   prdata                      integral       32    'h1               
-#   pslverr                     string         8     NO_ERROR          
-#   no_of_wait_states_detected  integral       32    'd1               
-# ---------------------------------------------------------------------
-# 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 150970: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[2] = 0x01
-# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150990: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 151050: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
-#  ---------------------------------------------------------------------
-# Name                          Type           Size  Value             
-# ---------------------------------------------------------------------
-# apb_master_tx                 apb_master_tx  -     @1522             
-#   pselx                       string         7     SLAVE_0           
-#   paddr                       integral       32    'h40              
-#   pwrite                      string         4     READ              
-#   pwdata                      integral       32    'h0               
-#   transfer_size               string         0     ""                
-#   pstrb                       integral       4     'b0               
-#   pprot                       string         18    NORMAL_SECURE_DATA
-#   prdata                      integral       32    'h0               
-#   pslverr                     string         8     NO_ERROR          
-#   no_of_wait_states_detected  integral       32    'd1               
-# ---------------------------------------------------------------------
-# 
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 151050: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[3] = 0x00
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(178) @ 151050: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
-# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(179) @ 151050: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
-# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 204050: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(538) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 203890: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(565) @ 203890: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
 # ============= SCOREBOARD SUMMARY =============
-#   APB transactions seen      : 8
-#   I3C target transactions    : 2
+#   APB transactions seen      : 10
+#   I3C target transactions    : 3
 #   -- SDR --
 #   Write byte pass / fail     : 0 / 0
 #   Read  byte pass / fail     : 0 / 0
 #   -- HDR --
 #   Write byte pass / fail     : 2 / 2
-#   Read  byte pass / fail     : 0 / 0
+#   Read  byte pass / fail     : 0 / 2
 #   -- DAA --
 #   Devices seen               : 1 / 0 expected
 #   Dyn address pass / fail    : 0 / 0
 #   Parity/ACK  pass / fail    : 0 / 0
 # ==============================================
-# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(546) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 2 HDR write data mismatch(es)
-# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(599) @ 204050: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
-# UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 204050: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(573) @ 203890: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 2 HDR write data mismatch(es)
+# UVM_ERROR ../../src/hvl_top/env/i3c_scoreboard.sv(575) @ 203890: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 2 HDR read data mismatch(es)
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(626) @ 203890: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 203890: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
 # 
 # --------------------------------------
 # target COVERAGE
 # --------------------------------------
 # 
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(173) @ 204050: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent SDR Coverage = 0.00 %
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(177) @ 204050: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent DAA Coverage = 41.67 %
-# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(182) @ 204050: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent Total Coverage = 20.83 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(173) @ 203890: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent SDR Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(177) @ 203890: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent DAA Coverage = 41.67 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(182) @ 203890: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent Total Coverage = 20.83 %
 # 
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :  450
-# UVM_WARNING :    1
-# UVM_ERROR :    3
+# UVM_INFO :  444
+# UVM_WARNING :    3
+# UVM_ERROR :    6
 # UVM_FATAL :    0
 # ** Report counts by id
 # [APB_MASTER_DRIVER_BFM]     1
 # [APB_MASTER_MONITOR_BFM]     1
 # [CTRL_DEBUG]     2
-# [DEBUG_MSHA]    13
-# [DEBUG_m_coverage]     3
-# [I3C_TARGET_DRIVER_BFM]    74
-# [I3C_TARGET_MONITOR_BFM]     6
+# [DEBUG_MSHA]    11
+# [DEBUG_m_coverage]     5
+# [I3C_TARGET_DRIVER_BFM]    71
+# [I3C_TARGET_MONITOR_BFM]     7
 # [Questa UVM]     2
 # [RNTST]     1
 # [SB]     8
@@ -1214,11 +1178,12 @@
 # [SB_DAA_ACK]     1
 # [SB_DAA_CTRL_CMD]     1
 # [SB_HDR]     2
-# [SB_HDR_OP_MATCH]     1
+# [SB_HDR_OP_MATCH]     2
+# [SB_HDR_RDATA_MISMATCH]     2
 # [SB_HDR_WDATA_MATCH]     2
 # [SB_HDR_WDATA_MISMATCH]     2
-# [SB_SUMMARY]     3
-# [TARGET_DRIVER_BFM]   248
+# [SB_SUMMARY]     4
+# [TARGET_DRIVER_BFM]   246
 # [TEST_DONE]     1
 # [TGT_AGENT_BFM]     1
 # [TGT_DRV_PROXY]    11
@@ -1226,18 +1191,18 @@
 # [UVMTOP]     1
 # [apb master agent bfm]     1
 # [apb_master_coverage]     1
-# [apb_master_driver_proxy]    12
+# [apb_master_driver_proxy]    10
 # [apb_master_monitor_proxy]     1
 # [i3c_daa_virtual_seq]     6
 # [i3c_hdr_write_read_test]     5
-# [i3c_hdr_write_read_virtual_seq]    22
+# [i3c_hdr_write_read_virtual_seq]    20
 # [i3c_target_coverage]     3
 # [i3c_target_daa_seq]     4
 # [i3c_target_hdr_read_seq]     1
 # [i3c_target_hdr_write_seq]     2
-# [i3c_target_monitor_proxy]     8
+# [i3c_target_monitor_proxy]    11
 # ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 204050 ns  Iteration: 53  Instance: /hvl_top
+#    Time: 203890 ns  Iteration: 53  Instance: /hvl_top
 # Saving coverage database on exit...
-# End time: 16:27:41 on Aug 17,2026, Elapsed time: 0:00:05
+# End time: 15:36:01 on Aug 18,2026, Elapsed time: 0:00:06
 # Errors: 1, Warnings: 1

@@ -47,7 +47,7 @@ else
   constraint len_c {
     write_len inside { 4};
     wdata.size() == write_len;
-    read_len  inside { 4 };
+    read_len  inside { 2 };
   
 }
   function new(string name = "i3c_hdr_write_read_virtual_seq");

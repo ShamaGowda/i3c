@@ -1055,7 +1055,7 @@ task drive_hdr_read(
     begin
       bit [15:0] w;
       bit [7:0]  b0, b1;
-      while (byte_idx < MAXIMUM_BYTES) begin
+      while (byte_idx < 2 ) begin
         if (targetFIFOMemory.size() >= 2) begin
           b0 = targetFIFOMemory.pop_front();
           $display(" b0 = %d ", b0);

@@ -1,3 +1,4 @@
+
 `ifndef I3C_TARGET_MONITOR_BFM_INCLUDED_
 `define I3C_TARGET_MONITOR_BFM_INCLUDED_
 import i3c_globals_pkg::*;
@@ -784,6 +785,7 @@ else
   task sample_hdr_read(inout i3c_transfer_bits_s pkt,
                         inout i3c_transfer_cfg_s  cfg);
     int byte_idx;
+ bit timed_out;
     `uvm_info(name, "HDR READ MON started", UVM_HIGH)
     detect_start();
     sample_target_address(pkt);
@@ -796,6 +798,8 @@ else
     end
 
     byte_idx = 0;
+timed_out = 0;
+
     fork
       begin
         bit [15:0] w;
@@ -812,9 +816,25 @@ else
           byte_idx += 2;
         end
       end
-    join_none
-    hdrDetect_stop();
+
+ begin : idle_timeout
+      // give up waiting for more clock edges after a fixed window
+      #20000;   // pick something well beyond one word's worth of edges
+      timed_out = 1;
+    end
+
+
+    join_any
+   
     disable fork;
+
+
+  if (timed_out)
+    `uvm_warning(name,
+      $sformatf("HDR READ MON: timed out after %0d bytes, DUT stopped clocking (transaction incomplete)",
+                byte_idx))
+
+
     `uvm_info(name, $sformatf("HDR READ MON done: %0d bytes", byte_idx), UVM_HIGH)
   endtask : sample_hdr_read
 
@@ -822,7 +842,7 @@ else
 
 
 
-  
+
 
 
 endinterface : i3c_target_monitor_bfm

@@ -393,9 +393,20 @@ endtask : compare_with_target
 // ============================================================================
 // compare_with_hdr_target  (HDR, MULTI-SLAVE)
 //
-// Mirrors compare_with_target() (SDR) structure exactly, but scores against
-// hdr_* counters and uses SB_HDR_* IDs so HDR and SDR results never mix in
-// logs or in the summary. Every byte gets an explicit PASS/FAIL log line.
+// Mirrors compare_with_target() (SDR) structure, but scores against hdr_*
+// counters and uses SB_HDR_* IDs so HDR and SDR results never mix in logs
+// or in the summary. Every byte gets an explicit PASS/FAIL log line.
+//
+// HDR WRITE: compares APB WDATAB bytes (what the DUT was told to send)
+// against what the target monitor actually captured on the bus.
+//
+// HDR READ: compares what the target monitor captured being driven onto
+// the bus (tgt.readData -- target's own transmission) against what the
+// APB-side sequence read back out of RDATAB (apb_read_data -- what the
+// DUT forwarded to software). This is NOT a write-loopback check; HDR
+// read data is independent, freshly-randomized data, so it must never be
+// compared against exp_rd_wr_data (which belongs only to the SDR
+// write-then-readback flow).
 // ============================================================================
 task i3c_scoreboard::compare_with_hdr_target();
   i3c_target_tx tgt;
@@ -435,8 +446,14 @@ task i3c_scoreboard::compare_with_hdr_target();
         $sformatf("[target %0d] HDR Operation: expected %s got %s",
                   tgt_idx, exp_op.name(), tgt.operation.name()))
   end
-  // -- HDR WRITE data comparison (DUT -> target)
+
   if (exp_direction == 1'b0) begin
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////// HDR WRITE COMPARE /////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    // DUT drives target: compare APB WDATAB bytes (exp_write_data, what
+    // software queued for the DUT to send) against what the target
+    // monitor actually captured being driven on the bus (tgt.writeData).
     int actual_bytes = tgt.writeData.size();
     `uvm_info("SB",
       $sformatf("[target %0d] HDR Write: APB sent %0d bytes, CTRL length=%0d, target received %0d bytes",
@@ -463,8 +480,20 @@ task i3c_scoreboard::compare_with_hdr_target();
                   tgt_idx,
                   exp_write_data.size(), actual_bytes,
                   exp_write_data.size() - actual_bytes), UVM_MEDIUM)
-  // -- HDR READ data comparison (target -> DUT)
+    ////////////////////////////////////////////////////////////////////////
+    /////////////////////// END HDR WRITE COMPARE ////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+
   end else begin
+    ////////////////////////////////////////////////////////////////////////
+    ////////////////////////// HDR READ COMPARE //////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
+    // Target drives the bus, DUT forwards it to software: compare what the
+    // target monitor captured being driven on the bus (tgt.readData) against
+    // what the APB-side sequence actually read back out of RDATAB
+    // (apb_read_data). Both sides are independent, freshly-captured values
+    // for THIS transaction -- do NOT compare against exp_rd_wr_data, which
+    // only applies to the SDR write-then-readback loopback flow.
     bit [7:0]     apb_read_data[$];
     apb_master_tx rd_pkt;
     int           rd_count = 0;
@@ -480,34 +509,32 @@ task i3c_scoreboard::compare_with_hdr_target();
         rd_count++;
       end
     end
+
     if (apb_read_data.size() != tgt.readData.size()) begin
       `uvm_error("SB_HDR_RDATA_SIZE",
-        $sformatf("[target %0d] HDR Read size mismatch: apb=%0d target=%0d",
+        $sformatf("[target %0d] HDR Read size mismatch: apb=%0d target_driven=%0d",
                   tgt_idx, apb_read_data.size(), tgt.readData.size()))
     end else begin
-      for (int i = 0; i < tgt.readData.size(); i++) begin
-        bit [7:0] exp_val;
-        if (i < exp_rd_wr_data.size())
-          exp_val = exp_rd_wr_data[i];
-        else begin
-          exp_val = 8'hFF;
-          `uvm_warning("SB_HDR_RDATA_EMPTY",
-            $sformatf("[target %0d] exp_rd_wr_data queue too small", tgt_idx))
-        end
-        if (exp_val == tgt.readData[i][7:0]) begin
+      for (int i = 0; i < apb_read_data.size(); i++) begin
+        if (apb_read_data[i] == tgt.readData[i][7:0]) begin
           `uvm_info("SB_HDR_RDATA_MATCH",
-            $sformatf("[target %0d] HDR readData[%0d]: expected 0x%0x got 0x%0x PASS",
-                      tgt_idx, i, exp_val, tgt.readData[i][7:0]), UVM_MEDIUM)
+            $sformatf("[target %0d] HDR readData[%0d]: target drove 0x%0x, APB received 0x%0x PASS",
+                      tgt_idx, i, tgt.readData[i][7:0], apb_read_data[i]), UVM_MEDIUM)
           hdr_read_pass++;
         end else begin
           `uvm_error("SB_HDR_RDATA_MISMATCH",
-            $sformatf("[target %0d] HDR readData[%0d]: expected 0x%0x got 0x%0x FAIL",
-                      tgt_idx, i, exp_val, tgt.readData[i][7:0]))
+            $sformatf("[target %0d] HDR readData[%0d]: target drove 0x%0x, APB received 0x%0x FAIL",
+                      tgt_idx, i, tgt.readData[i][7:0], apb_read_data[i]))
           hdr_read_fail++;
         end
       end
     end
-    exp_rd_wr_data.delete();
+    // NOTE: exp_rd_wr_data is intentionally left untouched here (no
+    // .delete()) -- it belongs to the SDR write/readback flow only and
+    // must not be consumed/cleared by the HDR read path.
+    ////////////////////////////////////////////////////////////////////////
+    /////////////////////// END HDR READ COMPARE /////////////////////////////
+    ////////////////////////////////////////////////////////////////////////
   end
 endtask : compare_with_hdr_target
 function void i3c_scoreboard::check_phase(uvm_phase phase);
@@ -599,3 +626,7 @@ function void i3c_scoreboard::check_phase(uvm_phase phase);
   `uvm_info("SB_SUMMARY", "check_phase complete", UVM_LOW)
 endfunction : check_phase
 `endif
+
+
+
+
