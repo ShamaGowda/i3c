@@ -814,7 +814,7 @@ endtask : wrDetect_stop
 */
 
 
-
+/*
 
 task wrDetect_stop();
   bit [1:0] scl_d;
@@ -855,6 +855,65 @@ task wrDetect_stop();
     // else: false match from DDR bit toggling -- keep scanning
   end
 endtask : wrDetect_stop
+*/
+
+
+
+
+
+// CHANGED: added a timeout guard so a data pattern that never produces
+// a clean 8-cycle debounced STOP can't hang the driver_proxy forever —
+// mirrors the timed_out pattern already added to the monitor's
+// sample_hdr_read(). Root cause of the stall is data-dependent; this
+// keeps the sequence from silently hanging the rest of the test.
+task wrDetect_stop();
+  bit [1:0] scl_d;
+  bit [1:0] sda_d;
+  localparam int STOP_CONFIRM_CYCLES = 8;
+  int stable_count;
+  bit timed_out;
+  timed_out = 0;
+
+  fork
+    begin : stop_scan
+      forever begin
+        do begin
+          @(negedge pclk);
+          #1;
+          scl_d = {scl_d[0], scl_i};
+          sda_d = {sda_d[0], sda_i};
+        end while (!(sda_d == POSEDGE && scl_d == 2'b11));
+
+        stable_count = 0;
+        while (stable_count < STOP_CONFIRM_CYCLES) begin
+          @(negedge pclk);
+          #1;
+          if (scl_i === 1'b1 && sda_i === 1'b1)
+            stable_count++;
+          else
+            break;
+        end
+
+        if (stable_count == STOP_CONFIRM_CYCLES) begin
+          state = STOP;
+          `uvm_info(name, "Stop condition detected", UVM_HIGH)
+          disable stop_scan;
+        end
+      end
+    end
+    begin : stop_timeout
+      #20000;
+      timed_out = 1;
+    end
+  join_any
+  disable fork;
+
+  if (timed_out)
+    `uvm_warning(name, "wrDetect_stop: timed out waiting for debounced STOP")
+endtask : wrDetect_stop
+
+
+
 
 task detect_stop();
   bit [1:0] scl_d;

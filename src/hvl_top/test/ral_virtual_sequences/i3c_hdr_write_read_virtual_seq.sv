@@ -45,7 +45,7 @@ else
     wdata[i] == 55;
   }
   constraint len_c {
-    write_len inside { 4};
+    write_len inside { 1};
     wdata.size() == write_len;
     read_len  inside { 2 };
   

@@ -1,8 +1,8 @@
-`ifndef I3C_HDR_WRITE_READ_VIRTUAL_SEQ_INCLUDED_
-`define I3C_HDR_WRITE_READ_VIRTUAL_SEQ_INCLUDED_
+`ifndef I3C_HDR_WRITE_READ_VIRTUAL_SEQ_RANDOMIZED_INCLUDED_
+`define I3C_HDR_WRITE_READ_VIRTUAL_SEQ_RANDOMIZED_INCLUDED_
 
-class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
-  `uvm_object_utils(i3c_hdr_write_read_virtual_seq)
+class i3c_hdr_write_read_virtual_seq_randomized extends top_virtual_base_seq;
+  `uvm_object_utils(i3c_hdr_write_read_virtual_seq_randomized)
 
   uvm_status_e   status;
   uvm_reg_data_t ctrl_val;
@@ -21,10 +21,10 @@ class i3c_hdr_write_read_virtual_seq extends top_virtual_base_seq;
   constraint len_c {
     write_len inside {4};
     wdata.size() == write_len;
-    read_len  inside {4};
+    read_len  inside {2};
   }
 
-  function new(string name = "i3c_hdr_write_read_virtual_seq");
+  function new(string name = "i3c_hdr_write_read_virtual_seq_randomized");
     super.new(name);
   endfunction
 

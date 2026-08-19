@@ -18,11 +18,20 @@ interface i3c_target_monitor_bfm (
   import i3c_target_pkg::i3c_target_monitor_proxy;
   i3c_target_monitor_proxy i3c_target_mon_proxy_h;
   i3c_fsm_state_e          state;
+  
+ bit [1:0] scl_loc_m = 2'b11;
+
+ 
   string name = "I3C_TARGET_MONITOR_BFM";
   localparam logic [7:0] BCAST_7E_W  = 8'hFC;
   localparam logic [7:0] ENTDAA_CODE = 8'h07;
   localparam logic [7:0] BCAST_7E_R  = 8'hFD;
   localparam int         ARB_BIT_CNT = 64;
+
+
+
+
+
   initial begin
     $display(name);
   end
@@ -354,7 +363,7 @@ endtask : skip_daa_session_passively
     detectEdge_scl(NEGEDGE);
   endtask : sampleReadAck
   task automatic detectEdge_scl(input edge_detect_e edgeSCL);
-    bit [1:0] scl_loc_m = 2'b11;
+//    bit [1:0] scl_loc_m = 2'b11;
     do begin
       @(negedge pclk);
       scl_loc_m = {scl_loc_m[0], scl_i};
@@ -697,7 +706,7 @@ else
   // drive_hdr_ddr_word_rd (NEGEDGE-first), since in HDR READ the TARGET
   // driver drives SDA and the monitor must sample it the same way the
   // DUT's rx engine captures it (fall-bit, then rise-bit).
-  task sample_hdr_ddr_word_rd(output bit [15:0] word);
+ task sample_hdr_ddr_word_rd(output bit [15:0] word);
     word = '0;
     for (int b = 15; b >= 0; b -= 2) begin
       detectEdge_scl(NEGEDGE);
@@ -706,7 +715,16 @@ else
       word[b-1] = sda_i;
     end
     `uvm_info(name, $sformatf("HDR READ MON WORD = 0x%04h", word), UVM_HIGH)
-  endtask : sample_hdr_ddr_word_rd
+ endtask : sample_hdr_ddr_word_rd
+
+
+
+
+
+
+
+
+
 
   // ADDED: debounced STOP detector for HDR, same 8-cycle confirm as the
   // driver's wrDetect_stop() fix — plain detect_stop() would false-trigger
