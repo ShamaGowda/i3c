@@ -1,0 +1,155 @@
+# do exclude_cov.do
+# coverage read -dataset merged_coverage merged_coverage.ucdb
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# merged_coverage.ucdb opened as coverage dataset "merged_coverage"
+# coverage exclude -srcfile ../../rtl_dev/src/I3C_TOP.v -line 174
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../rtl_dev/src/I3C_TOP.v -line 248
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv
+# ** Warning: (vish-4053) File '../../src/hdl_top/controller_agent_bfm/i3c_controller_agent_bfm.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv
+# ** Warning: (vish-4053) File '../../src/hdl_top/controller_agent_bfm/i3c_controller_driver_bfm.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv
+# ** Warning: (vish-4053) File '../../src/hdl_top/controller_agent_bfm/i3c_controller_monitor_bfm.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_agent.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_agent.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_agent_config.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_agent_config.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_cfg_converter.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_cfg_converter.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_coverage.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_coverage.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_driver_proxy.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_driver_proxy.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_monitor_proxy.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_monitor_proxy.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_seq_item_converter.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_seq_item_converter.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_sequencer.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_sequencer.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller//i3c_controller_tx.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller//i3c_controller_tx.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_base_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_base_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_randomOperationWithRandomDataTransferWidth_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_randomOperationWithRandomDataTransferWidth_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith16bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith16bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith32bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith32bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith64bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith64bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith8bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWith8bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWithMaximumbitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWithMaximumbitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWithRandomDataTransferWidth_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_readOperationWithRandomDataTransferWidth_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith16bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith16bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith32bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith32bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith64bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith64bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith8bitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWith8bitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWithMaximumbitsData_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWithMaximumbitsData_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 
+# coverage exclude -srcfile ../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWithRandomDataTransferWidth_seq.sv
+# ** Warning: (vish-4053) File '../../src/hvl_top/controller/controller_sequences//i3c_controller_writeOperationWithRandomDataTransferWidth_seq.sv' was not found or has null coverage data.
+# ** Warning: (vish-4036) The 'coverage exclude' command had no effect on some/all objects because
+# no matching coverage data was found.
+# 

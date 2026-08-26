@@ -1,0 +1,884 @@
+# vsim -vopt work.hvl_top work.hdl_top -voptargs="+acc=npr" -sv_seed 16 -assertdebug "+UVM_TESTNAME=i3c_hdr_write_read_test" "+UVM_VERBOSITY=UVM_MEDIUM" "+define+" -l i3c_hdr_write_read_test_seed16/i3c_hdr_write_read_test.log -sva -coverage -c -do "log -r /*; add wave -r /*; coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seed16 i3c_hdr_write_read_test_seed16/i3c_hdr_write_read_test_coverage.ucdb; run -all; exit" -wlf i3c_hdr_write_read_test_seed16/waveform.wlf 
+# Start time: 16:03:52 on Aug 26,2026
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# //  Questa Sim
+# //  Version 10.6c linux Jul 25 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.apb_master_driver_bfm(fast)
+# Loading work.apb_master_monitor_bfm(fast)
+# Loading work.apb_global_pkg(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.apb_master_pkg(fast)
+# Loading work.i3c_target_driver_bfm(fast)
+# Loading work.i3c_target_monitor_bfm(fast)
+# Loading work.i3c_globals_pkg(fast)
+# Loading work.i3c_target_pkg(fast)
+# Loading work.i3c_env_pkg(fast)
+# Loading work.i3c_target_seq_pkg(fast)
+# Loading work.apb_master_seq_pkg(fast)
+# Loading work.i3c_ral_virtual_seq_pkg(fast)
+# Loading work.i3c_test_pkg(fast)
+# Loading work.hvl_top(fast)
+# Loading work.hdl_top_sv_unit(fast)
+# Loading work.hdl_top(fast)
+# Loading work.apb_if_sv_unit(fast)
+# Loading work.apb_if(fast)
+# Loading work.i3c_if(fast)
+# Loading work.i3c_wrapper_sv_unit(fast)
+# Loading work.apb_i3c_wrapper(fast)
+# Loading work.I3C_TOP(fast)
+# Loading work.i3c_reg_interface(fast)
+# Loading work.i3c_cmd_ctrl(fast)
+# Loading work.i3c_Tx_FIFO(fast)
+# Loading work.i3c_Rx_FIFO(fast)
+# Loading work.i3c_sdr_fsm(fast)
+# Loading work.i3c_daa_fsm(fast)
+# Loading work.i3c_device_table(fast)
+# Loading work.i3c_bit_engine(fast)
+# Loading work.i3c_scl_gen(fast)
+# Loading work.i3c_ibi_detector(fast)
+# Loading work.i3c_ibi_fsm(fast)
+# Loading work.i3c_ibi_regs(fast)
+# Loading work.i3c_hdr_fsm(fast)
+# Loading work.i3c_hdr_ddr_engine(fast)
+# Loading work.apb_master_agent_bfm(fast)
+# Loading work.apb_master_driver_bfm_sv_unit(fast)
+# Loading work.apb_master_driver_bfm(fast)
+# Loading work.apb_master_monitor_bfm_sv_unit(fast)
+# Loading work.apb_master_monitor_bfm(fast)
+# Loading work.i3c_target_agent_bfm(fast)
+# Loading work.i3c_target_driver_bfm_sv_unit(fast)
+# Loading work.i3c_target_driver_bfm(fast)
+# Loading work.i3c_target_monitor_bfm_sv_unit(fast)
+# Loading work.i3c_target_monitor_bfm(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# ** Warning: (vsim-3015) ../../rtl_dev/src/I3C_TOP.v(509): [PCDPC] - Port size (8) does not match connection size (1) for port 'rx_data'. The port definition is at: ../../rtl_dev/src/i3c_hdr_fsm.v(14).
+#    Time: 0 ns  Iteration: 0  Instance: /hdl_top/dut/x13 File: ../../rtl_dev/src/i3c_hdr_fsm.v
+# Loading /tools/mentor/questasim_10.6c/questasim/uvm-1.1d/linux/uvm_dpi.so
+# log -r /*
+#  add wave -r /*
+#  coverage save -onexit -assert -directive -cvg -codeAll -testname i3c_hdr_write_read_test_seed16 i3c_hdr_write_read_test_seed16/i3c_hdr_write_read_test_coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(215) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(217) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test i3c_hdr_write_read_test...
+# HDL TOP â€“ multi-slave (1 targets)
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_agent_bfm.sv(17) @ 0: reporter [apb master agent bfm] APB MASTER AGENT BFM
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(55) @ 0: reporter [APB_MASTER_DRIVER_BFM] APB_MASTER_DRIVER_BFM
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_monitor_bfm.sv(47) @ 0: reporter [APB_MASTER_MONITOR_BFM] APB MASTER MONITOR BFM
+# I3C_TARGET_DRIVER_BFM
+# I3C_TARGET_MONITOR_BFM
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_agent_bfm.sv(52) @ 0: reporter [TGT_AGENT_BFM] Registering BFMs: drv_key=i3c_target_driver_bfm_0  mon_key=i3c_target_monitor_bfm_0
+# i3c_target_agent_bfm: target_ID=0
+# UVM_INFO ../../src/hvl_top/test/i3c_base_test.sv(80) @ 0: uvm_test_top [i3c_hdr_write_read_test] target_agent_cfg[0]:
+# ----------------------------------------------------------------------
+# Name                       Type                     Size  Value       
+# ----------------------------------------------------------------------
+# i3c_target_agent_cfg_h[0]  i3c_target_agent_config  -     @515        
+#   isActive                 string                   10    UVM_ACTIVE  
+#   dataTransferDirection    string                   9     MSB_FIRST   
+#   hasCoverage              string                   4     TRUE        
+#   targetAddress            integral                 7     'h68        
+#   target_id                integral                 32    'd0         
+#   daa_accept_address       integral                 1     'b1         
+#   pid                      integral                 48    'haabbcc0001
+#   bcr                      integral                 8     'h0         
+#   dcr                      integral                 8     'hc2        
+# ----------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/i3c_base_test.sv(86) @ 0: uvm_test_top [i3c_hdr_write_read_test] i3c_env_cfg:
+# ----------------------------------------------------
+# Name                     Type            Size  Value
+# ----------------------------------------------------
+# i3c_env_cfg_h            i3c_env_config  -     @497 
+#   has_scoreboard         integral        1     1    
+#   has_virtual_sequencer  integral        1     1    
+#   no_of_targets          integral        32    'd1  
+#   has_daa                integral        1     'd0  
+#   no_of_daa_devices      integral        32    'd0  
+# ----------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(91) @ 0: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] Scoreboard built for 1 target(s)
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(40) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Looking up BFM with key: i3c_target_driver_bfm_0
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(47) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [TGT_MON_PROXY] [target_id=0] Looking up monitor BFM with key: i3c_target_monitor_bfm_0
+# UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+# ---------------------------------------------------------------------------------
+# Name                              Type                                Size  Value
+# ---------------------------------------------------------------------------------
+# uvm_test_top                      i3c_hdr_write_read_test             -     @474 
+#   i3c_env_h                       i3c_env                             -     @498 
+#     apb_master_agent_h            apb_master_agent                    -     @526 
+#       apb_master_cov_h            apb_master_coverage                 -     @877 
+#         analysis_imp              uvm_analysis_imp                    -     @884 
+#       apb_master_drv_proxy_h      apb_master_driver_proxy             -     @730 
+#         rsp_port                  uvm_analysis_port                   -     @745 
+#         seq_item_port             uvm_seq_item_pull_port              -     @737 
+#       apb_master_mon_proxy_h      apb_master_monitor_proxy            -     @862 
+#         apb_master_analysis_port  uvm_analysis_port                   -     @869 
+#       apb_master_seqr_h           apb_master_sequencer                -     @753 
+#         rsp_export                uvm_analysis_export                 -     @760 
+#         seq_item_export           uvm_seq_item_pull_imp               -     @854 
+#         arbitration_queue         array                               0     -    
+#         lock_queue                array                               0     -    
+#         num_last_reqs             integral                            32    'd1  
+#         num_last_rsps             integral                            32    'd1  
+#     i3c_scoreboard_h              i3c_scoreboard                      -     @649 
+#       apb_analysis_fifo           uvm_tlm_analysis_fifo #(T)          -     @901 
+#         analysis_export           uvm_analysis_imp                    -     @940 
+#         get_ap                    uvm_analysis_port                   -     @932 
+#         get_peek_export           uvm_get_peek_imp                    -     @916 
+#         put_ap                    uvm_analysis_port                   -     @924 
+#         put_export                uvm_put_imp                         -     @908 
+#       target_analysis_fifo_0      uvm_tlm_analysis_fifo #(T)          -     @948 
+#         analysis_export           uvm_analysis_imp                    -     @987 
+#         get_ap                    uvm_analysis_port                   -     @979 
+#         get_peek_export           uvm_get_peek_imp                    -     @963 
+#         put_ap                    uvm_analysis_port                   -     @971 
+#         put_export                uvm_put_imp                         -     @955 
+#     i3c_target_agent_h[0]         i3c_target_agent                    -     @533 
+#       i3c_target_cov_h            i3c_target_coverage                 -     @1147
+#         analysis_imp              uvm_analysis_imp                    -     @1154
+#       i3c_target_drv_proxy_h      i3c_target_driver_proxy             -     @1015
+#         rsp_port                  uvm_analysis_port                   -     @1030
+#         seq_item_port             uvm_seq_item_pull_port              -     @1022
+#       i3c_target_mon_proxy_h      i3c_target_monitor_proxy            -     @996 
+#         target_analysis_port      uvm_analysis_port                   -     @1003
+#       i3c_target_seqr_h           i3c_target_sequencer                -     @1038
+#         rsp_export                uvm_analysis_export                 -     @1045
+#         seq_item_export           uvm_seq_item_pull_imp               -     @1139
+#         arbitration_queue         array                               0     -    
+#         lock_queue                array                               0     -    
+#         num_last_reqs             integral                            32    'd1  
+#         num_last_rsps             integral                            32    'd1  
+#     topPredictor                  uvm_reg_predictor #(apb_master_tx)  -     @657 
+#       bus_in                      uvm_analysis_imp                    -     @664 
+#       reg_ap                      uvm_analysis_port                   -     @672 
+#     top_virtual_seqr_h            top_virtual_sequencer               -     @540 
+#       rsp_export                  uvm_analysis_export                 -     @547 
+#       seq_item_export             uvm_seq_item_pull_imp               -     @641 
+#       arbitration_queue           array                               0     -    
+#       lock_queue                  array                               0     -    
+#       num_last_reqs               integral                            32    'd1  
+#       num_last_rsps               integral                            32    'd1  
+# ---------------------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(102) @ 0: uvm_test_top [i3c_hdr_write_read_test] Starting DAA sequence
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_monitor_proxy.sv(84) @ 0: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_mon_proxy_h [apb_master_monitor_proxy] Inside the master_monitor_proxy
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(37) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Starting multi-slave DAA for 1 targets
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(82) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [CTRL_DEBUG] CTRL value before DAA write = 0x83070000
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(65) @ 0: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Launching DAA seq for target[0]
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_daa_seq.sv(37) @ 0: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_daa_seq_0 [i3c_target_daa_seq] Multi-slave DAA sequence start
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(103) @ 90: reporter [DEBUG_MSHA] drive_apb_idle state = IDLE and state = 1
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 90: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x68  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=1
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_daa_seq.sv(62) @ 90: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_daa_seq_0 [i3c_target_daa_seq] [round 1] PID=0xaabbcc0001 BCR=0x0 DCR=0xc2
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(74) @ 90: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Got item from sequencer, txn_type=DAA
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(84) @ 90: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] DAA transaction
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(184) @ 90: reporter [I3C_TARGET_DRIVER_BFM] DAA transaction started
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 110: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x0 dir=0 len=0 cmd_type=0x3 ccc=0x7 mode=SDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(100) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] DAA transaction detected: cmd_type=0x3 ccc=0x7
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(171) @ 160: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_CTRL_CMD] CTRL cmd_type = 3 (explicit DAA) PASS
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 170: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1197             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'hc               
+#   pwrite                      string         5     WRITE             
+#   pwdata                      integral       32    'h83070000        
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b1111            
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(89) @ 170: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [CTRL_DEBUG] CTRL mirrored value after DAA write = 0x83070000
+# [190] CMD_CTRL: cmd_start=1 mode=0 type=3 addr=0x00 dir=0 len=0
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 190: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# [250] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0xfc
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 250: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1304             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'hc               
+#   pwrite                      string         4     READ              
+#   pwdata                      integral       32    'h0               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b0               
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(100) @ 250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Waiting 50000 ns for all 1 slaves to complete DAA
+# [270] BIT_ENGINE: START state SCL=1 SDA=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(277) @ 280: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=280
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 280: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(208) @ 280: reporter [I3C_TARGET_DRIVER_BFM] DAA: START detected
+# [290] BIT_ENGINE: START state SCL=1 SDA=0
+# [310] BIT_ENGINE: START state SCL=1 SDA=0
+# [330] BIT_ENGINE: START state SCL=1 SDA=0
+# [350] BIT_ENGINE: START state SCL=1 SDA=0
+# [370] BIT_ENGINE: START state SCL=0 SDA=0
+# [390] BIT_ENGINE: START state SCL=0 SDA=0
+# [410] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [430] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 440: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [450] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [470] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [490] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [510] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [530] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# [550] BIT_ENGINE: STARTING SHIFT  tx_data=0xfc  shift_reg=0xfc  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 600: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 760: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 920: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1080: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1240: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1400: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1560: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(438) @ 1560: reporter [I3C_TARGET_DRIVER_BFM] DAA: broadcast addr = 0xfc (expect 0xFC)
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1640: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1720: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [1790] SEND_7E_W completed, NACK=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1800: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [1850] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1870] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 1880: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [1890] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1910] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1930] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1950] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1970] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# [1990] BIT_ENGINE: STARTING SHIFT  tx_data=0x07  shift_reg=0x07  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2040: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2200: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2360: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2520: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2680: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 2840: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3000: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(459) @ 3000: reporter [I3C_TARGET_DRIVER_BFM] DAA: CCC byte = 0x7 (expect 0x07)
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3080: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3160: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [3190] BIT_ENGINE: ACK sampled SDA=0 parity=0
+# [3230] SEND_ENTDAA completed, NACK=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3240: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [3250] REP_START completed
+# [3270] REP_START completed
+# [3310] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0xfd
+# [3330] BIT_ENGINE: START state SCL=1 SDA=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(239) @ 3340: reporter [I3C_TARGET_MONITOR_BFM]  repeated start detected@ time=3340
+# [3350] BIT_ENGINE: START state SCL=1 SDA=0
+# [3370] BIT_ENGINE: START state SCL=1 SDA=0
+# [3390] BIT_ENGINE: START state SCL=1 SDA=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3400: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [3410] BIT_ENGINE: START state SCL=0 SDA=0
+# [3430] BIT_ENGINE: START state SCL=0 SDA=0
+# [3450] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3470] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3480: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [3490] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3510] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3530] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3550] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3570] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [3590] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3640: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3800: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 3960: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4120: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4280: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4440: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4600: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(601) @ 4600: reporter [I3C_TARGET_DRIVER_BFM] DAA: broadcast read addr = 0xfd (expect 0xFD)
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4680: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4760: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [4810] SEND_7E_R completed, NACK=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 4840: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5000: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5080: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5160: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5240: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5320: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5400: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5480: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5560: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5640: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5720: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5800: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5880: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 5960: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6040: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6120: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6200: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6280: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6360: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6440: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6520: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6600: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6680: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6760: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6840: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 6920: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7000: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7080: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7160: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7240: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7320: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7400: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7480: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7560: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7640: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7720: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7800: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7880: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 7960: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8040: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8120: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8200: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8280: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8360: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8440: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8520: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8600: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8680: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8760: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8840: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 8920: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9000: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9080: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9160: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9240: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9320: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9400: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9480: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9560: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9640: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9720: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9800: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9880: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 9960: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10040: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10120: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10200: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10280: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10360: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10440: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10520: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10600: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10680: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10760: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10840: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 10920: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11000: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11080: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11160: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11240: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11320: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11400: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11480: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11560: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11640: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11720: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11800: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11880: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 11960: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12040: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12120: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12200: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12280: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12360: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12440: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12520: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12600: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12680: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12760: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12840: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 12920: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13000: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13080: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13160: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13240: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13320: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13400: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13480: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13560: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13640: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13720: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13800: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13880: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 13960: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14040: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14120: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14200: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14280: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14360: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14440: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14520: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14600: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14680: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14760: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14840: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 14920: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15000: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [15030] ARB_BITS completed, Captured Data = 80555de600008061
+# [15070] ASSIGN completed : PID=80555de60000 BCR=80 DCR=61 DYN_ADDR=08
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(159) @ 15080: reporter [I3C_TARGET_MONITOR_BFM] DAA MON [round 1] bus winner PID=0x80555de60000 BCR=0x80 DCR=0x61 | my PID=0xaabbcc0001
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15080: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [15090] LOOP completed : Next Dynamic Address = 0x9
+# [15110] REP_START completed
+# [15130] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15150] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15160: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(409) @ 15160: reporter [I3C_TARGET_DRIVER_BFM] DAA ARB: WON all 64 bits
+# [15170] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15190] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15210] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15230] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15250] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# [15270] BIT_ENGINE: STARTING SHIFT  tx_data=0x10  shift_reg=0x10  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15320: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15480: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15640: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15800: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 15960: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16120: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16280: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16440: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(639) @ 16440: reporter [I3C_TARGET_DRIVER_BFM] DAA: dynamic addr=0x10 parity OK â†’ ACK
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(711) @ 16440: reporter [I3C_TARGET_DRIVER_BFM] driveAddressAck = 0
+# [16470] BIT_ENGINE: ACK sampled SDA=0 parity=0
+# [16510] REP_START completed
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(193) @ 16520: reporter [I3C_TARGET_MONITOR_BFM] DAA MON: STOP detected after round 1 â€” target not assigned (pid=0xaabbcc0001)
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(103) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA BFM returned struct -> pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(116) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] DAA tx -> txn_type=DAA  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  daa_ack=1  dynamic_address=0x0
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(185) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] --> writing to analysis port (scoreboard): txn_type=DAA
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(197) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [DEBUG_m_coverage] I3C_target_TX {i3c_target_tx} 1316 1 1320 @uvm_status_container@1 @uvm_object_string_pool__1@93 @uvm_event@37 @uvm_event@38 -1 18446744073709551615 18446744073709551615 18446744073709551615 null 0 0 0 null -1 0 -1 null null 0 {} null null 0 0 {} ACK {} WRITE 0 {} {} 0 {} 0 0 0 DAA 0 733295149057 0 194 0 1 {i3c_target_tx}
+# ** Error: (vsim-8565) Illegal state bin was hit at value=0. The bin counter for the illegal bin '\/i3c_target_pkg::i3c_target_coverage::daa_covergroup .DAA_DYNADDR_CP.DYNADDR_RESERVED' is 1.
+#    Time: 16520 ns  Iteration: 1  Region: /uvm_pkg::uvm_task_phase::execute
+# UVM_INFO ../../src/hvl_top/target//i3c_target_monitor_proxy.sv(84) @ 16520: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_mon_proxy_h [i3c_target_monitor_proxy] [target_id=0] cfg snapshot -> targetAddress=0x68  pid=0xaabbcc0001  bcr=0x0  dcr=0xc2  has_daa=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16520: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(184) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] Got DAA result from target[0]: PID=0xaabbcc0001 BCR=0x0  DCR=0xc2 dynAddr=0x0 daa_ack=1
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(265) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA_ACK] [target 0] daa_ack=NACK this round (not assigned yet)
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(278) @ 16521: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_DAA] DAA round complete: 1/1 devices assigned
+# [16550] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0xfd
+# [16570] BIT_ENGINE: START state SCL=0 SDA=x
+# [16590] BIT_ENGINE: START state SCL=0 SDA=x
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16600: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [16610] BIT_ENGINE: START state SCL=1 SDA=x
+# [16630] BIT_ENGINE: START state SCL=1 SDA=0
+# [16650] BIT_ENGINE: START state SCL=1 SDA=0
+# [16670] BIT_ENGINE: START state SCL=1 SDA=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16680: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [16690] BIT_ENGINE: START state SCL=0 SDA=0
+# [16710] BIT_ENGINE: START state SCL=0 SDA=0
+# [16730] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16750] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 16760: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [16770] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16790] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16810] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16830] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16850] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [16870] BIT_ENGINE: STARTING SHIFT  tx_data=0xfd  shift_reg=0xfd  rd_wr=0
+# [18090] SEND_7E_R completed, NACK=1
+# [18110] STOP state reached. DAA Finished.
+# [18130] CMD_CTRL: Transaction completed   hdr_done  =  0  , sdr_done = 0  , hdr_pending = 0 
+# [18170] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# [18190] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# [18210] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(331) @ 18220: reporter [I3C_TARGET_DRIVER_BFM] DAA: STOP after address assignment â€” all targets assigned
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(339) @ 18220: reporter [I3C_TARGET_DRIVER_BFM] DAA: slave assigned dynamic address 0x10
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(108) @ 18220: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] DAA done: PID=0xaabbcc0001 BCR=0x0 DCR=0xc2 DynAddr=0x10 ACK=0
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(115) @ 18220: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Dynamic address 0x10 stored in config
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(166) @ 18220: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] item_done
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_daa_seq.sv(73) @ 18220: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_daa_seq_0 [i3c_target_daa_seq] Address assigned after round 1: dynamic_addr=0x10
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_daa_seq.sv(83) @ 18220: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_daa_seq_0 [i3c_target_daa_seq] DAA sequence complete after 1 round(s). Dynamic addr = 0x10
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(68) @ 18220: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] DAA seq DONE for target[0]
+# [18230] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(105) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq] Multi-slave DAA completed. Assigned addresses:
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_daa_virtual_seq.sv(111) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@daaSeq [i3c_daa_virtual_seq]   target[0]: dynamic addr = 0x10
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(110) @ 50250: uvm_test_top [i3c_hdr_write_read_test] DAA done - updating target address to dynamic 0x08
+# UVM_INFO ../../src/hvl_top/test/i3c_hdr_write_read_test.sv(119) @ 50250: uvm_test_top [i3c_hdr_write_read_test] Starting HDR WRITE READ with dynamic address
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(72) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ: write_len=1 write_data='{11}  read_len=2
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(77) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 1: HDR WRITE ===
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(92) @ 50250: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 1: Loading TX FIFO (WDATAB)
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_write_seq.sv(38) @ 50250: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_write [i3c_target_hdr_write_seq] HDR_WRITE target seq randomized
+# ----------------------------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                                   
+# ----------------------------------------------------------------------------------------------------------------------------
+# req                            i3c_target_tx  -     @1342                                                                   
+#   begin_time                   time           64    50250                                                                   
+#   depth                        int            32    'd2                                                                     
+#   parent sequence (name)       string         9     tgt_write                                                               
+#   parent sequence (full name)  string         72    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_write
+#   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h          
+#   txn_type                     string         9     HDR_WRITE                                                               
+#   pid                          integral       48    'hdbbf7c6c203b                                                          
+#   bcr                          integral       8     'h2b                                                                    
+#   dcr                          integral       8     'h6b                                                                    
+#   dynamic_address              integral       7     'h0                                                                     
+#   daa_ack                      integral       1     'b0                                                                     
+# ----------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(74) @ 50250: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Got item from sequencer, txn_type=HDR_WRITE
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(122) @ 50250: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Transaction type = HDR_WRITE
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50270: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50330: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1334             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'h30              
+#   pwrite                      string         5     WRITE             
+#   pwdata                      integral       32    'hb               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b1111            
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(97) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   WDATAB[0] =  11
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(102) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 2: Writing CTRL (cmd_mode=1, dir=WRITE, start=1)
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(115) @ 50330: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x84070088
+# [50350] TX_FIFO WRITE: wr_ptr=0 data=0x0b
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 50350: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(135) @ 50400: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] CTRL decoded: addr=0x8 dir=0 len=1 cmd_type=0x0 ccc=0x7 mode=HDR
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(104) @ 50400: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB] HDR transaction detected
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(423) @ 50400: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_HDR] HDR: collecting from target_analysis_fifo[0] addr=0x8
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 50410: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1358             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'hc               
+#   pwrite                      string         5     WRITE             
+#   pwdata                      integral       32    'h84070088        
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b1111            
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(121) @ 50410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Steps 3-13: DUT performs SDR address ÿÿ’ HDR entrÿÿÿ†’ DDR WRITE ÿÿ’ STOP
+# [50430] CMD_CTRL: cmd_start=1 mode=1 type=0 addr=0x08 dir=0 len=1
+# [50430] CMD_CTRL: HDR command received
+# [50450] SDR_FSM: addr=0x08 dir=0 be_tx_data=0x10
+# [50450] SDR_FSM: addr=0x08 dir=0 be_tx_data=0x10
+# [50470] BIT_ENGINE(IDLE): valid=1 rd_wr=0 tx_data=0x10
+# [50490] BIT_ENGINE: START state SCL=1 SDA=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(663) @ 50500: reporter [I3C_TARGET_DRIVER_BFM] Start condition detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(672) @ 50500: reporter [I3C_TARGET_DRIVER_BFM] sample_target_address started
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_monitor_bfm.sv(277) @ 50500: reporter [I3C_TARGET_MONITOR_BFM]  start detected@ time=50500
+# [50510] BIT_ENGINE: START state SCL=1 SDA=0
+# [50530] BIT_ENGINE: START state SCL=1 SDA=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 50540: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [50550] BIT_ENGINE: START state SCL=0 SDA=0
+# [50570] BIT_ENGINE: START state SCL=0 SDA=0
+# [50590] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50610] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 50620: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [50630] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50650] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50670] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50690] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50710] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# [50730] BIT_ENGINE: STARTING SHIFT  tx_data=0x00  shift_reg=0x10  rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 50780: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 50940: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51100: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51260: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51420: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51580: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(684) @ 51580: reporter [I3C_TARGET_DRIVER_BFM] DEBUG :: local_addr = 0x8
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51740: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(703) @ 51740: reporter [I3C_TARGET_DRIVER_BFM] operation = WRITE
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(711) @ 51740: reporter [I3C_TARGET_DRIVER_BFM] driveAddressAck = 0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51820: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51900: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# [51950] CMD_CTRL: be_done=1 hdr_pending=1 -> starting HDR
+# [51950] CMD_CTRL: start_hdr=0 hdr_pending=1 sdr_done=0 hdr_done=0
+# [51970] HDR_FSM: state=0 next=1
+# [51970] HDR_FSM: Entering HDR mode dir=0 len=1
+# [51970] SDR_FSM: HDR requested -> STOP, start_hdr=1 cmd_mode=1 byte_cnt=0 be_busy=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 51980: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# [51990] TX_FIFO READ : rd_ptr=0 data=0x0b
+# [51990] SDR_FSM: STOP state entered, done=0 byte_cnt=0
+# [52010] CMD_CTRL: Transaction completed   hdr_done  =  0  , sdr_done = 1  , hdr_pending = 0 
+# [52030] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# [52050] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52060: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52060: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[15]=1
+# [52070] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# [52090] BIT_ENGINE: STOP generated busy=0 valid=0 rd_wr=0
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52140: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52140: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[14]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52220: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52220: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[13]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52300: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52300: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[12]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52380: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52380: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[11]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52460: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52460: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[10]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52540: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52540: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[9]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52620: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52620: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[8]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52700: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52700: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[7]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52780: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52780: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[6]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52860: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 52860: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[5]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 52940: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 52940: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[4]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53020: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53020: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[3]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53100: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53100: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[2]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53180: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53180: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[1]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53260: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53260: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[0]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1084) @ 53260: reporter [I3C_TARGET_DRIVER_BFM] HDR WORD COMPLETE = 0xffff
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53340: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53340: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[15]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53420: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53420: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[14]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53500: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53500: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[13]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53580: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53580: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[12]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53660: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53660: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[11]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53740: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53740: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[10]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53820: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53820: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[9]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53900: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 53900: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[8]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 53980: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 53980: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[7]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54060: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 54060: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[6]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54140: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 54140: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[5]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54220: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 54220: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[4]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54300: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 54300: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[3]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54380: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 54380: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[2]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54460: reporter [TARGET_DRIVER_BFM] scl POSEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1075) @ 54460: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[1]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(976) @ 54540: reporter [TARGET_DRIVER_BFM] scl NEGEDGE detected
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1080) @ 54540: reporter [I3C_TARGET_DRIVER_BFM] HDR SAMPLE bit[0]=1
+# UVM_INFO ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1084) @ 54540: reporter [I3C_TARGET_DRIVER_BFM] HDR WORD COMPLETE = 0xffff
+# UVM_WARNING ../../src/hdl_top/target_agent_bfm/i3c_target_driver_bfm.sv(1062) @ 71980: reporter [I3C_TARGET_DRIVER_BFM] wrDetect_stop: timed out waiting for debounced STOP
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(166) @ 71980: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] item_done
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_write_seq.sv(43) @ 71980: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_write [i3c_target_hdr_write_seq] HDR_WRITE target seq done
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(126) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 1 (HDR WRITE) complete
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(132) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] === PHASE 2: HDR READ ===
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(147) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 1: Writing CTRL (cmd_mode=1, dir=READ, start=1)
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(158) @ 100410: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   CTRL = 0x85078108
+# UVM_INFO ../../src/hvl_top/target/target_sequences//i3c_target_hdr_read_seq.sv(44) @ 100410: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h@@tgt_read [i3c_target_hdr_read_seq] HDR_READ target seq randomized
+# ---------------------------------------------------------------------------------------------------------------------------
+# Name                           Type           Size  Value                                                                  
+# ---------------------------------------------------------------------------------------------------------------------------
+# req                            i3c_target_tx  -     @1386                                                                  
+#   begin_time                   time           64    100410                                                                 
+#   depth                        int            32    'd2                                                                    
+#   parent sequence (name)       string         8     tgt_read                                                               
+#   parent sequence (full name)  string         71    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h.tgt_read
+#   sequencer                    string         62    uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_seqr_h         
+#   txn_type                     string         8     HDR_READ                                                               
+#   pid                          integral       48    'hf28d151a0a4                                                          
+#   bcr                          integral       8     'h72                                                                   
+#   dcr                          integral       8     'h88                                                                   
+#   dynamic_address              integral       7     'h0                                                                    
+#   daa_ack                      integral       1     'b0                                                                    
+# ---------------------------------------------------------------------------------------------------------------------------
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(74) @ 100410: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] [target_id=0] Got item from sequencer, txn_type=HDR_READ
+# UVM_INFO ../../src/hvl_top/target//i3c_target_driver_proxy.sv(139) @ 100410: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_drv_proxy_h [TGT_DRV_PROXY] Transaction type = HDR_READ
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 100430: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 100490: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1378             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'hc               
+#   pwrite                      string         5     WRITE             
+#   pwdata                      integral       32    'h85078108        
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b1111            
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(164) @ 100490: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Steps 2-11: DUT performs SDR addressÿÿÿ’ HDR entÿÿÿâÿ’ DDR READ ÿÿ’ STOP
+# [100510] CMD_CTRL: cmd_start=1 mode=1 type=1 addr=0x08 dir=1 len=2
+# [100510] CMD_CTRL: HDR command received
+# [100530] SDR_FSM: addr=0x08 dir=1 be_tx_data=0x11
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(171) @ 150490: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Step 12: Reading RX FIFO via RDATAB
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150510: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 150570: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1406             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'h40              
+#   pwrite                      string         4     READ              
+#   pwdata                      integral       32    'h0               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b0               
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 150570: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[0] = 0x00
+# UVM_INFO ../../src/hdl_top/apb_master_agent_bfm/apb_master_driver_bfm.sv(134) @ 150590: reporter [DEBUG_MSHA] drive_apb_setup state = SETUP and state = 2
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_driver_proxy.sv(119) @ 150650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_drv_proxy_h [apb_master_driver_proxy] AFTER :: received req packet 
+#  ---------------------------------------------------------------------
+# Name                          Type           Size  Value             
+# ---------------------------------------------------------------------
+# apb_master_tx                 apb_master_tx  -     @1426             
+#   pselx                       string         7     SLAVE_0           
+#   paddr                       integral       32    'h40              
+#   pwrite                      string         4     READ              
+#   pwdata                      integral       32    'h0               
+#   transfer_size               string         0     ""                
+#   pstrb                       integral       4     'b0               
+#   pprot                       string         18    NORMAL_SECURE_DATA
+#   prdata                      integral       32    'h0               
+#   pslverr                     string         8     NO_ERROR          
+#   no_of_wait_states_detected  integral       32    'd1               
+# ---------------------------------------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(175) @ 150650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq]   RDATAB[1] = 0x00
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(178) @ 150650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] Phase 2 (HDR READ) complete
+# UVM_INFO ../../src/hvl_top/test/ral_virtual_sequences//i3c_hdr_write_read_virtual_seq.sv(179) @ 150650: uvm_test_top.i3c_env_h.top_virtual_seqr_h@@hdrWriteReadSeq [i3c_hdr_write_read_virtual_seq] HDR WRITE+READ sequence complete
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1268) @ 203650: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(565) @ 203650: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] 
+# ============= SCOREBOARD SUMMARY =============
+#   APB transactions seen      : 4
+#   I3C target transactions    : 1
+#   -- SDR --
+#   Write byte pass / fail     : 0 / 0
+#   Read  byte pass / fail     : 0 / 0
+#   -- HDR --
+#   Write byte pass / fail     : 0 / 0
+#   Read  byte pass / fail     : 0 / 0
+#   -- DAA --
+#   Devices seen               : 1 / 0 expected
+#   Dyn address pass / fail    : 0 / 0
+#   Parity/ACK  pass / fail    : 0 / 0
+# ==============================================
+# UVM_INFO ../../src/hvl_top/env/i3c_scoreboard.sv(626) @ 203650: uvm_test_top.i3c_env_h.i3c_scoreboard_h [SB_SUMMARY] check_phase complete
+# UVM_INFO ../../src/hvl_top/apb_master//apb_master_coverage.sv(121) @ 203650: uvm_test_top.i3c_env_h.apb_master_agent_h.apb_master_cov_h [apb_master_coverage] APB Master Agent Coverage = 26.04 %
+# 
+# --------------------------------------
+# target COVERAGE
+# --------------------------------------
+# 
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(240) @ 203650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent SDR Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(244) @ 203650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent DAA Coverage = 41.67 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(249) @ 203650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent HDR Coverage = 0.00 %
+# UVM_INFO ../../src/hvl_top/target//i3c_target_coverage.sv(255) @ 203650: uvm_test_top.i3c_env_h.i3c_target_agent_h[0].i3c_target_cov_h [i3c_target_coverage] target Agent Total Coverage = 13.89 %
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  370
+# UVM_WARNING :    1
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [APB_MASTER_DRIVER_BFM]     1
+# [APB_MASTER_MONITOR_BFM]     1
+# [CTRL_DEBUG]     2
+# [DEBUG_MSHA]     8
+# [DEBUG_m_coverage]     1
+# [I3C_TARGET_DRIVER_BFM]    51
+# [I3C_TARGET_MONITOR_BFM]     5
+# [Questa UVM]     2
+# [RNTST]     1
+# [SB]     5
+# [SB_DAA]     2
+# [SB_DAA_ACK]     1
+# [SB_DAA_CTRL_CMD]     1
+# [SB_HDR]     1
+# [SB_SUMMARY]     2
+# [TARGET_DRIVER_BFM]   218
+# [TEST_DONE]     1
+# [TGT_AGENT_BFM]     1
+# [TGT_DRV_PROXY]    11
+# [TGT_MON_PROXY]     1
+# [UVMTOP]     1
+# [apb master agent bfm]     1
+# [apb_master_coverage]     1
+# [apb_master_driver_proxy]     7
+# [apb_master_monitor_proxy]     1
+# [i3c_daa_virtual_seq]     6
+# [i3c_hdr_write_read_test]     5
+# [i3c_hdr_write_read_virtual_seq]    17
+# [i3c_target_coverage]     4
+# [i3c_target_daa_seq]     4
+# [i3c_target_hdr_read_seq]     1
+# [i3c_target_hdr_write_seq]     2
+# [i3c_target_monitor_proxy]     5
+# ** Note: $finish    : /tools/mentor/questasim_10.6c/questasim/linux/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 203650 ns  Iteration: 54  Instance: /hvl_top
+# Saving coverage database on exit...
+# End time: 16:03:54 on Aug 26,2026, Elapsed time: 0:00:02
+# Errors: 1, Warnings: 1
